@@ -48,6 +48,11 @@ button{font-family:inherit;border:none;background:none;cursor:pointer}
 .eyebrow::before{content:"";width:24px;height:3px;background:var(--accent);border-radius:1px}
 .mark-hl{position:relative;display:inline-block}
 .mark-hl>span{position:relative;z-index:1}
+
+.hero-caps{display:flex;align-items:center;gap:10px;margin-top:22px;flex-wrap:wrap;font-size:13px;color:var(--ink-2);letter-spacing:.01em}
+.hero-cap{font-weight:500}
+.hero-cap:first-child{font-weight:500}
+.hero-cap-dot{width:3px;height:3px;border-radius:50%;background:var(--ink-4);flex-shrink:0}
 .mark-hl::after{content:"";position:absolute;left:-.04em;right:-.04em;bottom:.1em;height:.36em;background:var(--accent);opacity:.35;z-index:0;border-radius:2px}
 
 /* NAV */
@@ -154,10 +159,20 @@ button{font-family:inherit;border:none;background:none;cursor:pointer}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
 .footer-note{font-size:11px;color:var(--ink-4)}
 
+
+/* STEP NAV */
+.step-nav{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:16px}
+.step-nav-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);background:var(--surface-1);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s,transform .15s;-webkit-tap-highlight-color:transparent}
+.step-nav-btn:hover{background:var(--ink-1);border-color:var(--ink-1);color:#fff}
+.step-nav-btn:active{transform:scale(.94)}
+.step-nav-btn:disabled{opacity:.3;cursor:default;background:var(--surface-1);border-color:var(--line-2);color:var(--ink-1)}
+.step-nav-btn:disabled:hover{background:var(--surface-1);border-color:var(--line-2);color:var(--ink-1)}
+.step-nav-counter{font-size:15px;font-weight:600;color:var(--ink-2);min-width:70px;text-align:center;font-variant-numeric:tabular-nums}
+.step-nav-counter b{color:var(--ink-1)}
 /* PHONE */
 .journey-layout{display:grid;grid-template-columns:320px 1fr;gap:56px;align-items:start}
 @media(max-width:960px){.journey-layout{grid-template-columns:1fr;gap:32px}}
-.phone-col{position:sticky;top:80px;display:flex;justify-content:center}
+.phone-col{position:sticky;top:80px;display:flex;flex-direction:column;align-items:center}
 @media(max-width:960px){.phone-col{position:static}}
 .phone{width:280px;height:560px;border-radius:42px;background:linear-gradient(180deg,#232323,#0a0a0a);padding:10px;box-shadow:0 30px 60px -20px rgba(10,10,10,0.35),0 60px 120px -30px rgba(0,185,86,0.18);position:relative;flex-shrink:0}
 .phone::before{content:"";position:absolute;top:9px;left:50%;transform:translateX(-50%);width:90px;height:26px;background:#000;border-radius:13px;z-index:5}
@@ -226,12 +241,16 @@ button{font-family:inherit;border:none;background:none;cursor:pointer}
     </div>
     <div>
       <p class="hero-desc">White-label банковский кошелёк Альфа-Банка, встроенный в приложение и чек-аут СДЕК. Скидка на доставку и баллы за каждую оплату — без затрат из маржи партнёра.</p>
-      <div class="hero-tags">
-        <span class="hero-tag lit">Банковская лицензия</span>
-        <span class="hero-tag">Эскроу</span>
-        <span class="hero-tag">Кредит</span>
-        <span class="hero-tag">% на остаток</span>
-        <span class="hero-tag">Рассрочка</span>
+      <div class="hero-caps">
+        <span class="hero-cap">Банковская лицензия</span>
+        <span class="hero-cap-dot"></span>
+        <span class="hero-cap">Эскроу</span>
+        <span class="hero-cap-dot"></span>
+        <span class="hero-cap">Кредит</span>
+        <span class="hero-cap-dot"></span>
+        <span class="hero-cap">% на остаток</span>
+        <span class="hero-cap-dot"></span>
+        <span class="hero-cap">Рассрочка</span>
       </div>
     </div>
   </div>
@@ -301,6 +320,11 @@ button{font-family:inherit;border:none;background:none;cursor:pointer}
 
   <div class="journey-layout">
     <div class="phone-col">
+      <div class="step-nav" id="step-nav">
+        <button class="step-nav-btn" id="nav-prev" aria-label="Назад"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="step-nav-counter"><b id="nav-cur">01</b> / <span id="nav-total">07</span></div>
+        <button class="step-nav-btn" id="nav-next" aria-label="Далее"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
       <div class="phone">
         <div class="phone-inner">
           <div class="phone-status"><span>9:41</span><span>●●●</span></div>
@@ -576,6 +600,7 @@ function activateStep(panel,idx){
   });
   var key=panel.getAttribute('data-j')+'-'+(idx+1);
   showScreen(key);
+  updateNav(idx,steps.length);
 }
 
 function showJourney(id){
@@ -601,6 +626,24 @@ document.querySelectorAll('.j-panel').forEach(function(panel){
     step.addEventListener('click',function(){activateStep(panel,i)});
   });
 });
+
+// Nav arrows
+var currentStep=0, totalSteps=7;
+document.getElementById('nav-prev').addEventListener('click',function(){
+  if(currentStep>0){var p=document.querySelector('.j-panel[style*="block"]');if(p)activateStep(p,currentStep-1)}
+});
+document.getElementById('nav-next').addEventListener('click',function(){
+  var p=document.querySelector('.j-panel[style*="block"]');
+  if(p&&currentStep<p.querySelectorAll('.step').length-1)activateStep(p,currentStep+1);
+});
+
+function updateNav(idx,total){
+  currentStep=idx;totalSteps=total;
+  document.getElementById('nav-cur').textContent=String(idx+1).padStart(2,'0');
+  document.getElementById('nav-total').textContent=String(total).padStart(2,'0');
+  document.getElementById('nav-prev').disabled=idx===0;
+  document.getElementById('nav-next').disabled=idx===total-1;
+}
 
 // Init
 document.querySelectorAll('.j-panel').forEach(function(el){el.style.display='none'});
