@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CDEK Wallet — предложение для СДЕК</title>
+<meta name="theme-color" content="#FFFFFF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF;--bg-warm:#FAFAF8;--surface-1:#F4F6F3;--surface-2:#E8ECE6;--surface-3:#DCE2D8;
+  --line-1:rgba(10,10,10,0.07);--line-2:rgba(10,10,10,0.12);--line-3:rgba(10,10,10,0.20);
+  --ink-1:#0A0A0A;--ink-2:rgba(10,10,10,0.64);--ink-3:rgba(10,10,10,0.42);--ink-4:rgba(10,10,10,0.26);
+  --accent:#00B956;--accent-deep:#009A48;--accent-soft:#D4F5E2;--accent-glow:rgba(0,185,86,0.45);
+  --font-body:'Onest',ui-sans-serif,system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --radius:12px;--radius-lg:20px;--radius-xl:28px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);font-feature-settings:"ss01","cv01";-webkit-font-smoothing:antialiased;color:var(--ink-1);background:var(--bg);overflow-x:hidden;line-height:1.6}
+::selection{background:var(--accent);color:#fff}
+::-webkit-scrollbar{width:7px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(10,10,10,0.12);border-radius:4px}
+button{font-family:inherit;border:none;background:none;cursor:pointer}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.mono{font-family:var(--font-mono)}
+
+.mesh-base{position:fixed;inset:0;z-index:0;pointer-events:none;background:
+  radial-gradient(60vw 60vw at 88% -8%,rgba(0,185,86,0.12),transparent 55%),
+  radial-gradient(50vw 50vw at -8% 18%,rgba(0,185,86,0.08),transparent 60%),
+  radial-gradient(70vw 45vw at 50% 112%,rgba(0,185,86,0.06),transparent 55%)}
+.mesh-orb{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;opacity:.5}
+.mesh-orb.a{width:460px;height:460px;top:-140px;right:-80px;background:radial-gradient(circle,rgba(0,185,86,0.5) 0%,transparent 70%);animation:orbA 20s ease-in-out infinite alternate}
+.mesh-orb.b{width:380px;height:380px;top:34vh;left:-150px;background:radial-gradient(circle,rgba(0,185,86,0.3) 0%,transparent 70%);animation:orbB 24s ease-in-out infinite alternate}
+@keyframes orbA{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-70px,50px) scale(1.12)}}
+@keyframes orbB{0%{transform:translate(0,0) scale(1)}100%{transform:translate(100px,-30px) scale(.92)}}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.035;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+.spotlight{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(300px 300px at var(--mx,50%) var(--my,30%),rgba(0,185,86,0.08),transparent 70%);transition:background 80ms linear}
+.page{position:relative;z-index:2}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 40px}
+@media(max-width:720px){.wrap{padding:0 20px}}
+
+.eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--ink-3);display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
+.eyebrow::before{content:"";width:24px;height:3px;background:var(--accent);border-radius:1px}
+.mark-hl{position:relative;display:inline-block}
+.mark-hl>span{position:relative;z-index:1}
+.mark-hl::after{content:"";position:absolute;left:-.04em;right:-.04em;bottom:.1em;height:.36em;background:var(--accent);opacity:.35;z-index:0;border-radius:2px}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.78);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border-bottom:1px solid var(--line-1)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
+.nav-brand{display:flex;align-items:center;gap:12px}
+.nav-brand .label{font-size:13px;font-weight:600;color:var(--ink-1)}
+.nav-brand .label span{color:var(--ink-3);font-weight:400;margin-left:8px}
+.nav-links{display:flex;gap:20px}
+.nav-links a{font-size:12px;font-weight:500;color:var(--ink-3);text-decoration:none;transition:color .2s;letter-spacing:.02em}
+.nav-links a:hover{color:var(--ink-1)}
+@media(max-width:860px){.nav-links{display:none}}
+
+/* HERO */
+.hero{padding:72px 0 56px}
+.hero-top{display:grid;grid-template-columns:1.4fr 1fr;gap:64px;align-items:end}
+.hero h1{font-size:clamp(52px,8vw,120px);font-weight:800;letter-spacing:-.05em;line-height:.94}
+.hero h1 em{font-style:normal}
+.hero-desc{font-size:16px;color:var(--ink-2);line-height:1.55;max-width:420px;padding-bottom:12px}
+.hero-tags{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.hero-tag{font-size:11px;font-weight:600;padding:5px 13px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-3)}
+.hero-tag.lit{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-deep)}
+@media(max-width:960px){.hero-top{grid-template-columns:1fr;gap:28px}}
+
+/* SECTION */
+.section{padding:56px 0;border-top:1px solid var(--line-1)}
+.section-title{font-size:clamp(28px,4vw,48px);font-weight:700;letter-spacing:-.035em;line-height:1.08;margin-bottom:8px}
+.section-desc{font-size:15px;color:var(--ink-3);max-width:580px;margin-bottom:36px}
+
+/* CARDS */
+.card-grid{display:grid;gap:12px}
+.card-grid.c3{grid-template-columns:repeat(3,1fr)}
+.card-grid.c2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:860px){.card-grid.c3,.card-grid.c2{grid-template-columns:1fr}}
+.card{background:var(--surface-1);border:1px solid var(--line-1);border-radius:var(--radius-lg);padding:26px 22px;transition:border-color .25s,box-shadow .25s}
+.card:hover{border-color:var(--accent);box-shadow:0 8px 30px rgba(0,185,86,0.08)}
+.card-icon{width:42px;height:42px;border-radius:var(--radius);background:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.card-icon svg{color:#fff}
+.card h3{font-size:17px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px}
+.card p{font-size:13.5px;color:var(--ink-3);line-height:1.5}
+.card .offer{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:4px 11px;border-radius:8px;background:var(--accent-soft);font-size:11px;font-weight:700;color:var(--accent-deep)}
+.card .accent-num{font-size:32px;font-weight:800;color:var(--accent);letter-spacing:-.02em;margin-bottom:6px}
+
+/* HERO CARD */
+.hero-card{background:linear-gradient(135deg,#00B956,#009A48);border-radius:var(--radius-xl);padding:36px 28px;color:#fff;position:relative;overflow:hidden;margin-top:36px}
+.hero-card::after{content:"";position:absolute;top:-50px;right:-50px;width:220px;height:220px;background:rgba(255,255,255,.06);border-radius:50%}
+.hero-card h3{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;opacity:.75;margin-bottom:16px}
+.hero-card .big{font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.hero-card .big small{font-size:16px;font-weight:500;opacity:.7;display:block;margin-top:6px}
+.hero-card .stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px;padding-top:18px;border-top:1px solid rgba(255,255,255,.18)}
+.hero-card .sv{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.hero-card .sl{font-size:10px;opacity:.65;margin-top:2px}
+@media(max-width:720px){.hero-card .stats{grid-template-columns:1fr 1fr}}
+
+/* TABS */
+.tabs{display:inline-flex;background:var(--surface-1);border:1px solid var(--line-2);border-radius:16px;padding:5px;gap:2px;margin-bottom:28px;flex-wrap:wrap}
+.tab{padding:10px 18px;border-radius:12px;font-size:13.5px;font-weight:600;color:var(--ink-2);background:transparent;transition:all .2s;letter-spacing:-.005em}
+.tab:hover{color:var(--ink-1)}
+.tab.active{background:var(--ink-1);color:#fff;box-shadow:0 8px 20px -6px rgba(10,10,10,.3)}
+
+/* STEPS */
+.steps{max-width:720px}
+.step{display:grid;grid-template-columns:40px 1fr;gap:14px;padding:18px 0;border-bottom:1px solid var(--line-1)}
+.step:last-child{border-bottom:none}
+.step-n{width:32px;height:32px;border-radius:9px;background:var(--surface-1);border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--ink-4);margin-top:2px}
+.step.hi .step-n{background:var(--accent);border-color:var(--accent);color:#fff}
+.step-zone{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:3px}
+.step h4{font-size:15px;font-weight:700;letter-spacing:-.01em;margin-bottom:3px}
+.step p{font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.step-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.step-m{padding:10px 12px;border-radius:8px;background:var(--surface-1);font-size:12px;color:var(--ink-2);line-height:1.4}
+.step-m b{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-4);margin-bottom:3px}
+.step-m.bank{background:var(--accent-soft)}
+.step-m.bank b{color:var(--accent-deep)}
+@media(max-width:720px){.step-metrics{grid-template-columns:1fr}}
+
+/* COMPARISON TABLE */
+.ctable{width:100%;border-collapse:collapse}
+.ctable th,.ctable td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line-1);font-size:13px}
+.ctable th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-4);background:var(--surface-1)}
+.ctable td:first-child{font-weight:600}
+.ctable .y{color:var(--accent);font-weight:700}
+.ctable .n{color:var(--ink-4)}
+
+/* GROWTH */
+.g-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.g-card{background:var(--ink-1);color:#fff;border-radius:var(--radius-lg);padding:26px 22px;position:relative;overflow:hidden}
+.g-card::before{content:"";position:absolute;top:-20px;right:-20px;width:100px;height:100px;background:var(--accent);opacity:.12;border-radius:50%}
+.g-badge{display:inline-flex;padding:4px 10px;border-radius:6px;background:var(--accent);font-size:10px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;position:relative}
+.g-card h4{font-size:17px;font-weight:700;margin-bottom:8px;position:relative}
+.g-card p{font-size:13px;opacity:.65;line-height:1.5;position:relative}
+.g-card .pain{font-size:12px;color:var(--accent);font-weight:600;margin-top:12px;position:relative}
+@media(max-width:860px){.g-grid{grid-template-columns:1fr}}
+
+/* NEXT STEPS */
+.ns{counter-reset:ns}
+.ns-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-1)}
+.ns-item:last-child{border-bottom:none}
+.ns-item::before{counter-increment:ns;content:counter(ns);width:28px;height:28px;border-radius:8px;background:var(--accent-soft);color:var(--accent-deep);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.ns-item p{font-size:14px;color:var(--ink-1)}
+
+/* FOOTER */
+.footer{padding:32px 0;border-top:1px solid var(--line-1)}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-note{font-size:11px;color:var(--ink-4)}
+
+/* PHONE */
+.journey-layout{display:grid;grid-template-columns:320px 1fr;gap:56px;align-items:start}
+@media(max-width:960px){.journey-layout{grid-template-columns:1fr;gap:32px}}
+.phone-col{position:sticky;top:80px;display:flex;justify-content:center}
+@media(max-width:960px){.phone-col{position:static}}
+.phone{width:280px;height:560px;border-radius:42px;background:linear-gradient(180deg,#232323,#0a0a0a);padding:10px;box-shadow:0 30px 60px -20px rgba(10,10,10,0.35),0 60px 120px -30px rgba(0,185,86,0.18);position:relative;flex-shrink:0}
+.phone::before{content:"";position:absolute;top:9px;left:50%;transform:translateX(-50%);width:90px;height:26px;background:#000;border-radius:13px;z-index:5}
+.phone-inner{border-radius:32px;overflow:hidden;background:#fff;height:100%;display:flex;flex-direction:column}
+.phone-status{padding:36px 16px 6px;display:flex;justify-content:space-between;font-size:10px;font-weight:600;color:#0a0a0a}
+.phone-bar{padding:4px 14px 8px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #ecece7;font-size:11px;font-weight:600;color:#0a0a0a}
+.phone-body{flex:1;overflow-y:auto;padding:0}
+.phone-body::-webkit-scrollbar{display:none}
+.phone-home{display:flex;align-items:center;justify-content:center;height:20px;margin-top:auto}
+.phone-home span{width:100px;height:4px;background:#000;border-radius:2px;opacity:.8}
+.screen{display:none;padding:14px 16px;animation:screenIn .35s ease}
+.screen.active{display:block}
+@keyframes screenIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.scr-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:8px}
+.scr-title{font-size:15px;font-weight:700;color:#0a0a0a;margin-bottom:4px;letter-spacing:-.01em}
+.scr-sub{font-size:11px;color:#888;margin-bottom:12px}
+.scr-field{padding:8px 0;border-bottom:1px solid #ecece7}
+.scr-field-label{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:#aaa}
+.scr-field-val{font-size:13px;font-weight:500;color:#0a0a0a;margin-top:1px}
+.scr-btn{background:#0a0a0a;color:#fff;border-radius:11px;padding:12px 0;font-weight:600;font-size:13px;text-align:center;margin-top:14px}
+.scr-btn.green{background:#00B956}
+.scr-bonus{background:#00B956;border-radius:11px;padding:10px 12px;display:flex;align-items:center;gap:9px;margin:10px 0}
+.scr-bonus span{font-size:11px;font-weight:700;color:#fff;line-height:1.25}
+.scr-card{background:linear-gradient(135deg,#00B956,#009A48);border-radius:14px;padding:13px 14px;color:#fff;margin:10px 0}
+.scr-card-label{font-size:9px;text-transform:uppercase;letter-spacing:.1em;opacity:.8;font-weight:700}
+.scr-card-num{font-size:14px;font-weight:700;letter-spacing:.2em;margin-top:12px}
+.scr-card-bal{font-size:11px;opacity:.8;margin-top:4px;font-weight:500}
+.scr-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #ecece7;font-size:12px}
+.scr-row:last-child{border-bottom:none}
+.scr-row .k{color:#888}
+.scr-row .v{font-weight:600;color:#0a0a0a}
+.scr-check{width:42px;height:42px;background:#00B956;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center}
+.scr-badge{display:inline-flex;padding:3px 9px;border-radius:8px;background:#00B956;font-size:11px;font-weight:800;color:#fff}
+.step{cursor:pointer}
+.step.active .step-n{background:var(--accent);border-color:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div class="mesh-base"></div>
+<div class="mesh-orb a"></div>
+<div class="mesh-orb b"></div>
+<div class="grain"></div>
+<div class="spotlight" id="spotlight"></div>
+
+<div class="page">
+
+<nav class="nav"><div class="wrap nav-inner">
+  <div class="nav-brand">
+    <svg height="20" viewBox="126 216 244 68" fill="none" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="m165.138 267.494h-10.539c-16.439 0-4.496-35.058 9.344-35.058h16.651c2.669 0 7.376.493 9.695-6.137l3.583-10.299h-22.833c-12.365 0-21.99 4.373-28.945 11.71-12.014 12.556-16.088 32.166-13.208 41.547 2.74 8.677 10.187 14.39 21.849 14.531l9.063.071h11.171l2.74-8.253c2.037-5.855-2.53-8.112-8.571-8.112zm128.284-14.531 3.443-11.216h-36.743c-6.112 0-8.852 1.693-9.906 5.22l-3.443 11.216h36.744c6.112 0 8.852-1.693 9.905-5.22zm-52.128 19.751-3.443 11.215h36.743c6.042 0 8.852-1.692 9.906-5.219l3.443-11.216h-36.744c-6.041 0-8.781 1.693-9.905 5.22zm60.7-45.428 3.442-11.215h-36.743c-6.112 0-8.852 1.692-9.906 5.219l-3.443 11.216h36.744c6.042 0 8.781-1.693 9.906-5.22zm-55.502 2.258c-1.545-10.44-7.095-13.473-20.584-13.473h-24.589l-14.332 42.112h9.063c5.409 0 8.149.07 11.03-7.689l5.971-18.058h9.133c7.799 0 6.042 9.805 2.108 19.327-3.513 8.395-9.625 15.801-17.002 15.801h-15.245c-6.112 0-8.922 1.693-10.046 5.22l-3.794 11.216h11.17l10.96-.071c9.695-.07 17.634-.775 26.908-9.17 9.835-8.958 21.217-31.954 19.249-45.215zm123.508-13.544h-21.287l-20.023 21.373c-2.318 2.469-4.707 4.938-7.025 7.83h-.211l9.976-29.203h-17.353l-23.394 67.929h17.352l7.447-21.373 7.728-6.56 6.113 19.328c1.896 5.996 3.864 8.605 8.079 8.605h13.278l-13.629-37.95z" fill="#00b33c" fill-rule="evenodd"/></svg>
+    <div class="label">× Альфа-Банк<span>/ CDEK Wallet</span></div>
+  </div>
+  <div class="nav-links">
+    <a href="#entry">Точки входа</a>
+    <a href="#journey">Путь клиента</a>
+    <a href="#benefits">Преимущества</a>
+    
+  </div>
+</div></nav>
+
+<!-- HERO -->
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">Customer Journey Map · СДЕК</div>
+  <div class="hero-top">
+    <div>
+      <h1>CDEK <span class="mark-hl"><span>Wallet</span></span></h1>
+    </div>
+    <div>
+      <p class="hero-desc">White-label банковский кошелёк Альфа-Банка, встроенный в приложение и чек-аут СДЕК. Скидка на доставку и баллы за каждую оплату — без затрат из маржи партнёра.</p>
+      <div class="hero-tags">
+        <span class="hero-tag lit">Банковская лицензия</span>
+        <span class="hero-tag">Эскроу</span>
+        <span class="hero-tag">Кредит</span>
+        <span class="hero-tag">% на остаток</span>
+        <span class="hero-tag">Рассрочка</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-card">
+    <h3>Экономика проекта · 3 года</h3>
+    <div class="big num">2 млрд ₽<small>накопительная экономия на кэшбэке</small></div>
+    <div class="stats">
+      <div><div class="sv num">460 млрд</div><div class="sl">оборот через эквайринг</div></div>
+      <div><div class="sv num">4 млн</div><div class="sl">пользователей кошелька</div></div>
+      <div><div class="sv num">2 млн</div><div class="sl">новых клиентов банка</div></div>
+      <div><div class="sv num">5 млрд</div><div class="sl">доход банка</div></div>
+    </div>
+  </div>
+</div></header>
+
+<!-- ПРОДУКТ -->
+<section class="section"><div class="wrap">
+  <div class="eyebrow">Продукт</div>
+  <h2 class="section-title">Кошелёк как продукт</h2>
+  <p class="section-desc">Удобный платёжный сервис и программа лояльности в одном сценарии. White-label инфраструктура под брендом СДЕК — как WB-Кошелёк или OZON-Карта.</p>
+  <div class="card-grid c2">
+    <div class="card"><div class="accent-num">−15%</div><h3>Скидка на доставку</h3><p>Каждая оплата через CDEK Wallet — со скидкой. Финансируется экономией на эквайринге, а не из маржи СДЕК.</p></div>
+    <div class="card"><h3>Баллы за каждую покупку</h3><p>Начисление и списание баллов. Оплата СДЕК.Shopping, СДЕК Маркет, доставки — всё через один кошелёк.</p></div>
+    <div class="card"><h3>Оплата без пластика</h3><p>Моментальный выпуск. Оплата онлайн, в приложении и в пункте выдачи по QR — без ожидания карты.</p></div>
+    <div class="card"><h3>Мгновенное пополнение</h3><p>С карты любого банка, со счёта в Альфа-Банке или автопополнение при снижении баланса.</p></div>
+  </div>
+</div></section>
+
+<!-- ТОЧКИ ВХОДА -->
+<section class="section" id="entry"><div class="wrap">
+  <div class="eyebrow">Точки входа</div>
+  <h2 class="section-title">Потенциальные точки входа в кошелёк</h2>
+  <p class="section-desc">Три канала, где клиент СДЕК видит оффер CDEK Wallet — в момент принятия решения об оплате.</p>
+  <div class="card-grid c3">
+    <div class="card">
+      <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+      <h3>СДЕК.Shopping</h3>
+      <p>Выкуп из-за рубежа. Оффер на чек-ауте: скидка на международную доставку + баллы. Высокий средний чек.</p>
+      <div class="offer">Скидка 15% на доставку + 200 баллов</div>
+    </div>
+    <div class="card">
+      <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg></div>
+      <h3>СДЕК Маркет</h3>
+      <p>Покупки на маркетплейсе. Бейдж «+150 баллов с CDEK Wallet» на карточке товара. Баннер в корзине.</p>
+      <div class="offer">Скидка 5% + 150 баллов + бесплатная доставка</div>
+    </div>
+    <div class="card">
+      <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1zM16 8h4l3 4v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+      <h3>Оплата доставки</h3>
+      <p>Основной продукт СДЕК — отправка и получение посылок. Оффер при оплате доставки в приложении и в ПВЗ по QR.</p>
+      <div class="offer">Скидка 10% на доставку + 100 баллов</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- КЛИЕНТСКИЙ ПУТЬ -->
+<section class="section" id="journey"><div class="wrap">
+  <div class="eyebrow">Клиентский путь</div>
+  <h2 class="section-title">Выпуск и подключение CDEK Wallet</h2>
+  <p class="section-desc">Три сценария в зависимости от статуса клиента в Альфа-Банке. Клиент не покидает приложение СДЕК.</p>
+
+  <div class="tabs" id="journey-tabs">
+    <button class="tab active" data-j="new">Новый клиент</button>
+    <button class="tab" data-j="existing">Действующий клиент</button>
+    <button class="tab" data-j="nocard">Без активной карты</button>
+  </div>
+
+  <div class="journey-layout">
+    <div class="phone-col">
+      <div class="phone">
+        <div class="phone-inner">
+          <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+          <div class="phone-bar">
+            <svg height="12" viewBox="126 216 244 68" fill="none" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="m165.138 267.494h-10.539c-16.439 0-4.496-35.058 9.344-35.058h16.651c2.669 0 7.376.493 9.695-6.137l3.583-10.299h-22.833c-12.365 0-21.99 4.373-28.945 11.71-12.014 12.556-16.088 32.166-13.208 41.547 2.74 8.677 10.187 14.39 21.849 14.531l9.063.071h11.171l2.74-8.253c2.037-5.855-2.53-8.112-8.571-8.112zm128.284-14.531 3.443-11.216h-36.743c-6.112 0-8.852 1.693-9.906 5.22l-3.443 11.216h36.744c6.112 0 8.852-1.693 9.905-5.22zm-52.128 19.751-3.443 11.215h36.743c6.042 0 8.852-1.692 9.906-5.219l3.443-11.216h-36.744c-6.041 0-8.781 1.693-9.905 5.22zm60.7-45.428 3.442-11.215h-36.743c-6.112 0-8.852 1.692-9.906 5.219l-3.443 11.216h36.744c6.042 0 8.781-1.693 9.906-5.22zm-55.502 2.258c-1.545-10.44-7.095-13.473-20.584-13.473h-24.589l-14.332 42.112h9.063c5.409 0 8.149.07 11.03-7.689l5.971-18.058h9.133c7.799 0 6.042 9.805 2.108 19.327-3.513 8.395-9.625 15.801-17.002 15.801h-15.245c-6.112 0-8.922 1.693-10.046 5.22l-3.794 11.216h11.17l10.96-.071c9.695-.07 17.634-.775 26.908-9.17 9.835-8.958 21.217-31.954 19.249-45.215zm123.508-13.544h-21.287l-20.023 21.373c-2.318 2.469-4.707 4.938-7.025 7.83h-.211l9.976-29.203h-17.353l-23.394 67.929h17.352l7.447-21.373 7.728-6.56 6.113 19.328c1.896 5.996 3.864 8.605 8.079 8.605h13.278l-13.629-37.95z" fill="#00b33c" fill-rule="evenodd"/></svg>
+            <span id="phone-title">Чек-аут · СДЕК</span>
+          </div>
+          <div class="phone-body" id="phone-body">
+            <!-- NEW: screens -->
+            <div class="screen active" data-screen="new-1">
+              <div class="scr-label">Ваш заказ</div>
+              <div style="border:1px solid #ecece7;border-radius:12px;padding:11px 13px">
+                <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.06em">СДЕК.Shopping · Выкуп</div>
+                <div style="font-size:11px;font-weight:500;color:#0a0a0a;margin-top:4px">Nike Air Max 90 · Amazon DE</div>
+                <div style="font-size:22px;font-weight:800;color:#0a0a0a;margin-top:4px">14 990 ₽</div>
+                <div style="font-size:10px;color:#888;margin-top:3px">Доставка: 1 890 ₽ → <span style="color:#00B956;font-weight:700">1 607 ₽</span></div>
+              </div>
+              <div class="scr-bonus"><span>Скидка 15% + 200 баллов с CDEK Wallet</span></div>
+              <div class="scr-btn">Оформить заказ</div>
+            </div>
+            <div class="screen" data-screen="new-2">
+              <div class="scr-title">Платите через CDEK Wallet</div>
+              <div class="scr-sub">Подключите кошелёк — скидка + баллы</div>
+              <div style="display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #ecece7"><span style="width:16px;height:16px;border-radius:50%;background:#00B956;display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#fff" stroke-width="2"/></svg></span><span style="font-size:12px;font-weight:500">Скидка на доставку до 15%</span></div>
+              <div style="display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #ecece7"><span style="width:16px;height:16px;border-radius:50%;background:#00B956;display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#fff" stroke-width="2"/></svg></span><span style="font-size:12px;font-weight:500">Баллы за каждую покупку</span></div>
+              <div style="display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #ecece7"><span style="width:16px;height:16px;border-radius:50%;background:#00B956;display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#fff" stroke-width="2"/></svg></span><span style="font-size:12px;font-weight:500">Бесплатно навсегда</span></div>
+              <div class="scr-btn">Продолжить</div>
+              <div style="font-size:8px;color:#aaa;margin-top:8px;line-height:1.4">Нажимая «Продолжить», я даю согласие на передачу реквизитов и банковской тайны</div>
+            </div>
+            <div class="screen" data-screen="new-3">
+              <div class="scr-title">Идентификация</div>
+              <div class="scr-sub">Введите номер — пришлём код</div>
+              <div class="scr-field"><div class="scr-field-label">Номер телефона</div><div class="scr-field-val">+7 (999) 123-45-67</div></div>
+              <div style="display:flex;gap:7px;justify-content:center;margin:16px 0"><div style="width:40px;height:48px;background:#f5f5f2;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700">4</div><div style="width:40px;height:48px;background:#f5f5f2;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700">8</div><div style="width:40px;height:48px;background:#f5f5f2;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700">2</div><div style="width:40px;height:48px;border:1.5px solid #0a0a0a;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#ccc">|</div></div>
+              <div style="font-size:11px;color:#888;text-align:center;margin-bottom:12px">Код из СМС · повторно через 0:25</div>
+              <div class="scr-btn">Подтвердить</div>
+            </div>
+            <div class="screen" data-screen="new-4">
+              <div class="scr-title">Заполните заявку</div>
+              <div class="scr-field"><div class="scr-field-label">Фамилия</div><div class="scr-field-val">Иванов</div></div>
+              <div class="scr-field"><div class="scr-field-label">Имя</div><div class="scr-field-val">Алексей</div></div>
+              <div class="scr-field"><div class="scr-field-label">Отчество</div><div class="scr-field-val">Сергеевич</div></div>
+              <div class="scr-field"><div class="scr-field-label">Дата рождения</div><div class="scr-field-val">22.05.1992</div></div>
+              <div style="font-size:9px;color:#aaa;margin-top:8px">Поля предзаполнены из профиля СДЕК</div>
+              <div class="scr-btn">Открыть кошелёк</div>
+            </div>
+            <div class="screen" data-screen="new-5" style="text-align:center">
+              <div class="scr-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="scr-title" style="text-align:center">CDEK Wallet выпущен</div>
+              <div class="scr-sub" style="text-align:center">Пополните и оплачивайте со скидкой</div>
+              <div class="scr-card"><div class="scr-card-label">CDEK Wallet</div><div class="scr-card-num">•••• •••• •••• 4567</div><div class="scr-card-bal">Баланс · 0 ₽</div></div>
+              <div style="display:flex;gap:8px"><div style="flex:1" class="scr-btn">Пополнить</div><div style="flex:1" class="scr-btn green">Оплатить</div></div>
+            </div>
+            <div class="screen" data-screen="new-6">
+              <div class="scr-title">Пополнение</div>
+              <div class="scr-sub">С карты другого банка</div>
+              <div class="scr-card"><div class="scr-card-label">CDEK Wallet</div><div class="scr-card-num">•••• 4567</div><div class="scr-card-bal">Баланс · 0 ₽</div></div>
+              <div class="scr-row"><span class="k">Сумма</span><span class="v">14 990 ₽</span></div>
+              <div class="scr-row"><span class="k">Комиссия</span><span class="v">0 ₽</span></div>
+              <div class="scr-row"><span class="k">Откуда</span><span class="v">Т-Банк ····8901</span></div>
+              <div class="scr-row"><span class="k">Куда</span><span class="v">CDEK Wallet ····4567</span></div>
+              <div class="scr-btn">Пополнить</div>
+            </div>
+            <div class="screen" data-screen="new-7" style="text-align:center">
+              <div class="scr-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="scr-title" style="text-align:center">Выкуп оплачен</div>
+              <div class="scr-sub" style="text-align:center">Оплата через CDEK Wallet</div>
+              <div style="text-align:left"><div class="scr-row"><span class="k">Сумма товара</span><span class="v">14 990 ₽</span></div><div class="scr-row"><span class="k">Доставка (−15%)</span><span class="v">1 607 ₽</span></div><div class="scr-row"><span class="k">Начислено</span><span class="scr-badge">+200 баллов</span></div><div class="scr-row"><span class="k">Итого</span><span class="v" style="font-size:18px;font-weight:800">16 597 ₽</span></div></div>
+            </div>
+            <!-- EXISTING: screens -->
+            <div class="screen" data-screen="existing-1">
+              <div class="scr-label">Ваш заказ</div>
+              <div style="border:1px solid #ecece7;border-radius:12px;padding:11px 13px">
+                <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.06em">Отправка посылки</div>
+                <div style="font-size:13px;font-weight:600;margin-top:4px">Москва → Санкт-Петербург</div>
+                <div style="font-size:22px;font-weight:800;margin-top:4px">590 ₽</div>
+              </div>
+              <div class="scr-bonus"><span>Скидка 10% + 100 баллов с CDEK Wallet</span></div>
+              <div class="scr-btn">Оплатить</div>
+            </div>
+            <div class="screen" data-screen="existing-2">
+              <div class="scr-title">Платите через CDEK Wallet</div>
+              <div class="scr-sub">Скидка + баллы за оплату</div>
+              <div class="scr-bonus"><span>Скидка 10% на доставку + 100 баллов</span></div>
+              <div class="scr-btn">Продолжить</div>
+            </div>
+            <div class="screen" data-screen="existing-3">
+              <div class="scr-title">Идентификация</div>
+              <div class="scr-sub">Номер + СМС-код</div>
+              <div class="scr-field"><div class="scr-field-label">Номер телефона</div><div class="scr-field-val">+7 (999) 123-45-67</div></div>
+              <div class="scr-btn" style="margin-top:20px">Подтвердить</div>
+            </div>
+            <div class="screen" data-screen="existing-4">
+              <div class="scr-title">Выберите карту</div>
+              <div class="scr-sub">Привяжем к CDEK Wallet</div>
+              <div style="border:1.5px solid #00B956;border-radius:12px;padding:12px;margin:8px 0;background:rgba(0,185,86,0.06);display:flex;align-items:center;gap:10px"><div style="width:26px;height:26px;border-radius:7px;background:#00B956"></div><div><div style="font-size:13px;font-weight:700">Альфа-Карта</div><div style="font-size:10px;color:#888">····2071 · 1 000 000 ₽</div></div></div>
+              <div style="border:1px solid #ecece7;border-radius:12px;padding:12px;margin:8px 0;display:flex;align-items:center;gap:10px"><div style="width:26px;height:26px;border-radius:7px;background:#eee"></div><div><div style="font-size:13px;font-weight:600">Альфа-Карта</div><div style="font-size:10px;color:#888">····8834 · 15 600 ₽</div></div></div>
+              <div class="scr-btn">Продолжить</div>
+            </div>
+            <div class="screen" data-screen="existing-5" style="text-align:center">
+              <div class="scr-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="scr-title" style="text-align:center">CDEK Wallet подключён</div>
+              <div class="scr-sub" style="text-align:center">К карте Альфа-Банка ····2071</div>
+              <div class="scr-card"><div class="scr-card-label">CDEK Wallet</div><div class="scr-card-num">•••• 4567</div><div class="scr-card-bal">Готов к оплате</div></div>
+            </div>
+            <div class="screen" data-screen="existing-6" style="text-align:center">
+              <div class="scr-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="scr-title" style="text-align:center">Доставка оплачена</div>
+              <div class="scr-sub" style="text-align:center">Москва → СПб · 2–3 дня</div>
+              <div style="text-align:left"><div class="scr-row"><span class="k">Стоимость</span><span class="v">590 ₽</span></div><div class="scr-row"><span class="k">Скидка 10%</span><span class="v">−59 ₽</span></div><div class="scr-row"><span class="k">Начислено</span><span class="scr-badge">+100 баллов</span></div><div class="scr-row"><span class="k">Итого</span><span class="v" style="font-size:18px;font-weight:800">531 ₽</span></div></div>
+            </div>
+            <!-- NOCARD: screens -->
+            <div class="screen" data-screen="nocard-1">
+              <div class="scr-label">СДЕК Маркет</div>
+              <div style="border:1px solid #ecece7;border-radius:12px;padding:11px 13px">
+                <div style="font-size:11px;font-weight:500;margin-top:4px">Наушники JBL Tune 520BT</div>
+                <div style="font-size:22px;font-weight:800;margin-top:4px">3 990 ₽</div>
+                <div style="font-size:10px;color:#00B956;font-weight:700;margin-top:2px">−5% с CDEK Wallet</div>
+              </div>
+              <div class="scr-bonus"><span>Скидка 5% + 150 баллов с CDEK Wallet</span></div>
+              <div class="scr-btn">Оплатить</div>
+            </div>
+            <div class="screen" data-screen="nocard-2">
+              <div class="scr-title">Платите через CDEK Wallet</div>
+              <div class="scr-sub">Скидка + баллы за оплату</div>
+              <div class="scr-bonus"><span>Скидка 5% + 150 баллов</span></div>
+              <div class="scr-btn">Продолжить</div>
+            </div>
+            <div class="screen" data-screen="nocard-3">
+              <div class="scr-title">Идентификация</div>
+              <div class="scr-sub">Номер + СМС-код</div>
+              <div class="scr-field"><div class="scr-field-label">Номер телефона</div><div class="scr-field-val">+7 (999) 123-45-67</div></div>
+              <div class="scr-btn" style="margin-top:20px">Подтвердить</div>
+            </div>
+            <div class="screen" data-screen="nocard-4">
+              <div class="scr-title">Откройте CDEK Wallet</div>
+              <div class="scr-sub">Бесплатно навсегда</div>
+              <div class="scr-bonus"><span>Скидка на доставку + баллы за каждую оплату</span></div>
+              <div style="font-size:12px;color:#888;margin:8px 0;line-height:1.4">Ваша карта = ваш кошелёк. Покупки с повышенными бонусами.</div>
+              <div class="scr-btn">Открыть кошелёк</div>
+            </div>
+            <div class="screen" data-screen="nocard-5">
+              <div class="scr-title">Заполните заявку</div>
+              <div class="scr-field"><div class="scr-field-label">Фамилия</div><div class="scr-field-val">Иванов</div></div>
+              <div class="scr-field"><div class="scr-field-label">Имя</div><div class="scr-field-val">Алексей</div></div>
+              <div class="scr-field"><div class="scr-field-label">Дата рождения</div><div class="scr-field-val">22.05.1992</div></div>
+              <div style="font-size:9px;color:#aaa;margin-top:6px">ФИО предзаполнены из данных банка</div>
+              <div class="scr-btn">Открыть кошелёк</div>
+            </div>
+            <div class="screen" data-screen="nocard-6">
+              <div class="scr-title">Пополнение + пластик</div>
+              <div class="scr-sub">CDEK Wallet выпущен</div>
+              <div class="scr-card"><div class="scr-card-label">CDEK Wallet</div><div class="scr-card-num">•••• 4567</div><div class="scr-card-bal">Баланс · 0 ₽</div></div>
+              <div class="scr-row"><span class="k">Пополнение C2B</span><span class="v">с карты другого банка</span></div>
+              <div class="scr-row"><span class="k">Пластик</span><span class="v">доставка курьером СДЕК</span></div>
+              <div class="scr-btn">Пополнить и заказать карту</div>
+            </div>
+            <div class="screen" data-screen="nocard-7" style="text-align:center">
+              <div class="scr-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="scr-title" style="text-align:center">Заказ оплачен</div>
+              <div class="scr-sub" style="text-align:center">Оплата через CDEK Wallet</div>
+              <div style="text-align:left"><div class="scr-row"><span class="k">Товар</span><span class="v">3 990 ₽</span></div><div class="scr-row"><span class="k">Скидка 5%</span><span class="v">−200 ₽</span></div><div class="scr-row"><span class="k">Начислено</span><span class="scr-badge">+150 баллов</span></div><div class="scr-row"><span class="k">Итого</span><span class="v" style="font-size:18px;font-weight:800">3 790 ₽</span></div></div>
+            </div>
+          </div>
+          <div class="phone-home"><span></span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+
+  <div id="j-new" class="steps j-panel active-panel">
+    <div class="step hi"><div class="step-n">1</div><div><div class="step-zone">СДЕК</div><h4>Точка входа — чек-аут</h4><p>Клиент оформляет заказ: доставку, выкуп через СДЕК.Shopping или покупку на СДЕК Маркет. На чек-ауте — оффер «Скидка + баллы при оплате CDEK Wallet».</p><div class="step-metrics"><div class="step-m"><b>СДЕК</b>Рост конверсии чек-аута: оффер в момент оплаты</div><div class="step-m bank"><b>Альфа-Банк</b>Присутствие CDEK Wallet в пути клиента СДЕК</div></div></div></div>
+    <div class="step"><div class="step-n">2</div><div><div class="step-zone">СДЕК → Банк</div><h4>Оффер + согласия</h4><p>Скидка на доставку + баллы за каждую оплату кошельком. Согласие на передачу реквизитов и банковской тайны.</p><div class="step-metrics"><div class="step-m"><b>СДЕК</b>Бонусы клиенту за счёт экономии на эквайринге</div><div class="step-m bank"><b>Альфа-Банк</b>Подключение в канале партнёра</div></div></div></div>
+    <div class="step"><div class="step-n">3</div><div><div class="step-zone">Банк</div><h4>Идентификация</h4><p>Номер телефона + СМС-код. WebView в приложении СДЕК — клиент не покидает приложение.</p></div></div>
+    <div class="step"><div class="step-n">4</div><div><div class="step-zone">Банк</div><h4>Анкета на открытие</h4><p>ФИО и дата рождения. Поля предзаполнены из профиля СДЕК — заявка меньше минуты.</p></div></div>
+    <div class="step"><div class="step-n">5</div><div><div class="step-zone">Банк</div><h4>Кошелёк выпущен</h4><p>Моментальный выпуск CDEK Wallet. Без пластика — платить можно сразу.</p></div></div>
+    <div class="step"><div class="step-n">6</div><div><div class="step-zone">Банк</div><h4>Пополнение кошелька</h4><p>C карты другого банка через платёжный шлюз (C2B). Достаточно суммы заказа.</p></div></div>
+    <div class="step hi"><div class="step-n">7</div><div><div class="step-zone">Банк → СДЕК</div><h4>Привязка и оплата</h4><p>Реквизиты автоматически передаются в СДЕК. Клиент оплачивает — скидка применена, баллы начислены.</p><div class="step-metrics"><div class="step-m"><b>СДЕК</b>Автоматическая привязка, скидка + баллы</div><div class="step-m bank"><b>Альфа-Банк</b>Активный кошелёк — начало транзакционной активности</div></div></div></div>
+  </div>
+
+  <div id="j-existing" class="steps j-panel">
+    <div class="step hi"><div class="step-n">1</div><div><div class="step-zone">СДЕК</div><h4>Точка входа — чек-аут</h4><p>На чек-ауте — оффер CDEK Wallet. Клиент уже клиент Альфа-Банка.</p><div class="step-metrics"><div class="step-m"><b>СДЕК</b>Готовая база Альфа-Банка — простое подключение</div><div class="step-m bank"><b>Альфа-Банк</b>Рост активности через канал СДЕК</div></div></div></div>
+    <div class="step"><div class="step-n">2</div><div><div class="step-zone">СДЕК → Банк</div><h4>Оффер + согласия</h4><p>Баллы + скидка на доставку. Согласие на передачу реквизитов.</p></div></div>
+    <div class="step"><div class="step-n">3</div><div><div class="step-zone">Банк</div><h4>Идентификация</h4><p>Номер + СМС-код. WebView в приложении СДЕК.</p></div></div>
+    <div class="step"><div class="step-n">4</div><div><div class="step-zone">Банк</div><h4>Выбор карты</h4><p>Выбор активной карты Альфа-Банка или выпуск новой. WebView в контуре СДЕК.</p></div></div>
+    <div class="step"><div class="step-n">5</div><div><div class="step-zone">Банк</div><h4>Кошелёк подключён</h4><p>CDEK Wallet подключён к выбранной карте в один шаг.</p></div></div>
+    <div class="step hi"><div class="step-n">6</div><div><div class="step-zone">СДЕК</div><h4>Оплата на чек-ауте</h4><p>Клиент платит CDEK Wallet. Скидка + баллы начислены.</p><div class="step-metrics"><div class="step-m"><b>СДЕК</b>Совместная лояльность повышает частоту покупок</div><div class="step-m bank"><b>Альфа-Банк</b>Рост оборота по эквайрингу через СДЕК</div></div></div></div>
+  </div>
+
+  <div id="j-nocard" class="steps j-panel">
+    <div class="step hi"><div class="step-n">1</div><div><div class="step-zone">СДЕК</div><h4>Точка входа — чек-аут</h4><p>Информер о скидках и баллах. Клиент — действующий клиент банка без активной карты.</p><div class="step-metrics"><div class="step-m"><b>СДЕК</b>Возврат «спящих» клиентов через канал СДЕК</div><div class="step-m bank"><b>Альфа-Банк</b>Повторная активация без затрат на ремаркетинг</div></div></div></div>
+    <div class="step"><div class="step-n">2</div><div><div class="step-zone">СДЕК → Банк</div><h4>Оффер + согласия</h4><p>Банк определяет клиента по ID — без полной анкеты.</p></div></div>
+    <div class="step"><div class="step-n">3</div><div><div class="step-zone">Банк</div><h4>Идентификация</h4><p>Номер + СМС-код. WebView в приложении СДЕК.</p></div></div>
+    <div class="step"><div class="step-n">4</div><div><div class="step-zone">Банк</div><h4>Предложение открыть кошелёк</h4><p>«Откройте бесплатный CDEK Wallet — скидка на доставку + баллы».</p></div></div>
+    <div class="step"><div class="step-n">5</div><div><div class="step-zone">Банк</div><h4>Анкета + выпуск</h4><p>ФИО предзаполнены из данных банка. Моментальный выпуск.</p></div></div>
+    <div class="step"><div class="step-n">6</div><div><div class="step-zone">Банк</div><h4>Пополнение + заказ пластика</h4><p>Пополнение C2B. Заказ карты курьером СДЕК. Автопривязка к CDEK Wallet.</p></div></div>
+    <div class="step hi"><div class="step-n">7</div><div><div class="step-zone">СДЕК</div><h4>Привязка и оплата</h4><p>Передача реквизитов. Оплата со скидкой и начислением баллов.</p><div class="step-metrics"><div class="step-m"><b>СДЕК</b>Регулярные оплаты со скидкой + баллы</div><div class="step-m bank"><b>Альфа-Банк</b>Активный клиент с транзакционной историей</div></div></div></div>
+  </div>
+  </div>
+  </div>
+</div></section>
+
+<!-- ПРЕИМУЩЕСТВА -->
+<section class="section" id="benefits"><div class="wrap">
+  <div class="eyebrow">Преимущества</div>
+  <h2 class="section-title">Что даёт CDEK Wallet</h2>
+  <p class="section-desc">&nbsp;</p>
+  <div style="margin-bottom:36px">
+    <div style="font-size:18px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></span>Для СДЕК</div>
+    <div class="card-grid c2">
+      <div class="card"><h3>Экономия на эквайринге</h3><p>Оплата через CDEK Wallet дешевле сторонних способов. Экономия финансирует скидки клиентам — без потери маржи.</p></div>
+      <div class="card"><h3>Новые клиенты</h3><p>Аудитория Альфа-Банка подключается в канале СДЕК. Партнёрский трафик конвертируется в покупателей.</p></div>
+      <div class="card"><h3>Рост частоты и среднего чека</h3><p>Совместная лояльность мотивирует заказывать чаще. Рассрочка повышает доступность дорогих выкупов.</p></div>
+      <div class="card"><h3>Совместные предложения</h3><p>Бонусы клиенту за счёт экономии на эквайринге. Маркетинговый инвентарь Альфа-Банка для продвижения.</p></div>
+    </div>
+  </div>
+  <div>
+    <div style="font-size:18px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></span>Для Альфа-Банка</div>
+    <div class="card-grid c2">
+      <div class="card"><h3>Рост транзакционного оборота</h3><p>Оборот по эквайрингу через каналы СДЕК: доставка, маркет, шоппинг. До 460 млрд ₽ за 3 года.</p></div>
+      <div class="card"><h3>Привлечение клиентов</h3><p>До 2 млн новых клиентов через канал СДЕК — без затрат в прямых каналах банка.</p></div>
+      <div class="card"><h3>Доход от остатков</h3><p>Рост балансов на счетах Альфа-Банка. Проценты на остаток удерживают средства.</p></div>
+      <div class="card"><h3>Данные и кросс-продажи</h3><p>Связка «клиент банка — отправитель/получатель СДЕК» для новых продуктов.</p></div>
+    </div>
+  </div>
+</div></section>
+
+
+
+
+
+
+
+
+
+<footer class="footer"><div class="wrap footer-inner">
+  <div style="display:flex;align-items:center;gap:12px">
+    <svg height="14" viewBox="126 216 244 68" fill="none" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="m165.138 267.494h-10.539c-16.439 0-4.496-35.058 9.344-35.058h16.651c2.669 0 7.376.493 9.695-6.137l3.583-10.299h-22.833c-12.365 0-21.99 4.373-28.945 11.71-12.014 12.556-16.088 32.166-13.208 41.547 2.74 8.677 10.187 14.39 21.849 14.531l9.063.071h11.171l2.74-8.253c2.037-5.855-2.53-8.112-8.571-8.112zm128.284-14.531 3.443-11.216h-36.743c-6.112 0-8.852 1.693-9.906 5.22l-3.443 11.216h36.744c6.112 0 8.852-1.693 9.905-5.22zm-52.128 19.751-3.443 11.215h36.743c6.042 0 8.852-1.692 9.906-5.219l3.443-11.216h-36.744c-6.041 0-8.781 1.693-9.905 5.22zm60.7-45.428 3.442-11.215h-36.743c-6.112 0-8.852 1.692-9.906 5.219l-3.443 11.216h36.744c6.042 0 8.781-1.693 9.906-5.22zm-55.502 2.258c-1.545-10.44-7.095-13.473-20.584-13.473h-24.589l-14.332 42.112h9.063c5.409 0 8.149.07 11.03-7.689l5.971-18.058h9.133c7.799 0 6.042 9.805 2.108 19.327-3.513 8.395-9.625 15.801-17.002 15.801h-15.245c-6.112 0-8.922 1.693-10.046 5.22l-3.794 11.216h11.17l10.96-.071c9.695-.07 17.634-.775 26.908-9.17 9.835-8.958 21.217-31.954 19.249-45.215zm123.508-13.544h-21.287l-20.023 21.373c-2.318 2.469-4.707 4.938-7.025 7.83h-.211l9.976-29.203h-17.353l-23.394 67.929h17.352l7.447-21.373 7.728-6.56 6.113 19.328c1.896 5.996 3.864 8.605 8.079 8.605h13.278l-13.629-37.95z" fill="#00b33c" fill-rule="evenodd"/></svg>
+    <span class="footer-note">CDEK Wallet · кошелёк для СДЕК · 2026</span>
+  </div>
+  <span class="footer-note">Услугу оказывает АО «Альфа-Банк»</span>
+</div></footer>
+
+</div>
+
+<script>
+// Spotlight
+document.addEventListener('mousemove',function(e){
+  var s=document.getElementById('spotlight');
+  if(s){s.style.setProperty('--mx',e.clientX+'px');s.style.setProperty('--my',e.clientY+'px')}
+});
+
+var currentJ='new';
+var screenTitles={
+  'new-1':'Чек-аут · СДЕК','new-2':'Оффер + согласия','new-3':'Идентификация','new-4':'Анкета','new-5':'Кошелёк выпущен','new-6':'Пополнение','new-7':'Привязка и оплата',
+  'existing-1':'Чек-аут · СДЕК','existing-2':'Оффер','existing-3':'Идентификация','existing-4':'Выбор карты','existing-5':'Кошелёк подключён','existing-6':'Оплата',
+  'nocard-1':'СДЕК Маркет','nocard-2':'Оффер','nocard-3':'Идентификация','nocard-4':'Открыть кошелёк','nocard-5':'Анкета','nocard-6':'Пополнение + пластик','nocard-7':'Привязка и оплата'
+};
+
+function showScreen(key){
+  document.querySelectorAll('.screen').forEach(function(el){el.classList.remove('active')});
+  var s=document.querySelector('[data-screen="'+key+'"]');
+  if(s) s.classList.add('active');
+  var t=document.getElementById('phone-title');
+  if(t && screenTitles[key]) t.textContent=screenTitles[key];
+}
+
+function activateStep(panel,idx){
+  var steps=panel.querySelectorAll('.step');
+  steps.forEach(function(s,i){
+    s.classList.toggle('active',i===idx);
+    s.classList.remove('hi');
+  });
+  var key=panel.getAttribute('data-j')+'-'+(idx+1);
+  showScreen(key);
+}
+
+function showJourney(id){
+  currentJ=id;
+  document.querySelectorAll('.j-panel').forEach(function(el){el.style.display='none'});
+  document.querySelectorAll('#journey-tabs .tab').forEach(function(el){el.classList.remove('active')});
+  var btn=document.querySelector('#journey-tabs [data-j="'+id+'"]');
+  if(btn) btn.classList.add('active');
+  var panel=document.getElementById('j-'+id);
+  if(panel){panel.style.display='block';activateStep(panel,0)}
+}
+
+// Init tabs
+document.querySelectorAll('#journey-tabs .tab').forEach(function(btn){
+  btn.addEventListener('click',function(){showJourney(this.getAttribute('data-j'))});
+});
+
+// Init step clicks
+document.querySelectorAll('.j-panel').forEach(function(panel){
+  var jid=panel.id.replace('j-','');
+  panel.setAttribute('data-j',jid);
+  panel.querySelectorAll('.step').forEach(function(step,i){
+    step.addEventListener('click',function(){activateStep(panel,i)});
+  });
+});
+
+// Init
+document.querySelectorAll('.j-panel').forEach(function(el){el.style.display='none'});
+showJourney('new');
+</script>
+</body>
+</html>
