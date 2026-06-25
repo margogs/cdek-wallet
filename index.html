@@ -3,651 +3,1807 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CDEK Wallet — предложение для СДЕК</title>
+<title>CDEK Wallet × СДЕК — Customer Journey Map</title>
+<meta name="description" content="Интерактивный клиентский путь кошелька CDEK Wallet для СДЕК">
 <meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%2300B956'/><g fill='none' stroke='%230A0A0A' stroke-width='2.6' stroke-linejoin='round'><path d='M20 24 L34 18 L44 22 L30 28 Z'/><path d='M20 24 L20 28 L30 32 L30 28 Z'/><path d='M30 28 L30 32 L44 26 L44 22 Z'/><path d='M20 31 L34 25 L44 29 L30 35 Z'/><path d='M20 31 L20 35 L30 39 L30 35 Z'/><path d='M30 35 L30 39 L44 33 L44 29 Z'/><path d='M20 38 L34 32 L44 36 L30 42 Z'/><path d='M20 38 L20 42 L30 46 L30 42 Z'/><path d='M30 42 L30 46 L44 40 L44 36 Z'/></g></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#FFFFFF;--bg-warm:#FAFAF8;--surface-1:#F4F6F3;--surface-2:#E8ECE6;--surface-3:#DCE2D8;
-  --line-1:rgba(10,10,10,0.07);--line-2:rgba(10,10,10,0.12);--line-3:rgba(10,10,10,0.20);
-  --ink-1:#0A0A0A;--ink-2:rgba(10,10,10,0.64);--ink-3:rgba(10,10,10,0.42);--ink-4:rgba(10,10,10,0.26);
-  --accent:#00B956;--accent-deep:#009A48;--accent-soft:#D4F5E2;--accent-glow:rgba(0,185,86,0.45);
-  --font-body:'Onest',ui-sans-serif,system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,monospace;
-  --radius:12px;--radius-lg:20px;--radius-xl:28px;
+  --bg:#FFFFFF; --bg-warm:#FAFAF6; --surface-1:#F5F5F1; --surface-2:#EEEEE8; --surface-3:#E6E6DE;
+  --line-1:rgba(10,10,10,0.07); --line-2:rgba(10,10,10,0.12); --line-3:rgba(10,10,10,0.20);
+  --ink-1:#0A0A0A; --ink-2:rgba(10,10,10,0.64); --ink-3:rgba(10,10,10,0.42); --ink-4:rgba(10,10,10,0.26);
+  --lime:#00B956; --lime-deep:#009A48; --lime-soft:#A8F0C8; --lime-card:#6FE8A0; --lime-glow:rgba(0,185,86,0.45);
+  --phone-bg:#FFFFFF; --phone-surf:#F5F5F2; --phone-text-1:#0A0A0A; --phone-text-2:#8A8A86; --phone-text-3:#B6B6B0; --phone-line-1:#ECECE7;
+  --font-body:'Onest',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --radius-sm:8px; --radius:12px; --radius-lg:20px; --radius-xl:28px;
+  --ease-silky:cubic-bezier(0.16,1,0.3,1); --ease-swift:cubic-bezier(0.4,0,0.2,1);
+  --ng-bg:#0A0A0A; --ng-on:#FFFFFF; --ng-on-2:rgba(255,255,255,0.66); --ng-on-3:rgba(255,255,255,0.40); --ng-line:rgba(255,255,255,0.12); --ng-surf:rgba(255,255,255,0.045); --ng-surf-2:rgba(255,255,255,0.07);
 }
 *{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink-1)}
 html{scroll-behavior:smooth}
-body{font-family:var(--font-body);font-feature-settings:"ss01","cv01";-webkit-font-smoothing:antialiased;color:var(--ink-1);background:var(--bg);overflow-x:hidden;line-height:1.6}
-::selection{background:var(--accent);color:#fff}
-::-webkit-scrollbar{width:7px}
+body{font-family:var(--font-body);font-feature-settings:"ss01","cv01";-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;overflow-x:hidden}
+button{font-family:inherit;border:none;background:none;color:inherit;cursor:pointer;letter-spacing:inherit}
+button:focus{outline:none}
+button:focus-visible{outline:2px solid var(--ink-1);outline-offset:3px;border-radius:4px}
+::selection{background:var(--lime);color:#fff}
+::-webkit-scrollbar{width:7px;height:7px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:rgba(10,10,10,0.12);border-radius:4px}
-button{font-family:inherit;border:none;background:none;cursor:pointer}
+::-webkit-scrollbar-thumb:hover{background:rgba(10,10,10,0.22)}
 .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
-.mono{font-family:var(--font-mono)}
-
-.mesh-base{position:fixed;inset:0;z-index:0;pointer-events:none;background:
-  radial-gradient(60vw 60vw at 88% -8%,rgba(0,185,86,0.12),transparent 55%),
-  radial-gradient(50vw 50vw at -8% 18%,rgba(0,185,86,0.08),transparent 60%),
-  radial-gradient(70vw 45vw at 50% 112%,rgba(0,185,86,0.06),transparent 55%)}
-.mesh-orb{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;opacity:.5}
-.mesh-orb.a{width:460px;height:460px;top:-140px;right:-80px;background:radial-gradient(circle,rgba(0,185,86,0.5) 0%,transparent 70%);animation:orbA 20s ease-in-out infinite alternate}
-.mesh-orb.b{width:380px;height:380px;top:34vh;left:-150px;background:radial-gradient(circle,rgba(0,185,86,0.3) 0%,transparent 70%);animation:orbB 24s ease-in-out infinite alternate}
+.mono{font-family:var(--font-mono);font-feature-settings:"tnum"}
+.mesh-base{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(60vw 60vw at 88% -8%, rgba(0,185,86,0.16), transparent 55%),radial-gradient(50vw 50vw at -8% 18%, rgba(0,185,86,0.10), transparent 60%),radial-gradient(70vw 45vw at 50% 112%, rgba(0,185,86,0.08), transparent 55%)}
+.mesh-orb{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;opacity:0.5}
+.mesh-orb.a{width:460px;height:460px;top:-140px;right:-80px;background:radial-gradient(circle, rgba(0,185,86,0.6) 0%, rgba(0,185,86,0) 70%);animation:orbA 20s ease-in-out infinite alternate}
+.mesh-orb.b{width:380px;height:380px;top:34vh;left:-150px;background:radial-gradient(circle, rgba(0,185,86,0.4) 0%, rgba(0,185,86,0) 70%);animation:orbB 24s ease-in-out infinite alternate}
 @keyframes orbA{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-70px,50px) scale(1.12)}}
-@keyframes orbB{0%{transform:translate(0,0) scale(1)}100%{transform:translate(100px,-30px) scale(.92)}}
-.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.035;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
-.spotlight{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(300px 300px at var(--mx,50%) var(--my,30%),rgba(0,185,86,0.08),transparent 70%);transition:background 80ms linear}
-.page{position:relative;z-index:2}
-
-.wrap{max-width:1120px;margin:0 auto;padding:0 40px}
-@media(max-width:720px){.wrap{padding:0 20px}}
-
-.eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--ink-3);display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
-.eyebrow::before{content:"";width:24px;height:3px;background:var(--accent);border-radius:1px}
+@keyframes orbB{0%{transform:translate(0,0) scale(1)}100%{transform:translate(100px,-30px) scale(0.92)}}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.035;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+.spotlight{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(300px 300px at var(--mx,50%) var(--my,30%), rgba(0,185,86,0.10), transparent 70%);transition:background 80ms linear}
+#root{position:relative;z-index:2}
+.eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.18em;color:var(--ink-3);display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:24px;height:3px;background:var(--lime);border-radius:1px}
+.eyebrow.no-mark::before{display:none}
+.dot{display:inline-block;width:3px;height:3px;border-radius:50%;background:var(--ink-4);vertical-align:middle}
 .mark-hl{position:relative;display:inline-block}
 .mark-hl>span{position:relative;z-index:1}
-
-.hero-caps{display:flex;align-items:center;gap:10px;margin-top:22px;flex-wrap:wrap;font-size:13px;color:var(--ink-2);letter-spacing:.01em}
-.hero-cap{font-weight:500}
-.hero-cap:first-child{font-weight:500}
-.hero-cap-dot{width:3px;height:3px;border-radius:50%;background:var(--ink-4);flex-shrink:0}
-.mark-hl::after{content:"";position:absolute;left:-.04em;right:-.04em;bottom:.1em;height:.36em;background:var(--accent);opacity:.35;z-index:0;border-radius:2px}
-
-/* NAV */
-.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.78);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border-bottom:1px solid var(--line-1)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
-.nav-brand{display:flex;align-items:center;gap:12px}
-.nav-brand .label{font-size:13px;font-weight:600;color:var(--ink-1)}
-.nav-brand .label span{color:var(--ink-3);font-weight:400;margin-left:8px}
-.nav-links{display:flex;gap:20px}
-.nav-links a{font-size:12px;font-weight:500;color:var(--ink-3);text-decoration:none;transition:color .2s;letter-spacing:.02em}
-.nav-links a:hover{color:var(--ink-1)}
-@media(max-width:860px){.nav-links{display:none}}
-
-/* HERO */
-.hero{padding:72px 0 56px}
-.hero-top{display:grid;grid-template-columns:1.4fr 1fr;gap:64px;align-items:end}
-.hero h1{font-size:clamp(52px,8vw,120px);font-weight:800;letter-spacing:-.05em;line-height:.94}
-.hero h1 em{font-style:normal}
-.hero-desc{font-size:16px;color:var(--ink-2);line-height:1.55;max-width:420px;padding-bottom:12px}
-.hero-tags{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
-.hero-tag{font-size:11px;font-weight:600;padding:5px 13px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-3)}
-.hero-tag.lit{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-deep)}
-@media(max-width:960px){.hero-top{grid-template-columns:1fr;gap:28px}}
-
-/* SECTION */
-.section{padding:56px 0;border-top:1px solid var(--line-1)}
-.section-title{font-size:clamp(28px,4vw,48px);font-weight:700;letter-spacing:-.035em;line-height:1.08;margin-bottom:8px}
-.section-desc{font-size:15px;color:var(--ink-3);max-width:580px;margin-bottom:36px}
-
-/* CARDS */
-.card-grid{display:grid;gap:12px}
-.card-grid.c3{grid-template-columns:repeat(3,1fr)}
-.card-grid.c2{grid-template-columns:repeat(2,1fr)}
-@media(max-width:860px){.card-grid.c3,.card-grid.c2{grid-template-columns:1fr}}
-.card{background:var(--surface-1);border:1px solid var(--line-1);border-radius:var(--radius-lg);padding:26px 22px;transition:border-color .25s,box-shadow .25s}
-.card:hover{border-color:var(--accent);box-shadow:0 8px 30px rgba(0,185,86,0.08)}
-.card-icon{width:42px;height:42px;border-radius:var(--radius);background:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
-.card-icon svg{color:#fff}
-.card h3{font-size:17px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px}
-.card p{font-size:13.5px;color:var(--ink-3);line-height:1.5}
-.card .offer{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:4px 11px;border-radius:8px;background:var(--accent-soft);font-size:11px;font-weight:700;color:var(--accent-deep)}
-.card .accent-num{font-size:32px;font-weight:800;color:var(--accent);letter-spacing:-.02em;margin-bottom:6px}
-
-/* HERO CARD */
-.hero-card{background:linear-gradient(135deg,#00B956,#009A48);border-radius:var(--radius-xl);padding:36px 28px;color:#fff;position:relative;overflow:hidden;margin-top:36px}
-.hero-card::after{content:"";position:absolute;top:-50px;right:-50px;width:220px;height:220px;background:rgba(255,255,255,.06);border-radius:50%}
-.hero-card h3{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;opacity:.75;margin-bottom:16px}
-.hero-card .big{font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1}
-.hero-card .big small{font-size:16px;font-weight:500;opacity:.7;display:block;margin-top:6px}
-.hero-card .stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px;padding-top:18px;border-top:1px solid rgba(255,255,255,.18)}
-.hero-card .sv{font-size:22px;font-weight:800;letter-spacing:-.02em}
-.hero-card .sl{font-size:10px;opacity:.65;margin-top:2px}
-@media(max-width:720px){.hero-card .stats{grid-template-columns:1fr 1fr}}
-
-/* TABS */
-.tabs{display:inline-flex;background:var(--surface-1);border:1px solid var(--line-2);border-radius:16px;padding:5px;gap:2px;margin-bottom:28px;flex-wrap:wrap}
-.tab{padding:10px 18px;border-radius:12px;font-size:13.5px;font-weight:600;color:var(--ink-2);background:transparent;transition:all .2s;letter-spacing:-.005em}
-.tab:hover{color:var(--ink-1)}
-.tab.active{background:var(--ink-1);color:#fff;box-shadow:0 8px 20px -6px rgba(10,10,10,.3)}
-
-/* STEPS */
-.steps{max-width:720px}
-.step{display:grid;grid-template-columns:40px 1fr;gap:14px;padding:18px 0;border-bottom:1px solid var(--line-1)}
-.step:last-child{border-bottom:none}
-.step-n{width:32px;height:32px;border-radius:9px;background:var(--surface-1);border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--ink-4);margin-top:2px}
-.step.hi .step-n{background:var(--accent);border-color:var(--accent);color:#fff}
-.step-zone{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:3px}
-.step h4{font-size:15px;font-weight:700;letter-spacing:-.01em;margin-bottom:3px}
-.step p{font-size:13.5px;color:var(--ink-2);line-height:1.5}
-.step-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.step-m{padding:10px 12px;border-radius:8px;background:var(--surface-1);font-size:12px;color:var(--ink-2);line-height:1.4}
-.step-m b{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-4);margin-bottom:3px}
-.step-m.bank{background:var(--accent-soft)}
-.step-m.bank b{color:var(--accent-deep)}
-@media(max-width:720px){.step-metrics{grid-template-columns:1fr}}
-
-/* COMPARISON TABLE */
-.ctable{width:100%;border-collapse:collapse}
-.ctable th,.ctable td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line-1);font-size:13px}
-.ctable th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-4);background:var(--surface-1)}
-.ctable td:first-child{font-weight:600}
-.ctable .y{color:var(--accent);font-weight:700}
-.ctable .n{color:var(--ink-4)}
-
-/* GROWTH */
-.g-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.g-card{background:var(--ink-1);color:#fff;border-radius:var(--radius-lg);padding:26px 22px;position:relative;overflow:hidden}
-.g-card::before{content:"";position:absolute;top:-20px;right:-20px;width:100px;height:100px;background:var(--accent);opacity:.12;border-radius:50%}
-.g-badge{display:inline-flex;padding:4px 10px;border-radius:6px;background:var(--accent);font-size:10px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;position:relative}
-.g-card h4{font-size:17px;font-weight:700;margin-bottom:8px;position:relative}
-.g-card p{font-size:13px;opacity:.65;line-height:1.5;position:relative}
-.g-card .pain{font-size:12px;color:var(--accent);font-weight:600;margin-top:12px;position:relative}
-@media(max-width:860px){.g-grid{grid-template-columns:1fr}}
-
-/* NEXT STEPS */
-.ns{counter-reset:ns}
-.ns-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-1)}
-.ns-item:last-child{border-bottom:none}
-.ns-item::before{counter-increment:ns;content:counter(ns);width:28px;height:28px;border-radius:8px;background:var(--accent-soft);color:var(--accent-deep);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
-.ns-item p{font-size:14px;color:var(--ink-1)}
-
-/* FOOTER */
-.footer{padding:32px 0;border-top:1px solid var(--line-1)}
-.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-.footer-note{font-size:11px;color:var(--ink-4)}
-
-
-/* STEP NAV */
-.step-nav{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:16px}
-.step-nav-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);background:var(--surface-1);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s,transform .15s;-webkit-tap-highlight-color:transparent}
-.step-nav-btn:hover{background:var(--ink-1);border-color:var(--ink-1);color:#fff}
-.step-nav-btn:active{transform:scale(.94)}
-.step-nav-btn:disabled{opacity:.3;cursor:default;background:var(--surface-1);border-color:var(--line-2);color:var(--ink-1)}
-.step-nav-btn:disabled:hover{background:var(--surface-1);border-color:var(--line-2);color:var(--ink-1)}
-.step-nav-counter{font-size:15px;font-weight:600;color:var(--ink-2);min-width:70px;text-align:center;font-variant-numeric:tabular-nums}
-.step-nav-counter b{color:var(--ink-1)}
-/* PHONE */
-.journey-layout{display:grid;grid-template-columns:320px 1fr;gap:56px;align-items:start}
-@media(max-width:960px){.journey-layout{grid-template-columns:1fr;gap:32px}}
-.phone-col{position:sticky;top:80px;display:flex;flex-direction:column;align-items:center}
-@media(max-width:960px){.phone-col{position:static}}
-.phone{width:280px;height:560px;border-radius:42px;background:linear-gradient(180deg,#232323,#0a0a0a);padding:10px;box-shadow:0 30px 60px -20px rgba(10,10,10,0.35),0 60px 120px -30px rgba(0,185,86,0.18);position:relative;flex-shrink:0}
-.phone::before{content:"";position:absolute;top:9px;left:50%;transform:translateX(-50%);width:90px;height:26px;background:#000;border-radius:13px;z-index:5}
-.phone-inner{border-radius:32px;overflow:hidden;background:#fff;height:100%;display:flex;flex-direction:column}
-.phone-status{padding:36px 16px 6px;display:flex;justify-content:space-between;font-size:10px;font-weight:600;color:#0a0a0a}
-.phone-bar{padding:4px 14px 8px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #ecece7;font-size:11px;font-weight:600;color:#0a0a0a}
-.phone-body{flex:1;overflow-y:auto;padding:0}
-.phone-body::-webkit-scrollbar{display:none}
-.phone-home{display:flex;align-items:center;justify-content:center;height:20px;margin-top:auto}
-.phone-home span{width:100px;height:4px;background:#000;border-radius:2px;opacity:.8}
-.screen{display:none;padding:14px 16px;animation:screenIn .35s ease}
-.screen.active{display:block}
-@keyframes screenIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.scr-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:8px}
-.scr-title{font-size:15px;font-weight:700;color:#0a0a0a;margin-bottom:4px;letter-spacing:-.01em}
-.scr-sub{font-size:11px;color:#888;margin-bottom:12px}
-.scr-field{padding:8px 0;border-bottom:1px solid #ecece7}
-.scr-field-label{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:#aaa}
-.scr-field-val{font-size:13px;font-weight:500;color:#0a0a0a;margin-top:1px}
-.scr-btn{background:#0a0a0a;color:#fff;border-radius:11px;padding:12px 0;font-weight:600;font-size:13px;text-align:center;margin-top:14px}
-.scr-btn.green{background:#00B956}
-.scr-bonus{background:#00B956;border-radius:11px;padding:10px 12px;display:flex;align-items:center;gap:9px;margin:10px 0}
-.scr-bonus span{font-size:11px;font-weight:700;color:#fff;line-height:1.25}
-.scr-card{background:linear-gradient(135deg,#00B956,#009A48);border-radius:14px;padding:13px 14px;color:#fff;margin:10px 0}
-.scr-card-label{font-size:9px;text-transform:uppercase;letter-spacing:.1em;opacity:.8;font-weight:700}
-.scr-card-num{font-size:14px;font-weight:700;letter-spacing:.2em;margin-top:12px}
-.scr-card-bal{font-size:11px;opacity:.8;margin-top:4px;font-weight:500}
-.scr-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #ecece7;font-size:12px}
-.scr-row:last-child{border-bottom:none}
-.scr-row .k{color:#888}
-.scr-row .v{font-weight:600;color:#0a0a0a}
-.scr-check{width:42px;height:42px;background:#00B956;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center}
-.scr-badge{display:inline-flex;padding:3px 9px;border-radius:8px;background:#00B956;font-size:11px;font-weight:800;color:#fff}
-.step{cursor:pointer}
-.step.active .step-n{background:var(--accent);border-color:var(--accent);color:#fff}
+.mark-hl::after{content:"";position:absolute;left:-0.04em;right:-0.04em;bottom:0.1em;height:0.36em;background:var(--lime);z-index:0;border-radius:2px}
+.phone-screen{background:var(--phone-bg);color:var(--phone-text-1);height:100%;display:flex;flex-direction:column}
+.phone-status{padding:6px 16px 8px;display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:600;color:var(--phone-text-1)}
+.phone-titlebar{padding:4px 14px 8px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--phone-line-1)}
+.mobile-step-nav{display:none}
+.ng-work{display:grid;grid-template-columns:auto minmax(0,1fr);gap:56px;align-items:center}
+.ng-extra-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line-2)}
+.ng-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+@media (max-width:960px){
+  .mobile-step-nav{display:inline-flex;align-items:center;gap:14px;padding:6px 6px;background:var(--bg);border:1px solid var(--line-2);border-radius:99px;box-shadow:0 8px 30px rgba(0,0,0,0.10)}
+  .mobile-step-nav button{width:40px;height:40px;border-radius:50%;border:none;background:var(--surface-1);color:var(--ink-1);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s ease,color .2s ease,transform .15s ease;-webkit-tap-highlight-color:transparent}
+  .mobile-step-nav button:not(:disabled):active{transform:scale(0.94)}
+  .mobile-step-nav button:not(:disabled):hover{background:var(--ink-1);color:#fff}
+  .mobile-step-nav button:disabled{opacity:.3;cursor:default}
+  .mobile-step-nav .counter{font-size:14px;color:var(--ink-2);font-weight:600;letter-spacing:0.02em;min-width:60px;text-align:center}
+}
+@media (max-width:1100px){.hero-grid{grid-template-columns:1fr !important;gap:28px !important;align-items:start !important}}
+@media (max-width:960px){
+  .work-grid{grid-template-columns:1fr !important;gap:48px !important}
+  .work-grid>*:first-child{display:flex;justify-content:center}
+  .bento-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+  .bento-grid>.b-large{grid-column:span 2 !important;grid-row:span 1 !important}
+}
+@media (max-width:720px){
+  .hero{padding:72px 20px 40px !important}
+  .section{padding-left:20px !important;padding-right:20px !important}
+  .step-rail{display:flex !important;grid-template-columns:none !important;gap:10px !important;overflow-x:auto;padding-bottom:10px !important;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+  .step-rail-item{flex:0 0 140px !important;min-width:140px !important;scroll-snap-align:start}
+  .metrics-grid{grid-template-columns:1fr !important}
+  .metrics-grid>.m-r{padding-left:0 !important;padding-top:24px !important;border-left:none !important;border-top:1px solid var(--line-2) !important}
+  .bento-grid{grid-template-columns:1fr !important}
+  .bento-grid>.b-large{grid-column:span 1 !important}
+  h1.display{font-size:52px !important;letter-spacing:-0.04em !important}
+}
+@media (max-width:960px){
+  .ng-work{grid-template-columns:1fr !important;gap:40px !important}
+  .ng-work>*:first-child{display:flex;justify-content:center}
+  .ng-extra-grid{grid-template-columns:1fr !important}
+  .ng-metrics{grid-template-columns:1fr !important}
+}
+@media (max-width:720px){
+  .ng{padding:64px 20px !important}
+  .ng-pills{overflow-x:auto;flex-wrap:nowrap !important;-webkit-overflow-scrolling:touch}
+  .ng-pills::-webkit-scrollbar{display:none}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/framer-motion@11.18.2/dist/framer-motion.js"></script>
 </head>
 <body>
+<template id="__bundler_thumbnail" data-bg-color="#FFFFFF">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#FFFFFF"/>
+    <rect x="118" y="300" width="424" height="118" rx="10" fill="#00B956"/>
+    <text x="150" y="392" fill="#0A0A0A" font-family="system-ui" font-weight="800" font-size="96" letter-spacing="-3">CDEK</text>
+    <text x="600" y="392" fill="#0A0A0A" font-family="system-ui" font-weight="800" font-size="96" letter-spacing="-3">Wallet</text>
+    <text x="122" y="470" fill="rgba(10,10,10,0.45)" font-family="system-ui" font-size="26">× СДЕК · Customer Journey Map</text>
+  </svg>
+</template>
 <div class="mesh-base"></div>
 <div class="mesh-orb a"></div>
 <div class="mesh-orb b"></div>
 <div class="grain"></div>
 <div class="spotlight" id="spotlight"></div>
+<div id="root"></div>
+<script type="text/babel" data-presets="env,react">
+const { useState, useEffect, useRef } = React;
+const { motion, AnimatePresence, useTransform, useSpring, useMotionValue, useInView, LayoutGroup } = window.Motion;
 
-<div class="page">
+const SPRING = { silky:{type:"spring",stiffness:120,damping:22,mass:0.8}, snappy:{type:"spring",stiffness:380,damping:32} };
+const EASE = [0.16, 1, 0.3, 1];
 
-<nav class="nav"><div class="wrap nav-inner">
-  <div class="nav-brand">
-    <svg height="20" viewBox="126 216 244 68" fill="none" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="m165.138 267.494h-10.539c-16.439 0-4.496-35.058 9.344-35.058h16.651c2.669 0 7.376.493 9.695-6.137l3.583-10.299h-22.833c-12.365 0-21.99 4.373-28.945 11.71-12.014 12.556-16.088 32.166-13.208 41.547 2.74 8.677 10.187 14.39 21.849 14.531l9.063.071h11.171l2.74-8.253c2.037-5.855-2.53-8.112-8.571-8.112zm128.284-14.531 3.443-11.216h-36.743c-6.112 0-8.852 1.693-9.906 5.22l-3.443 11.216h36.744c6.112 0 8.852-1.693 9.905-5.22zm-52.128 19.751-3.443 11.215h36.743c6.042 0 8.852-1.692 9.906-5.219l3.443-11.216h-36.744c-6.041 0-8.781 1.693-9.905 5.22zm60.7-45.428 3.442-11.215h-36.743c-6.112 0-8.852 1.692-9.906 5.219l-3.443 11.216h36.744c6.042 0 8.781-1.693 9.906-5.22zm-55.502 2.258c-1.545-10.44-7.095-13.473-20.584-13.473h-24.589l-14.332 42.112h9.063c5.409 0 8.149.07 11.03-7.689l5.971-18.058h9.133c7.799 0 6.042 9.805 2.108 19.327-3.513 8.395-9.625 15.801-17.002 15.801h-15.245c-6.112 0-8.922 1.693-10.046 5.22l-3.794 11.216h11.17l10.96-.071c9.695-.07 17.634-.775 26.908-9.17 9.835-8.958 21.217-31.954 19.249-45.215zm123.508-13.544h-21.287l-20.023 21.373c-2.318 2.469-4.707 4.938-7.025 7.83h-.211l9.976-29.203h-17.353l-23.394 67.929h17.352l7.447-21.373 7.728-6.56 6.113 19.328c1.896 5.996 3.864 8.605 8.079 8.605h13.278l-13.629-37.95z" fill="#00b33c" fill-rule="evenodd"/></svg>
-    <div class="label">× Альфа-Банк<span>/ CDEK Wallet</span></div>
+/* ===== BRAND MARK ===== */
+
+function CDEKLogo({height=22, color="#00b33c"}){
+  return (
+    <svg height={height} viewBox="126.006 216 243.994 68" fill="none" xmlns="http://www.w3.org/2000/svg" style={{display:"block",flexShrink:0}}>
+      <path clipRule="evenodd" d="m165.138 267.494h-10.539c-16.439 0-4.496-35.058 9.344-35.058h16.651c2.669 0 7.376.493 9.695-6.137l3.583-10.299h-22.833c-12.365 0-21.99 4.373-28.945 11.71-12.014 12.556-16.088 32.166-13.208 41.547 2.74 8.677 10.187 14.39 21.849 14.531l9.063.071h11.171l2.74-8.253c2.037-5.855-2.53-8.112-8.571-8.112zm128.284-14.531 3.443-11.216h-36.743c-6.112 0-8.852 1.693-9.906 5.22l-3.443 11.216h36.744c6.112 0 8.852-1.693 9.905-5.22zm-52.128 19.751-3.443 11.215h36.743c6.042 0 8.852-1.692 9.906-5.219l3.443-11.216h-36.744c-6.041 0-8.781 1.693-9.905 5.22zm60.7-45.428 3.442-11.215h-36.743c-6.112 0-8.852 1.692-9.906 5.219l-3.443 11.216h36.744c6.042 0 8.781-1.693 9.906-5.22zm-55.502 2.258c-1.545-10.44-7.095-13.473-20.584-13.473h-24.589l-14.332 42.112h9.063c5.409 0 8.149.07 11.03-7.689l5.971-18.058h9.133c7.799 0 6.042 9.805 2.108 19.327-3.513 8.395-9.625 15.801-17.002 15.801h-15.245c-6.112 0-8.922 1.693-10.046 5.22l-3.794 11.216h11.17l10.96-.071c9.695-.07 17.634-.775 26.908-9.17 9.835-8.958 21.217-31.954 19.249-45.215zm123.508-13.544h-21.287l-20.023 21.373c-2.318 2.469-4.707 4.938-7.025 7.83h-.211l9.976-29.203h-17.353l-23.394 67.929h17.352l7.447-21.373 7.728-6.56 6.113 19.328c1.896 5.996 3.864 8.605 8.079 8.605h13.278l-13.629-37.95z" fill={color} fillRule="evenodd"/>
+    </svg>
+  );
+}
+
+function GAMark({size=22, bg="#00B956", ink="#FFFFFF", flat=false, radius=14}){
+  return (
+    <svg width={size} height={size} viewBox="0 0 64 64" style={{display:"block",flexShrink:0}}>
+      {!flat && <rect width="64" height="64" rx={radius} fill={bg}/>}
+      <path d="M16 20h8v24h-8zM28 20h20l-10 12 10 12H28z" fill={ink}/>
+    </svg>
+  );
+}
+function QRish({size=120, color="#0A0A0A", bg="transparent"}){
+  const n=21, cell=size/n, mods=[];
+  const inFinder=(r,c)=>{const f=(R,C)=>r>=R&&r<R+7&&c>=C&&c<C+7;return f(0,0)||f(0,n-7)||f(n-7,0);};
+  for(let r=0;r<n;r++)for(let c=0;c<n;c++){ if(inFinder(r,c))continue; if(((r*5+c*3+r*c+r)%4)===0) mods.push([r,c]); }
+  const finder=(R,C,k)=>(
+    <g key={k}>
+      <rect x={C*cell} y={R*cell} width={7*cell} height={7*cell} fill={color}/>
+      <rect x={(C+1)*cell} y={(R+1)*cell} width={5*cell} height={5*cell} fill={bg==="transparent"?"#fff":bg}/>
+      <rect x={(C+2)*cell} y={(R+2)*cell} width={3*cell} height={3*cell} fill={color}/>
+    </g>
+  );
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} shapeRendering="crispEdges" style={{display:"block"}}>
+      {bg!=="transparent" && <rect width={size} height={size} fill={bg}/>}
+      {mods.map(([r,c],i)=><rect key={i} x={c*cell} y={r*cell} width={cell} height={cell} fill={color}/>)}
+      {finder(0,0,"a")}{finder(0,n-7,"b")}{finder(n-7,0,"c")}
+    </svg>
+  );
+}
+
+/* ===== JOURNEY DATA ===== */
+const journeys=[
+{id:"new",group:"journey",label:"Новый клиент",desc:"Выпуск кошелька CDEK Wallet · пополнение · оплата",steps:[
+  {title:"Точка входа",zone:"СДЕК",screen:"ga_checkout",desc:"Клиент оформляет заказ в приложении СДЕК. На чек-ауте — оффер «Скидка + баллы при оплате CDEK Wallet», встроенный в оформление заказа.",metricPartner:"Рост конверсии чек-аута: бонусный оффер в момент оплаты",metricBank:"Присутствие CDEK Wallet в покупательском пути СДЕК"},
+  {title:"Оффер + согласия",zone:"СДЕК → Банк",screen:"offer_consents",desc:"Экран оффера: баллы за каждую оплату кошельком. Согласие клиента на передачу реквизитов и банковской тайны, памятка ЭДС, СОПД.",metricPartner:"Бонусы для клиента — за счёт экономии на эквайринге, а не из маржи СДЕК",metricBank:"Подключение к CDEK Wallet прямо в канале партнёра"},
+  {title:"Идентификация клиента",zone:"Банк",screen:"identify",desc:"Ввод номера телефона и кода из СМС. Идентификация реализуется во встроенном WebView либо нативно — полностью в контуре приложения СДЕК.",metricPartner:"Идентификация за секунды — клиент не покидает приложение",metricBank:"Идентификация без визита в отделение"},
+  {title:"Анкета на открытие",zone:"Банк",screen:"form",desc:"ФИО и дата рождения. Поля предзаполнены из данных партнёра — клиенту не нужно вводить вручную.",metricPartner:"Заявка занимает меньше минуты — поля предзаполнены",metricBank:"Выпуск кошелька без отделения и курьера"},
+  {title:"Кошелёк выпущен",zone:"Банк",screen:"issued",desc:"Моментальный выпуск кошелька CDEK Wallet с предложением пополнить и оплатить. Без выпуска пластика.",metricPartner:"Клиент готов к оплате сразу после выпуска",metricBank:"Моментальный выпуск кошелька CDEK Wallet"},
+  {title:"Пополнение кошелька",zone:"Банк",screen:"topup_c2b",desc:"Пополнение кошелька с карты другого банка через платёжный шлюз (C2B). Достаточно суммы заказа.",metricPartner:"Оплата проходит здесь же — клиент не уходит с чек-аута",metricBank:"Рост остатков на кошельках CDEK Wallet"},
+  {title:"Привязка к CDEK Wallet",zone:"Банк → СДЕК",screen:"bind",desc:"Реквизиты кошелька автоматически передаются в СДЕК. CDEK Wallet появляется как способ оплаты — без ручного ввода реквизитов.",metricPartner:"Привязка автоматическая — без ручного ввода реквизитов",metricBank:"CDEK Wallet закрепляется как способ оплаты у партнёра"},
+  {title:"Оплата на чек-ауте",zone:"СДЕК",screen:"pay_bonus",desc:"Клиент платит кошельком CDEK Wallet. Вместо скидки — начисление баллов: +100 за оплату. Заказ оплачен.",metricPartner:"Начисление баллов повышает ценность каждой покупки",metricBank:"Активный кошелёк — начало транзакционной активности"},
+]},
+{id:"existing",group:"journey",label:"Действующий клиент",desc:"Подключение кошелька · выбор карты · оплата",steps:[
+  {title:"Точка входа",zone:"СДЕК",screen:"ga_checkout",desc:"На чек-ауте СДЕК — оффер «Скидка + баллы при оплате CDEK Wallet». Клиент уже клиент Альфа-Банка.",metricPartner:"Готовая база клиентов Альфа-Банка — простое подключение CDEK Wallet",metricBank:"Рост активности клиентов через новый канал"},
+  {title:"Оффер + согласия",zone:"СДЕК → Банк",screen:"offer_consents",desc:"Оффер баллами + согласие клиента на передачу реквизитов и банковской тайны.",metricPartner:"Оплата CDEK Wallet выгоднее для СДЕК, чем сторонние способы оплаты на чек-ауте",metricBank:"Рост доли CDEK Wallet в платёжном миксе партнёра"},
+  {title:"Идентификация клиента",zone:"Банк",screen:"identify",desc:"Ввод номера телефона и кода из СМС. Реализация — во встроенном WebView либо нативно в приложении СДЕК.",metricPartner:"Быстрая привязка — клиент остаётся в приложении СДЕК",metricBank:"Связка «клиент банка — клиент партнёра» для аналитики"},
+  {title:"Выбор карты",zone:"Банк",screen:"select_card",desc:"Клиент выбирает любую активную карту Альфа-Банка или выпускает новую — если не хочет привязывать действующую. Реализация: WebView либо нативно в контуре СДЕК.",metricPartner:"Автоматическая привязка карты — без ручного ввода реквизитов",metricBank:"Данные о предпочтительной карте клиента у партнёра"},
+  {title:"Кошелёк подключён",zone:"Банк",screen:"wallet_ready",desc:"Кошелёк CDEK Wallet подключён к выбранной карте клиента в один шаг.",metricPartner:"Кошелёк подключён к карте клиента в один шаг",metricBank:"Готовый к оплате кошелёк CDEK Wallet"},
+  {title:"Пополнение кошелька",zone:"Банк",screen:"topup_me2me",desc:"Если на карте недостаточно средств — пополнение между своими счетами (me2me) прямо в процессе.",metricPartner:"Клиент пополняет кошелёк при нехватке средств — не уходит с чек-аута",metricBank:"Консолидация остатков клиента в CDEK Wallet"},
+  {title:"Оплата на чек-ауте",zone:"СДЕК",screen:"pay_bonus",desc:"Клиент платит CDEK Wallet. Начисление баллов за оплату — без явной скидки.",metricPartner:"Совместная лояльность повышает частоту повторных покупок",metricBank:"Рост оборота по эквайрингу через канал партнёра"},
+]},
+{id:"no_card",group:"journey",label:"Без активной карты",desc:"Идентификация · выпуск кошелька · оплата",steps:[
+  {title:"Точка входа",zone:"СДЕК",screen:"ga_checkout",desc:"Информер о повышенных бонусах при оплате CDEK Wallet на чек-ауте СДЕК.",metricPartner:"Возврат «спящих» клиентов через канал СДЕК",metricBank:"Повторная активация клиента без затрат на ремаркетинг"},
+  {title:"Оффер + согласия",zone:"СДЕК → Банк",screen:"offer_consents",desc:"Оффер + согласия. Банк определяет клиента по ID клиента в Банке — действующий клиент без активного кошелька.",metricPartner:"Лояльный клиент с банковской историей",metricBank:"Идентификация по ID клиента в Банке — без полной анкеты"},
+  {title:"Идентификация клиента",zone:"Банк",screen:"identify",desc:"Ввод номера телефона и кода из СМС. WebView либо нативная реализация в приложении СДЕК.",metricPartner:"Идентификация за секунды в приложении СДЕК",metricBank:"Быстрая идентификация действующего клиента"},
+  {title:"Предложение открыть кошелёк",zone:"Банк",screen:"upsell",desc:"«Откройте бесплатный кошелёк CDEK Wallet и получайте баллы». Выпуск кошелька CDEK Wallet — без пластика на старте.",metricPartner:"Бонусы привязаны к новому кошельку — мотивация к покупке",metricBank:"Конверсия в выпуск кошелька выше прямых каналов"},
+  {title:"Анкета на открытие",zone:"Банк",screen:"form",desc:"Заполнение анкеты для выпуска кошелька. ФИО предзаполнены из данных банка.",metricPartner:"Простая заявка — поля предзаполнены из данных банка",metricBank:"Полноценный кошелёк с потенциалом кросс-продаж"},
+  {title:"Кошелёк выпущен",zone:"Банк",screen:"issued",desc:"Выпуск кошелька CDEK Wallet. Клиент платит кошельком CDEK Wallet — с тем же набором преимуществ.",metricPartner:"Клиент платит кошельком CDEK Wallet сразу после выпуска",metricBank:"Активация кошелька в день выпуска"},
+  {title:"Пополнение кошелька",zone:"Банк",screen:"topup_c2b",desc:"Пополнение кошелька с карты другого банка (C2B). Сумма заказа доступна для оплаты здесь же.",metricPartner:"Сумма заказа доступна для оплаты здесь же",metricBank:"Рост остатков на кошельках CDEK Wallet"},
+  {title:"Заказ пластика",zone:"Банк",screen:"delivery",desc:"Заказ пластиковой карты курьером или в отделении. После активации — автоматическая привязка к способу оплаты CDEK Wallet.",metricPartner:"Пластик с предустановленной привязкой к CDEK Wallet",metricBank:"Долгосрочная активация клиента"},
+  {title:"Привязка и оплата",zone:"СДЕК",screen:"pay_bonus",desc:"После активации кошелька — автоматическая передача реквизитов и привязка к способу оплаты CDEK Wallet. Оплата с начислением баллов.",metricPartner:"Регулярные покупки с начислением баллов",metricBank:"Активный клиент с кошельком и транзакционной историей"},
+]},
+{id:"payment",group:"capability",label:"Оплата кошельком",desc:"Оплата CDEK Wallet в онлайне и офлайне",variants:{
+  online:[
+    {title:"Клиент выбрал товар",zone:"СДЕК · online",screen:"shop_product",desc:"Клиент выбирает товар в приложении СДЕК. Подсвечивается выгода оплаты через CDEK Wallet: +100 баллов.",metricPartner:"Выгода CDEK Wallet видна уже в карточке товара",metricBank:"Узнаваемость CDEK Wallet в каталоге партнёра"},
+    {title:"Добавил в корзину",zone:"СДЕК · online",screen:"cart",desc:"Товар в корзине. Баннер «Скидка + баллы при оплате CDEK Wallet» рядом с итоговой суммой.",metricPartner:"Бонусный баннер в корзине — стимул завершить заказ",metricBank:"Напоминание о CDEK Wallet в корзине"},
+    {title:"Перешёл в оформление",zone:"СДЕК · online",screen:"checkout_methods",desc:"Оформление заказа, выбор способа оплаты среди СБП, SberPay, Яндекс Пэй и CDEK Wallet.",metricPartner:"CDEK Wallet — в списке способов оплаты",metricBank:"Присутствие среди привычных способов оплаты"},
+    {title:"CDEK Wallet предустановлен",zone:"СДЕК · online",screen:"method_selected",desc:"CDEK Wallet выбран способом оплаты по умолчанию — клиенту не нужно искать его в списке.",metricPartner:"Предустановленный способ оплаты ускоряет чек-аут",metricBank:"Приоритет CDEK Wallet по умолчанию"},
+    {title:"Оплатил CDEK Wallet",zone:"СДЕК · online",screen:"paid",desc:"Оплата прошла в один тап. +100 баллов начислено на счёт лояльности.",metricPartner:"Оплата в один тап, бонусы начислены",metricBank:"Завершённая транзакция по CDEK Wallet"},
+  ],
+  offline:[
+    {title:"Карта лояльности",zone:"СДЕК · offline",screen:"qr_loyalty",desc:"Клиент на кассе открывает карту лояльности СДЕК с QR-кодом в приложении.",metricPartner:"Привычная карта лояльности СДЕК",metricBank:"Единый QR для оплаты и лояльности"},
+    {title:"Кассир считывает QR",zone:"ПВЗ · offline",screen:"cashier",desc:"Кассир считывает QR-код — одновременно проходит оплата CDEK Wallet и начисление/списание баллов.",metricPartner:"Оплата и бонусы — одним действием на кассе",metricBank:"Оплата CDEK Wallet в офлайне"},
+    {title:"Готово",zone:"СДЕК · offline",screen:"offline_done",desc:"Покупка оплачена, баллы начислены — одним действием, без отдельной карты.",metricPartner:"Быстрая касса — клиент доволен",metricBank:"Бесшовный офлайн-сценарий CDEK Wallet"},
+  ]
+}},
+{id:"manage",group:"capability",label:"Управление",desc:"Управление кошельком CDEK Wallet в профиле клиента",steps:[
+  {title:"Доступ в профиле",zone:"СДЕК",screen:"profile_access",desc:"Кошелёк CDEK Wallet доступен в профиле клиента в приложении СДЕК — рядом с бонусами и картой лояльности.",metricPartner:"Кошелёк всегда под рукой в приложении СДЕК",metricBank:"Регулярные заходы в CDEK Wallet"},
+  {title:"Управление кошельком",zone:"Кошелёк",screen:"wallet_home",desc:"Баланс баллов, история операций и быстрые действия с картой на главном экране кошелька.",metricPartner:"Прозрачный баланс баллов и история операций",metricBank:"Вовлечённость в кошелёк"},
+  {title:"Пополнение / перевод",zone:"Кошелёк",screen:"wallet_topup",desc:"Пополнить со счёта в другом банке, со счёта в Альфа-Банке или настроить автопополнение.",metricPartner:"Пополнение в пару тапов — деньги готовы к покупке",metricBank:"Рост остатков на кошельке"},
+  {title:"Действия с картой",zone:"Кошелёк",screen:"wallet_actions",desc:"Изменить пин-код, заморозить или закрыть карту, посмотреть тарифы и условия, настроить автопополнение.",metricPartner:"Полное самообслуживание по карте",metricBank:"Снижение нагрузки на поддержку"},
+  {title:"Реквизиты",zone:"Кошелёк",screen:"wallet_requisites",desc:"Просмотр и копирование реквизитов карты — номер, срок, CVC под защитой.",metricPartner:"Реквизиты под рукой для любых платежей",metricBank:"Удобство использования кошелька"},
+]},
+{id:"installment",group:"capability",label:"Рассрочка",desc:"Оплата частями с CDEK Wallet — 4 платежа без переплаты",steps:[
+  {title:"Оффер рассрочки",zone:"СДЕК",screen:"inst_offer",desc:"На чек-ауте — «Оплата частями с CDEK Wallet»: разбейте заказ на 4 платежа без переплаты.",metricPartner:"Рассрочка повышает доступность дорогих покупок",metricBank:"Новый платёжный инструмент в канале партнёра"},
+  {title:"Выбор графика",zone:"Банк",screen:"inst_plan",desc:"Клиент выбирает план: 4 платежа раз в две недели. Видна сумма каждого платежа.",metricPartner:"Прозрачный график — 4 платежа без переплаты",metricBank:"Понятные условия повышают конверсию"},
+  {title:"Согласие",zone:"Банк",screen:"inst_consent",desc:"Согласие на условия оплаты частями и график платежей.",metricPartner:"Согласие в один экран",metricBank:"Оформление без лишних шагов"},
+  {title:"Подтверждение",zone:"Банк",screen:"inst_confirm",desc:"Первый платёж — сейчас, остальные — по графику. Без процентов и переплаты.",metricPartner:"Первый платёж сейчас, остальное — позже",metricBank:"Рост среднего чека за счёт рассрочки"},
+  {title:"Оформлено",zone:"СДЕК",screen:"inst_done",desc:"Рассрочка оформлена. +100 баллов начислено. График платежей доступен в кошельке.",metricPartner:"Бонусы начисляются и за рассрочку",metricBank:"Лояльность поверх рассрочки"},
+]},
+];
+const benefitsClient=[
+  {icon:"gift",title:"Баллы + скидка за оплату",desc:"Скидка + баллы при оплате CDEK Wallet и бонусы за каждую покупку — копятся в СДЕК",accent:"+100"},
+  {icon:"wallet",title:"Кошелёк без пластика",desc:"CDEK Wallet выпускается моментально — платить можно сразу, без ожидания карты"},
+  {icon:"refresh",title:"Улучшенные сценарии оплаты",desc:"Онлайн и офлайн, рассрочка, единый QR лояльности и оплаты"},
+  {icon:"sparkle",title:"Моментальное пополнение",desc:"С карты другого банка или со счёта в Альфа-Банке — в пару тапов"},
+];
+const benefitsPartner=[
+  {icon:"trend",title:"Экономия на эквайринге",desc:"Оплата через CDEK Wallet выгоднее для СДЕК, чем сторонние способы на чек-ауте",accent:"эквайринг"},
+  {icon:"users",title:"Новые клиенты",desc:"Готовая аудитория Альфа-Банка подключается прямо в канале СДЕК"},
+  {icon:"chart",title:"Частота покупок и средний чек",desc:"Совместная лояльность мотивирует возвращаться и покупать больше"},
+  {icon:"sparkle",title:"Совместные предложения",desc:"Бонусы клиенту финансируются за счёт экономии на эквайринге — не из маржи партнёра"},
+];
+const benefitsBank=[
+  {icon:"refresh",title:"Рост транзакционного оборота",desc:"Розничный оборот по эквайрингу через канал СДЕК",accent:"РТО"},
+  {icon:"users",title:"Новые клиенты",desc:"Подключение клиентов к CDEK Wallet в покупательском пути партнёра"},
+  {icon:"savings",title:"Доход от остатков на счетах",desc:"Пополнение кошельков и рост балансов на счетах Альфа-Банка"},
+  {icon:"data",title:"Данные и кросс-продажи",desc:"Связка «клиент банка — покупатель партнёра» для новых продуктов"},
+];
+
+/* ===== ICONS ===== */
+const Ico=({d,size=22,stroke=1.6})=>(
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round">{d}</svg>
+);
+const ICONS={
+  savings:<><path d="M12 3v4M5 11h14M5 11v8a2 2 0 002 2h10a2 2 0 002-2v-8M5 11a4 4 0 014-4h6a4 4 0 014 4"/><circle cx="16" cy="15" r="1"/></>,
+  users:<><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0113 0M16 11a3 3 0 100-6M21.5 19a4.5 4.5 0 00-6-4.3"/></>,
+  chart:<><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></>,
+  refresh:<><path d="M3 12a9 9 0 0115.5-6.3L21 8M21 3v5h-5M21 12a9 9 0 01-15.5 6.3L3 16M3 21v-5h5"/></>,
+  gift:<><path d="M20 12v8H4v-8M2 8h20v4H2zM12 8v13M12 8s-4-5-7-3c-2 1.5-1 5 3 5h4zM12 8s4-5 7-3c2 1.5 1 5-3 5h-4z"/></>,
+  sparkle:<><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/></>,
+  card:<><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6 15h4"/></>,
+  wallet:<><path d="M3 7a2 2 0 012-2h12a2 2 0 012 2M3 7v10a2 2 0 002 2h14a2 2 0 002-2v-6a2 2 0 00-2-2H5a2 2 0 01-2-2zM17 13h.01"/></>,
+  trend:<><path d="M3 17l6-6 4 4 8-8M14 7h7v7"/></>,
+  data:<><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></>,
+  arrow_r:<><path d="M5 12h14M13 5l7 7-7 7"/></>,
+  arrow_l:<><path d="M19 12H5M11 5l-7 7 7 7"/></>,
+  restart:<><path d="M3 12a9 9 0 109-9 9 9 0 00-7 3.5M3 3v4h4"/></>,
+};
+
+/* ===== HOOKS ===== */
+function useReveal(once=true, amount=0.2){
+  const ref = useRef(null);
+  const inView = useInView(ref, { once, amount });
+  return [ref, inView];
+}
+function useGlobalSpotlight(){
+  useEffect(()=>{
+    const el = document.getElementById('spotlight');
+    if(!el) return;
+    const onMove=(e)=>{ el.style.setProperty('--mx', e.clientX+'px'); el.style.setProperty('--my', e.clientY+'px'); };
+    window.addEventListener('mousemove', onMove);
+    return ()=>window.removeEventListener('mousemove', onMove);
+  },[]);
+}
+
+/* ===== PHONE PRIMITIVES ===== */
+const PRow = ({l,v,last,strong})=>(
+  <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 0",borderBottom:last?"none":"1px solid var(--phone-line-1)",fontSize:12}}>
+    <span style={{color:"var(--phone-text-2)"}}>{l}</span>
+    <span className="num" style={{fontWeight:strong?700:600,color:"var(--phone-text-1)"}}>{v}</span>
   </div>
-  <div class="nav-links">
-    <a href="#entry">Точки входа</a>
-    <a href="#journey">Путь клиента</a>
-    <a href="#benefits">Преимущества</a>
-    
+);
+const PBtn = (label,kind="dark")=>(
+  <div style={{
+    background: kind==="dark"?"var(--ink-1)":kind==="lime"?"var(--lime)":"#fff",
+    color: kind==="dark"?"#fff":"var(--ink-1)",
+    border: kind==="ghost"?"1px solid var(--phone-line-1)":"none",
+    borderRadius:11,padding:"12px 0",fontWeight:600,fontSize:13,textAlign:"center"
+  }}>{label}</div>
+);
+const Bonus = ({txt="Скидка + баллы при оплате CDEK Wallet"})=>(
+  <div style={{background:"var(--lime)",borderRadius:11,padding:"11px 12px",display:"flex",alignItems:"center",gap:9}}>
+    <GAMark size={22} radius={6}/>
+    <div style={{fontSize:11.5,fontWeight:700,color:"#fff",lineHeight:1.25,letterSpacing:"-.01em"}}>{txt}</div>
   </div>
-</div></nav>
+);
+const WalletCard = ({balance="0 ₽",num="•••• 4567",soft=false})=>(
+  <div style={{background:"linear-gradient(135deg, #00B956, #009A48)",borderRadius:14,padding:"13px 14px",position:"relative",overflow:"hidden"}}>
+    <div style={{position:"absolute",top:12,right:13}}><GAMark size={20} bg="transparent" flat={true} ink="#fff"/></div>
+    <div style={{fontSize:9,opacity:.7,textTransform:"uppercase",letterSpacing:".1em",color:"#fff",fontWeight:700}}>CDEK Wallet</div>
+    <div className="num" style={{fontSize:15,fontWeight:700,letterSpacing:"0.22em",marginTop:14,color:"#fff"}}>{num}</div>
+    <div className="num" style={{fontSize:11,marginTop:6,color:"#fff",opacity:.8,fontWeight:600}}>Баланс · {balance}</div>
+  </div>
+);
+const TickCircle = ()=>(
+  <div style={{width:46,height:46,background:"var(--lime)",borderRadius:"50%",margin:"0 auto 12px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+    <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 6" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+  </div>
+);
+const PTitle = ({t,s})=>(
+  <React.Fragment>
+    <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em",lineHeight:1.2}}>{t}</div>
+    {s&&<div style={{fontSize:11,color:"var(--phone-text-2)",marginTop:4}}>{s}</div>}
+  </React.Fragment>
+);
 
-<!-- HERO -->
-<header class="hero"><div class="wrap">
-  <div class="eyebrow">Customer Journey Map · СДЕК</div>
-  <div class="hero-top">
-    <div>
-      <h1>CDEK <span class="mark-hl"><span>Wallet</span></span></h1>
+/* ===== SCREENS ===== */
+const SCREENS = {
+  ga_checkout:{title:"Чек-аут · СДЕК", render:()=>(
+    <div style={{padding:"14px 16px",display:"flex",flexDirection:"column",gap:11}}>
+      <div style={{display:"flex",alignItems:"center",gap:8}}>
+        <div style={{width:22,height:22,borderRadius:6,background:"var(--ink-1)",display:"flex",alignItems:"center",justifyContent:"center"}}>
+          <span style={{color:"var(--lime)",fontWeight:800,fontSize:11}}>ЗЯ</span>
+        </div>
+        <span style={{fontSize:11,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:".02em"}}>СДЕК</span>
+      </div>
+      <div style={{border:"1px solid var(--phone-line-1)",borderRadius:12,padding:"11px 13px"}}>
+        <div style={{fontSize:10,color:"var(--phone-text-2)",textTransform:"uppercase",letterSpacing:".06em"}}>Ваш заказ</div>
+        <div style={{fontSize:11,color:"var(--phone-text-1)",marginTop:5,fontWeight:500}}>Nike Air Max 90 · СДЕК.Shopping</div>
+        <div className="num" style={{fontSize:22,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.02em",marginTop:4}}>14 990 ₽</div>
+      </div>
+      <Bonus/>
+      <div style={{marginTop:2}}>{PBtn("Оформить заказ","dark")}</div>
     </div>
-    <div>
-      <p class="hero-desc">White-label банковский кошелёк Альфа-Банка, встроенный в приложение и чек-аут СДЕК. Скидка на доставку и баллы за каждую оплату — без затрат из маржи партнёра.</p>
-      <div class="hero-caps">
-        <span class="hero-cap">Банковская лицензия</span>
-        <span class="hero-cap-dot"></span>
-        <span class="hero-cap">Эскроу</span>
-        <span class="hero-cap-dot"></span>
-        <span class="hero-cap">Кредит</span>
-        <span class="hero-cap-dot"></span>
-        <span class="hero-cap">% на остаток</span>
-        <span class="hero-cap-dot"></span>
-        <span class="hero-cap">Рассрочка</span>
+  )},
+  offer_consents:{title:"Оффер + согласия", render:()=>(
+    <div style={{padding:"15px 16px"}}>
+      <GAMark size={38} radius={11}/>
+      <div style={{fontSize:17,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em",lineHeight:1.2,marginTop:11}}>Платите через CDEK Wallet</div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",marginTop:4,marginBottom:12}}>Подключите кошелёк и получайте баллы за каждую оплату</div>
+      {["Скидка + баллы за оплату","Бесплатно навсегда","Бонусы за каждую покупку"].map((t,i)=>(
+        <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 0",borderTop:i===0?"1px solid var(--phone-line-1)":"none",borderBottom:"1px solid var(--phone-line-1)",fontSize:12,color:"var(--phone-text-1)",fontWeight:500}}>
+          <span style={{width:16,height:16,borderRadius:"50%",background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+            <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </span>{t}
+        </div>))}
+      <div style={{marginTop:13}}>{PBtn("Продолжить","dark")}</div>
+      <div style={{fontSize:8,color:"var(--phone-text-3)",marginTop:9,lineHeight:1.4}}>Нажимая «Продолжить», я даю согласие на передачу реквизитов и банковской тайны, подтверждаю Памятку ЭДС и СОПД</div>
+    </div>
+  )},
+  identify:{title:"Идентификация клиента", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Идентификация клиента" s="Введите номер — пришлём код из СМС"/>
+      <div style={{borderBottom:"1.5px solid var(--phone-text-1)",padding:"10px 0 8px",marginTop:14}}>
+        <div style={{fontSize:9,color:"var(--phone-text-2)",textTransform:"uppercase",letterSpacing:".06em"}}>Номер телефона</div>
+        <div className="num" style={{fontSize:18,fontWeight:600,color:"var(--phone-text-1)",letterSpacing:".02em",marginTop:2}}>+7 (999) 123-45-67</div>
+      </div>
+      <div style={{display:"flex",gap:7,justifyContent:"center",margin:"16px 0 6px"}}>
+        {[4,8,2,""].map((d,i)=>(
+          <div key={i} className="num" style={{width:40,height:48,background:"var(--phone-surf)",borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,fontWeight:700,color:"var(--phone-text-1)",border:i===3?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)"}}>
+            {d}{i===3&&<span style={{opacity:.35,marginLeft:1}}>|</span>}</div>))}
+      </div>
+      <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",fontWeight:600,textAlign:"center",marginBottom:12}}>Код из СМС · повторно через 0:25</div>
+      {PBtn("Подтвердить","dark")}
+    </div>
+  )},
+  form:{title:"Анкета на открытие", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Заполните заявку"/>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",marginTop:6,marginBottom:12,display:"flex",alignItems:"center",gap:8}}>
+        <span>Шаг 1 из 2</span>
+        <div style={{flex:1,height:3,background:"var(--phone-line-1)",borderRadius:2,position:"relative"}}>
+          <div style={{position:"absolute",inset:0,width:"50%",background:"var(--lime)",borderRadius:2}}/></div>
+      </div>
+      {[{l:"Фамилия",v:"Купреев"},{l:"Имя",v:"Роман"},{l:"Отчество",v:"Александрович"},{l:"Дата рождения",v:"15.03.1990"}].map((f,i)=>(
+        <div key={i} style={{padding:"7px 0",borderBottom:"1px solid var(--phone-line-1)"}}>
+          <div style={{fontSize:9,color:"var(--phone-text-2)",textTransform:"uppercase",letterSpacing:".06em"}}>{f.l}</div>
+          <div className="num" style={{fontSize:13,fontWeight:500,color:"var(--phone-text-1)",marginTop:1}}>{f.v}</div>
+        </div>))}
+      <div style={{fontSize:9,color:"var(--phone-text-3)",margin:"8px 0 12px"}}>Поля предзаполнены из данных партнёра</div>
+      {PBtn("Открыть кошелёк","dark")}
+    </div>
+  )},
+  issued:{title:"Кошелёк выпущен", render:()=>(
+    <div style={{padding:16,textAlign:"center"}}>
+      <TickCircle/>
+      <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Кошелёк CDEK Wallet выпущен</div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",margin:"6px 0 13px",lineHeight:1.4}}>Пополните кошелёк и оплачивайте покупки с баллами</div>
+      <div style={{marginBottom:13,textAlign:"left"}}><WalletCard balance="0 ₽"/></div>
+      <div style={{display:"flex",gap:8}}>
+        <div style={{flex:1}}>{PBtn("Пополнить","dark")}</div>
+        <div style={{flex:1}}>{PBtn("Оплатить","lime")}</div>
       </div>
     </div>
-  </div>
-  <div class="hero-card">
-    <h3>Экономика проекта · 3 года</h3>
-    <div class="big num">2 млрд ₽<small>накопительная экономия на кэшбэке</small></div>
-    <div class="stats">
-      <div><div class="sv num">460 млрд</div><div class="sl">оборот через эквайринг</div></div>
-      <div><div class="sv num">4 млн</div><div class="sl">пользователей кошелька</div></div>
-      <div><div class="sv num">2 млн</div><div class="sl">новых клиентов банка</div></div>
-      <div><div class="sv num">5 млрд</div><div class="sl">доход банка</div></div>
+  )},
+  topup_c2b:{title:"Пополнение кошелька", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Пополнение кошелька" s="С карты другого банка"/>
+      <div style={{marginTop:12,marginBottom:12}}><WalletCard balance="0 ₽" soft={true}/></div>
+      {[{l:"Сумма",v:"14 990 ₽"},{l:"Комиссия",v:"0 ₽"},{l:"Откуда",v:"Т-Банк ····8901"},{l:"Куда",v:"CDEK Wallet ····4567",last:true}].map((r,i)=>(<PRow key={i} {...r}/>))}
+      <div style={{marginTop:14}}>{PBtn("Пополнить и оплатить","dark")}</div>
     </div>
-  </div>
-</div></header>
-
-<!-- ПРОДУКТ -->
-<section class="section"><div class="wrap">
-  <div class="eyebrow">Продукт</div>
-  <h2 class="section-title">Кошелёк как продукт</h2>
-  <p class="section-desc">Удобный платёжный сервис и программа лояльности в одном сценарии. White-label инфраструктура под брендом СДЕК — как WB-Кошелёк или OZON-Карта.</p>
-  <div class="card-grid c2">
-    <div class="card"><div class="accent-num">−15%</div><h3>Скидка на доставку</h3><p>Каждая оплата через CDEK Wallet — со скидкой. Финансируется экономией на эквайринге, а не из маржи СДЕК.</p></div>
-    <div class="card"><h3>Баллы за каждую покупку</h3><p>Начисление и списание баллов. Оплата СДЕК.Shopping, СДЕК Маркет, доставки — всё через один кошелёк.</p></div>
-    <div class="card"><h3>Оплата без пластика</h3><p>Моментальный выпуск. Оплата онлайн, в приложении и в пункте выдачи по QR — без ожидания карты.</p></div>
-    <div class="card"><h3>Мгновенное пополнение</h3><p>С карты любого банка, со счёта в Альфа-Банке или автопополнение при снижении баланса.</p></div>
-  </div>
-</div></section>
-
-<!-- ТОЧКИ ВХОДА -->
-<section class="section" id="entry"><div class="wrap">
-  <div class="eyebrow">Точки входа</div>
-  <h2 class="section-title">Потенциальные точки входа в кошелёк</h2>
-  <p class="section-desc">Три канала, где клиент СДЕК видит оффер CDEK Wallet — в момент принятия решения об оплате.</p>
-  <div class="card-grid c3">
-    <div class="card">
-      <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
-      <h3>СДЕК.Shopping</h3>
-      <p>Выкуп из-за рубежа. Оффер на чек-ауте: скидка на международную доставку + баллы. Высокий средний чек.</p>
-      <div class="offer">Скидка 15% на доставку + 200 баллов</div>
-    </div>
-    <div class="card">
-      <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg></div>
-      <h3>СДЕК Маркет</h3>
-      <p>Покупки на маркетплейсе. Бейдж «+150 баллов с CDEK Wallet» на карточке товара. Баннер в корзине.</p>
-      <div class="offer">Скидка 5% + 150 баллов + бесплатная доставка</div>
-    </div>
-    <div class="card">
-      <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1zM16 8h4l3 4v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-      <h3>Оплата доставки</h3>
-      <p>Основной продукт СДЕК — отправка и получение посылок. Оффер при оплате доставки в приложении и в ПВЗ по QR.</p>
-      <div class="offer">Скидка 10% на доставку + 100 баллов</div>
-    </div>
-  </div>
-</div></section>
-
-<!-- КЛИЕНТСКИЙ ПУТЬ -->
-<section class="section" id="journey"><div class="wrap">
-  <div class="eyebrow">Клиентский путь</div>
-  <h2 class="section-title">Выпуск и подключение CDEK Wallet</h2>
-  <p class="section-desc">Три сценария в зависимости от статуса клиента в Альфа-Банке. Клиент не покидает приложение СДЕК.</p>
-
-  <div class="tabs" id="journey-tabs">
-    <button class="tab active" data-j="new">Новый клиент</button>
-    <button class="tab" data-j="existing">Действующий клиент</button>
-    <button class="tab" data-j="nocard">Без активной карты</button>
-  </div>
-
-  <div class="journey-layout">
-    <div class="phone-col">
-      <div class="step-nav" id="step-nav">
-        <button class="step-nav-btn" id="nav-prev" aria-label="Назад"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <div class="step-nav-counter"><b id="nav-cur">01</b> / <span id="nav-total">07</span></div>
-        <button class="step-nav-btn" id="nav-next" aria-label="Далее"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  )},
+  bind:{title:"Привязка к CDEK Wallet", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Способ оплаты" s="CDEK Wallet привязан автоматически"/>
+      <div style={{marginTop:12}}>
+        {[{n:"CDEK Wallet",sel:true,tag:"ga"},{n:"СБП",sel:false},{n:"SberPay",sel:false},{n:"Яндекс Пэй",sel:false}].map((m,i)=>(
+          <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"11px 12px",borderRadius:11,marginBottom:7,border:m.sel?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)",background:m.sel?"var(--phone-surf)":"#fff"}}>
+            {m.tag==="ga"?<GAMark size={22} radius={6}/>:<div style={{width:22,height:22,borderRadius:6,background:"var(--phone-surf)",border:"1px solid var(--phone-line-1)"}}/>}
+            <span style={{flex:1,fontSize:13,fontWeight:m.sel?700:500,color:"var(--phone-text-1)"}}>{m.n}</span>
+            <span style={{width:16,height:16,borderRadius:"50%",border:"1.5px solid "+(m.sel?"var(--ink-1)":"var(--phone-line-1)"),display:"flex",alignItems:"center",justifyContent:"center"}}>
+              {m.sel&&<span style={{width:8,height:8,borderRadius:"50%",background:"var(--ink-1)"}}/>}</span>
+          </div>))}
       </div>
-      <div class="phone">
-        <div class="phone-inner">
-          <div class="phone-status"><span>9:41</span><span>●●●</span></div>
-          <div class="phone-bar">
-            <svg height="12" viewBox="126 216 244 68" fill="none" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="m165.138 267.494h-10.539c-16.439 0-4.496-35.058 9.344-35.058h16.651c2.669 0 7.376.493 9.695-6.137l3.583-10.299h-22.833c-12.365 0-21.99 4.373-28.945 11.71-12.014 12.556-16.088 32.166-13.208 41.547 2.74 8.677 10.187 14.39 21.849 14.531l9.063.071h11.171l2.74-8.253c2.037-5.855-2.53-8.112-8.571-8.112zm128.284-14.531 3.443-11.216h-36.743c-6.112 0-8.852 1.693-9.906 5.22l-3.443 11.216h36.744c6.112 0 8.852-1.693 9.905-5.22zm-52.128 19.751-3.443 11.215h36.743c6.042 0 8.852-1.692 9.906-5.219l3.443-11.216h-36.744c-6.041 0-8.781 1.693-9.905 5.22zm60.7-45.428 3.442-11.215h-36.743c-6.112 0-8.852 1.692-9.906 5.219l-3.443 11.216h36.744c6.042 0 8.781-1.693 9.906-5.22zm-55.502 2.258c-1.545-10.44-7.095-13.473-20.584-13.473h-24.589l-14.332 42.112h9.063c5.409 0 8.149.07 11.03-7.689l5.971-18.058h9.133c7.799 0 6.042 9.805 2.108 19.327-3.513 8.395-9.625 15.801-17.002 15.801h-15.245c-6.112 0-8.922 1.693-10.046 5.22l-3.794 11.216h11.17l10.96-.071c9.695-.07 17.634-.775 26.908-9.17 9.835-8.958 21.217-31.954 19.249-45.215zm123.508-13.544h-21.287l-20.023 21.373c-2.318 2.469-4.707 4.938-7.025 7.83h-.211l9.976-29.203h-17.353l-23.394 67.929h17.352l7.447-21.373 7.728-6.56 6.113 19.328c1.896 5.996 3.864 8.605 8.079 8.605h13.278l-13.629-37.95z" fill="#00b33c" fill-rule="evenodd"/></svg>
-            <span id="phone-title">Чек-аут · СДЕК</span>
-          </div>
-          <div class="phone-body" id="phone-body">
-            <!-- NEW: screens -->
-            <div class="screen active" data-screen="new-1">
-              <div class="scr-label">Ваш заказ</div>
-              <div style="border:1px solid #ecece7;border-radius:12px;padding:11px 13px">
-                <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.06em">СДЕК.Shopping · Выкуп</div>
-                <div style="font-size:11px;font-weight:500;color:#0a0a0a;margin-top:4px">Nike Air Max 90 · Amazon DE</div>
-                <div style="font-size:22px;font-weight:800;color:#0a0a0a;margin-top:4px">14 990 ₽</div>
-                <div style="font-size:10px;color:#888;margin-top:3px">Доставка: 1 890 ₽ → <span style="color:#00B956;font-weight:700">1 607 ₽</span></div>
-              </div>
-              <div class="scr-bonus"><span>Скидка 15% + 200 баллов с CDEK Wallet</span></div>
-              <div class="scr-btn">Оформить заказ</div>
-            </div>
-            <div class="screen" data-screen="new-2">
-              <div class="scr-title">Платите через CDEK Wallet</div>
-              <div class="scr-sub">Подключите кошелёк — скидка + баллы</div>
-              <div style="display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #ecece7"><span style="width:16px;height:16px;border-radius:50%;background:#00B956;display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#fff" stroke-width="2"/></svg></span><span style="font-size:12px;font-weight:500">Скидка на доставку до 15%</span></div>
-              <div style="display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #ecece7"><span style="width:16px;height:16px;border-radius:50%;background:#00B956;display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#fff" stroke-width="2"/></svg></span><span style="font-size:12px;font-weight:500">Баллы за каждую покупку</span></div>
-              <div style="display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #ecece7"><span style="width:16px;height:16px;border-radius:50%;background:#00B956;display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#fff" stroke-width="2"/></svg></span><span style="font-size:12px;font-weight:500">Бесплатно навсегда</span></div>
-              <div class="scr-btn">Продолжить</div>
-              <div style="font-size:8px;color:#aaa;margin-top:8px;line-height:1.4">Нажимая «Продолжить», я даю согласие на передачу реквизитов и банковской тайны</div>
-            </div>
-            <div class="screen" data-screen="new-3">
-              <div class="scr-title">Идентификация</div>
-              <div class="scr-sub">Введите номер — пришлём код</div>
-              <div class="scr-field"><div class="scr-field-label">Номер телефона</div><div class="scr-field-val">+7 (999) 123-45-67</div></div>
-              <div style="display:flex;gap:7px;justify-content:center;margin:16px 0"><div style="width:40px;height:48px;background:#f5f5f2;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700">4</div><div style="width:40px;height:48px;background:#f5f5f2;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700">8</div><div style="width:40px;height:48px;background:#f5f5f2;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700">2</div><div style="width:40px;height:48px;border:1.5px solid #0a0a0a;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#ccc">|</div></div>
-              <div style="font-size:11px;color:#888;text-align:center;margin-bottom:12px">Код из СМС · повторно через 0:25</div>
-              <div class="scr-btn">Подтвердить</div>
-            </div>
-            <div class="screen" data-screen="new-4">
-              <div class="scr-title">Заполните заявку</div>
-              <div class="scr-field"><div class="scr-field-label">Фамилия</div><div class="scr-field-val">Иванов</div></div>
-              <div class="scr-field"><div class="scr-field-label">Имя</div><div class="scr-field-val">Алексей</div></div>
-              <div class="scr-field"><div class="scr-field-label">Отчество</div><div class="scr-field-val">Сергеевич</div></div>
-              <div class="scr-field"><div class="scr-field-label">Дата рождения</div><div class="scr-field-val">22.05.1992</div></div>
-              <div style="font-size:9px;color:#aaa;margin-top:8px">Поля предзаполнены из профиля СДЕК</div>
-              <div class="scr-btn">Открыть кошелёк</div>
-            </div>
-            <div class="screen" data-screen="new-5" style="text-align:center">
-              <div class="scr-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="scr-title" style="text-align:center">CDEK Wallet выпущен</div>
-              <div class="scr-sub" style="text-align:center">Пополните и оплачивайте со скидкой</div>
-              <div class="scr-card"><div class="scr-card-label">CDEK Wallet</div><div class="scr-card-num">•••• •••• •••• 4567</div><div class="scr-card-bal">Баланс · 0 ₽</div></div>
-              <div style="display:flex;gap:8px"><div style="flex:1" class="scr-btn">Пополнить</div><div style="flex:1" class="scr-btn green">Оплатить</div></div>
-            </div>
-            <div class="screen" data-screen="new-6">
-              <div class="scr-title">Пополнение</div>
-              <div class="scr-sub">С карты другого банка</div>
-              <div class="scr-card"><div class="scr-card-label">CDEK Wallet</div><div class="scr-card-num">•••• 4567</div><div class="scr-card-bal">Баланс · 0 ₽</div></div>
-              <div class="scr-row"><span class="k">Сумма</span><span class="v">14 990 ₽</span></div>
-              <div class="scr-row"><span class="k">Комиссия</span><span class="v">0 ₽</span></div>
-              <div class="scr-row"><span class="k">Откуда</span><span class="v">Т-Банк ····8901</span></div>
-              <div class="scr-row"><span class="k">Куда</span><span class="v">CDEK Wallet ····4567</span></div>
-              <div class="scr-btn">Пополнить</div>
-            </div>
-            <div class="screen" data-screen="new-7" style="text-align:center">
-              <div class="scr-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="scr-title" style="text-align:center">Выкуп оплачен</div>
-              <div class="scr-sub" style="text-align:center">Оплата через CDEK Wallet</div>
-              <div style="text-align:left"><div class="scr-row"><span class="k">Сумма товара</span><span class="v">14 990 ₽</span></div><div class="scr-row"><span class="k">Доставка (−15%)</span><span class="v">1 607 ₽</span></div><div class="scr-row"><span class="k">Начислено</span><span class="scr-badge">+200 баллов</span></div><div class="scr-row"><span class="k">Итого</span><span class="v" style="font-size:18px;font-weight:800">16 597 ₽</span></div></div>
-            </div>
-            <!-- EXISTING: screens -->
-            <div class="screen" data-screen="existing-1">
-              <div class="scr-label">Ваш заказ</div>
-              <div style="border:1px solid #ecece7;border-radius:12px;padding:11px 13px">
-                <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.06em">Отправка посылки</div>
-                <div style="font-size:13px;font-weight:600;margin-top:4px">Москва → Санкт-Петербург</div>
-                <div style="font-size:22px;font-weight:800;margin-top:4px">590 ₽</div>
-              </div>
-              <div class="scr-bonus"><span>Скидка 10% + 100 баллов с CDEK Wallet</span></div>
-              <div class="scr-btn">Оплатить</div>
-            </div>
-            <div class="screen" data-screen="existing-2">
-              <div class="scr-title">Платите через CDEK Wallet</div>
-              <div class="scr-sub">Скидка + баллы за оплату</div>
-              <div class="scr-bonus"><span>Скидка 10% на доставку + 100 баллов</span></div>
-              <div class="scr-btn">Продолжить</div>
-            </div>
-            <div class="screen" data-screen="existing-3">
-              <div class="scr-title">Идентификация</div>
-              <div class="scr-sub">Номер + СМС-код</div>
-              <div class="scr-field"><div class="scr-field-label">Номер телефона</div><div class="scr-field-val">+7 (999) 123-45-67</div></div>
-              <div class="scr-btn" style="margin-top:20px">Подтвердить</div>
-            </div>
-            <div class="screen" data-screen="existing-4">
-              <div class="scr-title">Выберите карту</div>
-              <div class="scr-sub">Привяжем к CDEK Wallet</div>
-              <div style="border:1.5px solid #00B956;border-radius:12px;padding:12px;margin:8px 0;background:rgba(0,185,86,0.06);display:flex;align-items:center;gap:10px"><div style="width:26px;height:26px;border-radius:7px;background:#00B956"></div><div><div style="font-size:13px;font-weight:700">Альфа-Карта</div><div style="font-size:10px;color:#888">····2071 · 1 000 000 ₽</div></div></div>
-              <div style="border:1px solid #ecece7;border-radius:12px;padding:12px;margin:8px 0;display:flex;align-items:center;gap:10px"><div style="width:26px;height:26px;border-radius:7px;background:#eee"></div><div><div style="font-size:13px;font-weight:600">Альфа-Карта</div><div style="font-size:10px;color:#888">····8834 · 15 600 ₽</div></div></div>
-              <div class="scr-btn">Продолжить</div>
-            </div>
-            <div class="screen" data-screen="existing-5" style="text-align:center">
-              <div class="scr-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="scr-title" style="text-align:center">CDEK Wallet подключён</div>
-              <div class="scr-sub" style="text-align:center">К карте Альфа-Банка ····2071</div>
-              <div class="scr-card"><div class="scr-card-label">CDEK Wallet</div><div class="scr-card-num">•••• 4567</div><div class="scr-card-bal">Готов к оплате</div></div>
-            </div>
-            <div class="screen" data-screen="existing-6" style="text-align:center">
-              <div class="scr-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="scr-title" style="text-align:center">Доставка оплачена</div>
-              <div class="scr-sub" style="text-align:center">Москва → СПб · 2–3 дня</div>
-              <div style="text-align:left"><div class="scr-row"><span class="k">Стоимость</span><span class="v">590 ₽</span></div><div class="scr-row"><span class="k">Скидка 10%</span><span class="v">−59 ₽</span></div><div class="scr-row"><span class="k">Начислено</span><span class="scr-badge">+100 баллов</span></div><div class="scr-row"><span class="k">Итого</span><span class="v" style="font-size:18px;font-weight:800">531 ₽</span></div></div>
-            </div>
-            <!-- NOCARD: screens -->
-            <div class="screen" data-screen="nocard-1">
-              <div class="scr-label">СДЕК Маркет</div>
-              <div style="border:1px solid #ecece7;border-radius:12px;padding:11px 13px">
-                <div style="font-size:11px;font-weight:500;margin-top:4px">Наушники JBL Tune 520BT</div>
-                <div style="font-size:22px;font-weight:800;margin-top:4px">3 990 ₽</div>
-                <div style="font-size:10px;color:#00B956;font-weight:700;margin-top:2px">−5% с CDEK Wallet</div>
-              </div>
-              <div class="scr-bonus"><span>Скидка 5% + 150 баллов с CDEK Wallet</span></div>
-              <div class="scr-btn">Оплатить</div>
-            </div>
-            <div class="screen" data-screen="nocard-2">
-              <div class="scr-title">Платите через CDEK Wallet</div>
-              <div class="scr-sub">Скидка + баллы за оплату</div>
-              <div class="scr-bonus"><span>Скидка 5% + 150 баллов</span></div>
-              <div class="scr-btn">Продолжить</div>
-            </div>
-            <div class="screen" data-screen="nocard-3">
-              <div class="scr-title">Идентификация</div>
-              <div class="scr-sub">Номер + СМС-код</div>
-              <div class="scr-field"><div class="scr-field-label">Номер телефона</div><div class="scr-field-val">+7 (999) 123-45-67</div></div>
-              <div class="scr-btn" style="margin-top:20px">Подтвердить</div>
-            </div>
-            <div class="screen" data-screen="nocard-4">
-              <div class="scr-title">Откройте CDEK Wallet</div>
-              <div class="scr-sub">Бесплатно навсегда</div>
-              <div class="scr-bonus"><span>Скидка на доставку + баллы за каждую оплату</span></div>
-              <div style="font-size:12px;color:#888;margin:8px 0;line-height:1.4">Ваша карта = ваш кошелёк. Покупки с повышенными бонусами.</div>
-              <div class="scr-btn">Открыть кошелёк</div>
-            </div>
-            <div class="screen" data-screen="nocard-5">
-              <div class="scr-title">Заполните заявку</div>
-              <div class="scr-field"><div class="scr-field-label">Фамилия</div><div class="scr-field-val">Иванов</div></div>
-              <div class="scr-field"><div class="scr-field-label">Имя</div><div class="scr-field-val">Алексей</div></div>
-              <div class="scr-field"><div class="scr-field-label">Дата рождения</div><div class="scr-field-val">22.05.1992</div></div>
-              <div style="font-size:9px;color:#aaa;margin-top:6px">ФИО предзаполнены из данных банка</div>
-              <div class="scr-btn">Открыть кошелёк</div>
-            </div>
-            <div class="screen" data-screen="nocard-6">
-              <div class="scr-title">Пополнение + пластик</div>
-              <div class="scr-sub">CDEK Wallet выпущен</div>
-              <div class="scr-card"><div class="scr-card-label">CDEK Wallet</div><div class="scr-card-num">•••• 4567</div><div class="scr-card-bal">Баланс · 0 ₽</div></div>
-              <div class="scr-row"><span class="k">Пополнение C2B</span><span class="v">с карты другого банка</span></div>
-              <div class="scr-row"><span class="k">Пластик</span><span class="v">доставка курьером СДЕК</span></div>
-              <div class="scr-btn">Пополнить и заказать карту</div>
-            </div>
-            <div class="screen" data-screen="nocard-7" style="text-align:center">
-              <div class="scr-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="scr-title" style="text-align:center">Заказ оплачен</div>
-              <div class="scr-sub" style="text-align:center">Оплата через CDEK Wallet</div>
-              <div style="text-align:left"><div class="scr-row"><span class="k">Товар</span><span class="v">3 990 ₽</span></div><div class="scr-row"><span class="k">Скидка 5%</span><span class="v">−200 ₽</span></div><div class="scr-row"><span class="k">Начислено</span><span class="scr-badge">+150 баллов</span></div><div class="scr-row"><span class="k">Итого</span><span class="v" style="font-size:18px;font-weight:800">3 790 ₽</span></div></div>
-            </div>
-          </div>
-          <div class="phone-home"><span></span></div>
+      <div style={{marginTop:6}}>{PBtn("Продолжить","dark")}</div>
+    </div>
+  )},
+  pay_bonus:{title:"Оплата на чек-ауте", render:()=>(
+    <div style={{padding:16,textAlign:"center"}}>
+      <TickCircle/>
+      <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Заказ оплачен</div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",margin:"6px 0 13px"}}>Оплата прошла через CDEK Wallet</div>
+      <div style={{textAlign:"left",borderTop:"1px solid var(--phone-line-1)",paddingTop:8}}>
+        <PRow l="Сумма заказа" v="14 990 ₽"/>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 0",borderBottom:"1px solid var(--phone-line-1)"}}>
+          <span style={{fontSize:12,color:"var(--phone-text-1)",fontWeight:600}}>Начислено баллов</span>
+          <span className="num" style={{background:"var(--lime)",borderRadius:8,padding:"3px 9px",fontSize:12,fontWeight:800,color:"#fff"}}>+100</span>
+        </div>
+        <div style={{display:"flex",justifyContent:"space-between",padding:"11px 0 0",alignItems:"baseline"}}>
+          <span style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>Оплачено</span>
+          <span className="num" style={{fontSize:22,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>14 990 ₽</span>
         </div>
       </div>
     </div>
-    <div>
-
-  <div id="j-new" class="steps j-panel active-panel">
-    <div class="step hi"><div class="step-n">1</div><div><div class="step-zone">СДЕК</div><h4>Точка входа — чек-аут</h4><p>Клиент оформляет заказ: доставку, выкуп через СДЕК.Shopping или покупку на СДЕК Маркет. На чек-ауте — оффер «Скидка + баллы при оплате CDEK Wallet».</p><div class="step-metrics"><div class="step-m"><b>СДЕК</b>Рост конверсии чек-аута: оффер в момент оплаты</div><div class="step-m bank"><b>Альфа-Банк</b>Присутствие CDEK Wallet в пути клиента СДЕК</div></div></div></div>
-    <div class="step"><div class="step-n">2</div><div><div class="step-zone">СДЕК → Банк</div><h4>Оффер + согласия</h4><p>Скидка на доставку + баллы за каждую оплату кошельком. Согласие на передачу реквизитов и банковской тайны.</p><div class="step-metrics"><div class="step-m"><b>СДЕК</b>Бонусы клиенту за счёт экономии на эквайринге</div><div class="step-m bank"><b>Альфа-Банк</b>Подключение в канале партнёра</div></div></div></div>
-    <div class="step"><div class="step-n">3</div><div><div class="step-zone">Банк</div><h4>Идентификация</h4><p>Номер телефона + СМС-код. WebView в приложении СДЕК — клиент не покидает приложение.</p></div></div>
-    <div class="step"><div class="step-n">4</div><div><div class="step-zone">Банк</div><h4>Анкета на открытие</h4><p>ФИО и дата рождения. Поля предзаполнены из профиля СДЕК — заявка меньше минуты.</p></div></div>
-    <div class="step"><div class="step-n">5</div><div><div class="step-zone">Банк</div><h4>Кошелёк выпущен</h4><p>Моментальный выпуск CDEK Wallet. Без пластика — платить можно сразу.</p></div></div>
-    <div class="step"><div class="step-n">6</div><div><div class="step-zone">Банк</div><h4>Пополнение кошелька</h4><p>C карты другого банка через платёжный шлюз (C2B). Достаточно суммы заказа.</p></div></div>
-    <div class="step hi"><div class="step-n">7</div><div><div class="step-zone">Банк → СДЕК</div><h4>Привязка и оплата</h4><p>Реквизиты автоматически передаются в СДЕК. Клиент оплачивает — скидка применена, баллы начислены.</p><div class="step-metrics"><div class="step-m"><b>СДЕК</b>Автоматическая привязка, скидка + баллы</div><div class="step-m bank"><b>Альфа-Банк</b>Активный кошелёк — начало транзакционной активности</div></div></div></div>
-  </div>
-
-  <div id="j-existing" class="steps j-panel">
-    <div class="step hi"><div class="step-n">1</div><div><div class="step-zone">СДЕК</div><h4>Точка входа — чек-аут</h4><p>На чек-ауте — оффер CDEK Wallet. Клиент уже клиент Альфа-Банка.</p><div class="step-metrics"><div class="step-m"><b>СДЕК</b>Готовая база Альфа-Банка — простое подключение</div><div class="step-m bank"><b>Альфа-Банк</b>Рост активности через канал СДЕК</div></div></div></div>
-    <div class="step"><div class="step-n">2</div><div><div class="step-zone">СДЕК → Банк</div><h4>Оффер + согласия</h4><p>Баллы + скидка на доставку. Согласие на передачу реквизитов.</p></div></div>
-    <div class="step"><div class="step-n">3</div><div><div class="step-zone">Банк</div><h4>Идентификация</h4><p>Номер + СМС-код. WebView в приложении СДЕК.</p></div></div>
-    <div class="step"><div class="step-n">4</div><div><div class="step-zone">Банк</div><h4>Выбор карты</h4><p>Выбор активной карты Альфа-Банка или выпуск новой. WebView в контуре СДЕК.</p></div></div>
-    <div class="step"><div class="step-n">5</div><div><div class="step-zone">Банк</div><h4>Кошелёк подключён</h4><p>CDEK Wallet подключён к выбранной карте в один шаг.</p></div></div>
-    <div class="step hi"><div class="step-n">6</div><div><div class="step-zone">СДЕК</div><h4>Оплата на чек-ауте</h4><p>Клиент платит CDEK Wallet. Скидка + баллы начислены.</p><div class="step-metrics"><div class="step-m"><b>СДЕК</b>Совместная лояльность повышает частоту покупок</div><div class="step-m bank"><b>Альфа-Банк</b>Рост оборота по эквайрингу через СДЕК</div></div></div></div>
-  </div>
-
-  <div id="j-nocard" class="steps j-panel">
-    <div class="step hi"><div class="step-n">1</div><div><div class="step-zone">СДЕК</div><h4>Точка входа — чек-аут</h4><p>Информер о скидках и баллах. Клиент — действующий клиент банка без активной карты.</p><div class="step-metrics"><div class="step-m"><b>СДЕК</b>Возврат «спящих» клиентов через канал СДЕК</div><div class="step-m bank"><b>Альфа-Банк</b>Повторная активация без затрат на ремаркетинг</div></div></div></div>
-    <div class="step"><div class="step-n">2</div><div><div class="step-zone">СДЕК → Банк</div><h4>Оффер + согласия</h4><p>Банк определяет клиента по ID — без полной анкеты.</p></div></div>
-    <div class="step"><div class="step-n">3</div><div><div class="step-zone">Банк</div><h4>Идентификация</h4><p>Номер + СМС-код. WebView в приложении СДЕК.</p></div></div>
-    <div class="step"><div class="step-n">4</div><div><div class="step-zone">Банк</div><h4>Предложение открыть кошелёк</h4><p>«Откройте бесплатный CDEK Wallet — скидка на доставку + баллы».</p></div></div>
-    <div class="step"><div class="step-n">5</div><div><div class="step-zone">Банк</div><h4>Анкета + выпуск</h4><p>ФИО предзаполнены из данных банка. Моментальный выпуск.</p></div></div>
-    <div class="step"><div class="step-n">6</div><div><div class="step-zone">Банк</div><h4>Пополнение + заказ пластика</h4><p>Пополнение C2B. Заказ карты курьером СДЕК. Автопривязка к CDEK Wallet.</p></div></div>
-    <div class="step hi"><div class="step-n">7</div><div><div class="step-zone">СДЕК</div><h4>Привязка и оплата</h4><p>Передача реквизитов. Оплата со скидкой и начислением баллов.</p><div class="step-metrics"><div class="step-m"><b>СДЕК</b>Регулярные оплаты со скидкой + баллы</div><div class="step-m bank"><b>Альфа-Банк</b>Активный клиент с транзакционной историей</div></div></div></div>
-  </div>
-  </div>
-  </div>
-</div></section>
-
-<!-- ПРЕИМУЩЕСТВА -->
-<section class="section" id="benefits"><div class="wrap">
-  <div class="eyebrow">Преимущества</div>
-  <h2 class="section-title">Что даёт CDEK Wallet</h2>
-  <p class="section-desc">&nbsp;</p>
-  <div style="margin-bottom:36px">
-    <div style="font-size:18px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></span>Для СДЕК</div>
-    <div class="card-grid c2">
-      <div class="card"><h3>Экономия на эквайринге</h3><p>Оплата через CDEK Wallet дешевле сторонних способов. Экономия финансирует скидки клиентам — без потери маржи.</p></div>
-      <div class="card"><h3>Новые клиенты</h3><p>Аудитория Альфа-Банка подключается в канале СДЕК. Партнёрский трафик конвертируется в покупателей.</p></div>
-      <div class="card"><h3>Рост частоты и среднего чека</h3><p>Совместная лояльность мотивирует заказывать чаще. Рассрочка повышает доступность дорогих выкупов.</p></div>
-      <div class="card"><h3>Совместные предложения</h3><p>Бонусы клиенту за счёт экономии на эквайринге. Маркетинговый инвентарь Альфа-Банка для продвижения.</p></div>
+  )},
+  select_card:{title:"Выбор карты", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Выберите карту в кошельке" s="Или выпустите новую"/>
+      <div style={{marginTop:12}}>
+        {[{n:"Карта Альфа-Банка",num:"····4567",bal:"15 200 ₽",sel:true},{n:"Карта Альфа-Банка",num:"····3456",bal:"1 100 ₽",sel:false}].map((c,i)=>(
+          <div key={i} style={{background:c.sel?"var(--phone-surf)":"#fff",border:c.sel?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)",borderRadius:11,padding:"10px 12px",marginBottom:8,display:"flex",alignItems:"center",gap:10}}>
+            <div style={{width:34,height:24,background:"var(--ink-1)",borderRadius:4,display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <div style={{width:9,height:9,borderRadius:2,background:"var(--lime)"}}/></div>
+            <div style={{flex:1}}>
+              <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>{c.n}</div>
+              <div className="num" style={{fontSize:10,color:"var(--phone-text-2)"}}>{c.num} · {c.bal}</div>
+            </div>
+            <span style={{width:16,height:16,borderRadius:"50%",border:"1.5px solid "+(c.sel?"var(--ink-1)":"var(--phone-line-1)"),display:"flex",alignItems:"center",justifyContent:"center"}}>
+              {c.sel&&<span style={{width:8,height:8,borderRadius:"50%",background:"var(--ink-1)"}}/>}</span>
+          </div>))}
+        <div style={{display:"flex",alignItems:"center",gap:10,padding:"10px 12px",borderRadius:11,border:"1px dashed var(--line-3)"}}>
+          <div style={{width:34,height:24,borderRadius:4,border:"1px dashed var(--line-3)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,color:"var(--phone-text-2)",fontWeight:300}}>+</div>
+          <span style={{flex:1,fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>Выпустить новую карту</span>
+        </div>
+      </div>
+      <div style={{marginTop:12}}>{PBtn("К оплате","dark")}</div>
     </div>
-  </div>
-  <div>
-    <div style="font-size:18px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></span>Для Альфа-Банка</div>
-    <div class="card-grid c2">
-      <div class="card"><h3>Рост транзакционного оборота</h3><p>Оборот по эквайрингу через каналы СДЕК: доставка, маркет, шоппинг. До 460 млрд ₽ за 3 года.</p></div>
-      <div class="card"><h3>Привлечение клиентов</h3><p>До 2 млн новых клиентов через канал СДЕК — без затрат в прямых каналах банка.</p></div>
-      <div class="card"><h3>Доход от остатков</h3><p>Рост балансов на счетах Альфа-Банка. Проценты на остаток удерживают средства.</p></div>
-      <div class="card"><h3>Данные и кросс-продажи</h3><p>Связка «клиент банка — отправитель/получатель СДЕК» для новых продуктов.</p></div>
+  )},
+  wallet_ready:{title:"Кошелёк подключён", render:()=>(
+    <div style={{padding:16,textAlign:"center"}}>
+      <TickCircle/>
+      <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>CDEK Wallet подключён</div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",margin:"6px 0 13px",lineHeight:1.4}}>Кошелёк привязан к выбранной карте Альфа-Банка</div>
+      <div style={{textAlign:"left"}}><WalletCard balance="15 200 ₽"/></div>
+      <div style={{marginTop:13}}>{PBtn("Перейти к оплате","dark")}</div>
     </div>
-  </div>
-</div></section>
-
-
-
-
-
-
-
-
-
-<footer class="footer"><div class="wrap footer-inner">
-  <div style="display:flex;align-items:center;gap:12px">
-    <svg height="14" viewBox="126 216 244 68" fill="none" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="m165.138 267.494h-10.539c-16.439 0-4.496-35.058 9.344-35.058h16.651c2.669 0 7.376.493 9.695-6.137l3.583-10.299h-22.833c-12.365 0-21.99 4.373-28.945 11.71-12.014 12.556-16.088 32.166-13.208 41.547 2.74 8.677 10.187 14.39 21.849 14.531l9.063.071h11.171l2.74-8.253c2.037-5.855-2.53-8.112-8.571-8.112zm128.284-14.531 3.443-11.216h-36.743c-6.112 0-8.852 1.693-9.906 5.22l-3.443 11.216h36.744c6.112 0 8.852-1.693 9.905-5.22zm-52.128 19.751-3.443 11.215h36.743c6.042 0 8.852-1.692 9.906-5.219l3.443-11.216h-36.744c-6.041 0-8.781 1.693-9.905 5.22zm60.7-45.428 3.442-11.215h-36.743c-6.112 0-8.852 1.692-9.906 5.219l-3.443 11.216h36.744c6.042 0 8.781-1.693 9.906-5.22zm-55.502 2.258c-1.545-10.44-7.095-13.473-20.584-13.473h-24.589l-14.332 42.112h9.063c5.409 0 8.149.07 11.03-7.689l5.971-18.058h9.133c7.799 0 6.042 9.805 2.108 19.327-3.513 8.395-9.625 15.801-17.002 15.801h-15.245c-6.112 0-8.922 1.693-10.046 5.22l-3.794 11.216h11.17l10.96-.071c9.695-.07 17.634-.775 26.908-9.17 9.835-8.958 21.217-31.954 19.249-45.215zm123.508-13.544h-21.287l-20.023 21.373c-2.318 2.469-4.707 4.938-7.025 7.83h-.211l9.976-29.203h-17.353l-23.394 67.929h17.352l7.447-21.373 7.728-6.56 6.113 19.328c1.896 5.996 3.864 8.605 8.079 8.605h13.278l-13.629-37.95z" fill="#00b33c" fill-rule="evenodd"/></svg>
-    <span class="footer-note">CDEK Wallet · кошелёк для СДЕК · 2026</span>
-  </div>
-  <span class="footer-note">Услугу оказывает АО «Альфа-Банк»</span>
-</div></footer>
-
-</div>
-
-<script>
-// Spotlight
-document.addEventListener('mousemove',function(e){
-  var s=document.getElementById('spotlight');
-  if(s){s.style.setProperty('--mx',e.clientX+'px');s.style.setProperty('--my',e.clientY+'px')}
-});
-
-var currentJ='new';
-var screenTitles={
-  'new-1':'Чек-аут · СДЕК','new-2':'Оффер + согласия','new-3':'Идентификация','new-4':'Анкета','new-5':'Кошелёк выпущен','new-6':'Пополнение','new-7':'Привязка и оплата',
-  'existing-1':'Чек-аут · СДЕК','existing-2':'Оффер','existing-3':'Идентификация','existing-4':'Выбор карты','existing-5':'Кошелёк подключён','existing-6':'Оплата',
-  'nocard-1':'СДЕК Маркет','nocard-2':'Оффер','nocard-3':'Идентификация','nocard-4':'Открыть кошелёк','nocard-5':'Анкета','nocard-6':'Пополнение + пластик','nocard-7':'Привязка и оплата'
+  )},
+  topup_me2me:{title:"Пополнение кошелька", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Пополнение кошелька" s="Между своими счетами · me2me"/>
+      <div style={{marginTop:12,marginBottom:12}}><WalletCard balance="1 100 ₽" soft={true}/></div>
+      {[{l:"Сумма",v:"8 400 ₽"},{l:"Банк списания",v:"Альфа-Банк"},{l:"Куда",v:"CDEK Wallet ····4567",last:true}].map((r,i)=>(<PRow key={i} {...r}/>))}
+      <div style={{marginTop:14}}>{PBtn("Подтвердить пополнение","dark")}</div>
+    </div>
+  )},
+  upsell:{title:"Предложение открыть кошелёк", render:()=>(
+    <div style={{padding:"18px 16px",textAlign:"center"}}>
+      <div style={{display:"flex",justifyContent:"center",marginBottom:12}}><GAMark size={42} radius={12}/></div>
+      <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em",lineHeight:1.25}}>Откройте кошелёк CDEK Wallet</div>
+      <div style={{fontSize:12,color:"var(--phone-text-2)",margin:"8px 0 14px",lineHeight:1.45}}>Бесплатно, без пластика на старте. Получайте баллы за каждую оплату.</div>
+      <Bonus txt="Скидка + баллы за первую оплату"/>
+      <div style={{marginTop:13}}>{PBtn("Открыть кошелёк","dark")}</div>
+    </div>
+  )},
+  delivery:{title:"Заказ пластика", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Пластиковая карта" s="Курьером или в отделении"/>
+      <div style={{marginTop:12}}>
+        {[{n:"Курьером",d:"завтра, бесплатно",sel:true},{n:"В отделении",d:"сегодня, рядом с вами",sel:false}].map((o,i)=>(
+          <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"11px 12px",borderRadius:11,marginBottom:8,border:o.sel?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)",background:o.sel?"var(--phone-surf)":"#fff"}}>
+            <div style={{flex:1}}>
+              <div style={{fontSize:13,fontWeight:o.sel?700:500,color:"var(--phone-text-1)"}}>{o.n}</div>
+              <div style={{fontSize:10,color:"var(--phone-text-2)"}}>{o.d}</div>
+            </div>
+            <span style={{width:16,height:16,borderRadius:"50%",border:"1.5px solid "+(o.sel?"var(--ink-1)":"var(--phone-line-1)"),display:"flex",alignItems:"center",justifyContent:"center"}}>
+              {o.sel&&<span style={{width:8,height:8,borderRadius:"50%",background:"var(--ink-1)"}}/>}</span>
+          </div>))}
+      </div>
+      <div style={{fontSize:9,color:"var(--phone-text-3)",margin:"4px 0 12px"}}>Цифровой кошелёк уже активен — оплата доступна сейчас</div>
+      {PBtn("Заказать карту","dark")}
+    </div>
+  )},
+  shop_product:{title:"Витрина · СДЕК", render:()=>(
+    <div style={{padding:"14px 16px"}}>
+      <div style={{height:150,borderRadius:14,background:"linear-gradient(135deg,var(--surface-2),var(--surface-1))",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:12,position:"relative",overflow:"hidden"}}>
+        <div style={{position:"absolute",top:10,left:10,background:"var(--lime)",borderRadius:7,padding:"3px 9px",fontSize:9,fontWeight:800,color:"var(--ink-1)",letterSpacing:".02em"}}>ХИТ</div>
+        <svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="var(--ink-3)" strokeWidth="1.3"><path d="M9 2h6l1 4H8zM8 6h8l1.5 13a2 2 0 01-2 2.2H8.5a2 2 0 01-2-2.2z" strokeLinejoin="round"/><path d="M10 11h4"/></svg>
+      </div>
+      <div style={{fontSize:10,color:"var(--phone-text-2)",fontWeight:600,textTransform:"uppercase",letterSpacing:".06em"}}>Уход · Сыворотка</div>
+      <div style={{fontSize:15,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em",margin:"3px 0 8px",lineHeight:1.25}}>iPhone 16 · СДЕК.Shopping</div>
+      <div style={{display:"flex",alignItems:"baseline",gap:8,marginBottom:10}}>
+        <span className="num" style={{fontSize:22,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>14 990 ₽</span>
+        <span style={{fontSize:11,color:"var(--phone-text-3)"}}>в наличии</span>
+      </div>
+      <div style={{marginBottom:12}}><Bonus txt="Скидка + баллы при оплате CDEK Wallet"/></div>
+      {PBtn("В корзину","dark")}
+    </div>
+  )},
+  cart:{title:"Корзина", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Корзина" s="1 товар · СДЕК"/>
+      <div style={{display:"flex",gap:11,padding:"12px 0",borderBottom:"1px solid var(--phone-line-1)",marginTop:8}}>
+        <div style={{width:46,height:46,borderRadius:10,background:"var(--surface-2)",flexShrink:0}}/>
+        <div style={{flex:1}}>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)",lineHeight:1.3}}>iPhone 16 · СДЕК.Shopping</div>
+          <div style={{fontSize:10,color:"var(--phone-text-2)",marginTop:2}}>1 шт.</div>
+        </div>
+        <div className="num" style={{fontSize:13,fontWeight:700,color:"var(--phone-text-1)"}}>14 990 ₽</div>
+      </div>
+      <div style={{marginTop:6}}>
+        <PRow l="Товары" v="14 990 ₽"/>
+        <PRow l="Доставка" v="бесплатно"/>
+        <PRow l="К оплате" v="14 990 ₽" last={true} strong={true}/>
+      </div>
+      <div style={{margin:"12px 0"}}><Bonus/></div>
+      {PBtn("Перейти к оплате","dark")}
+    </div>
+  )},
+  checkout_methods:{title:"Способ оплаты", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Способ оплаты" s="К оплате 14 990 ₽"/>
+      <div style={{marginTop:12}}>
+        {[{n:"CDEK Wallet",d:"+100 баллов · кошелёк",sel:true,mark:true},{n:"Картой онлайн",d:"Visa · Mastercard · Мир",sel:false},{n:"СБП",d:"по QR-коду",sel:false}].map((o,i)=>(
+          <div key={i} style={{display:"flex",alignItems:"center",gap:11,padding:"12px",borderRadius:12,marginBottom:8,border:o.sel?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)",background:o.sel?"var(--phone-surf)":"#fff"}}>
+            {o.mark?<GAMark size={26} radius={7}/>:<div style={{width:26,height:26,borderRadius:7,background:"var(--surface-2)"}}/>}
+            <div style={{flex:1}}>
+              <div style={{fontSize:13,fontWeight:o.sel?700:600,color:"var(--phone-text-1)"}}>{o.n}</div>
+              <div style={{fontSize:10,color:o.mark?"var(--ink-1)":"var(--phone-text-2)",fontWeight:o.mark?600:400}}>{o.d}</div>
+            </div>
+            <span style={{width:18,height:18,borderRadius:"50%",border:"1.5px solid "+(o.sel?"var(--ink-1)":"var(--phone-line-1)"),display:"flex",alignItems:"center",justifyContent:"center"}}>
+              {o.sel&&<span style={{width:9,height:9,borderRadius:"50%",background:"var(--ink-1)"}}/>}</span>
+          </div>))}
+      </div>
+      <div style={{marginTop:6}}>{PBtn("Оплатить CDEK Wallet","dark")}</div>
+    </div>
+  )},
+  method_selected:{title:"Подтверждение оплаты", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Оплата кошельком" s="CDEK Wallet ····4567"/>
+      <div style={{margin:"12px 0"}}><WalletCard balance="12 400 ₽"/></div>
+      <PRow l="К оплате" v="14 990 ₽"/>
+      <PRow l="Спишется с кошелька" v="14 990 ₽"/>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 0",borderBottom:"none"}}>
+        <span style={{fontSize:12,color:"var(--phone-text-1)",fontWeight:600}}>Начислим баллов</span>
+        <span className="num" style={{background:"var(--lime)",borderRadius:8,padding:"3px 9px",fontSize:12,fontWeight:800,color:"#fff"}}>+100</span>
+      </div>
+      <div style={{marginTop:12}}>{PBtn("Подтвердить оплату","dark")}</div>
+    </div>
+  )},
+  paid:{title:"Оплачено", render:()=>(
+    <div style={{padding:16,textAlign:"center"}}>
+      <TickCircle/>
+      <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Оплачено</div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",margin:"6px 0 13px"}}>Оплата прошла через CDEK Wallet</div>
+      <div style={{textAlign:"left",borderTop:"1px solid var(--phone-line-1)",paddingTop:8}}>
+        <PRow l="Сумма заказа" v="14 990 ₽"/>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 0",borderBottom:"1px solid var(--phone-line-1)"}}>
+          <span style={{fontSize:12,color:"var(--phone-text-1)",fontWeight:600}}>Начислено баллов</span>
+          <span className="num" style={{background:"var(--lime)",borderRadius:8,padding:"3px 9px",fontSize:12,fontWeight:800,color:"#fff"}}>+100</span>
+        </div>
+        <div style={{display:"flex",justifyContent:"space-between",padding:"11px 0 0",alignItems:"baseline"}}>
+          <span style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>Остаток в кошельке</span>
+          <span className="num" style={{fontSize:18,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>2 901 ₽</span>
+        </div>
+      </div>
+    </div>
+  )},
+  qr_loyalty:{title:"QR лояльности и оплаты", render:()=>(
+    <div style={{padding:16}}>
+      <div style={{background:"var(--lime)",borderRadius:16,padding:"16px 14px",textAlign:"center"}}>
+        <div style={{fontSize:10,fontWeight:800,color:"var(--ink-1)",textTransform:"uppercase",letterSpacing:".1em",opacity:.75}}>CDEK Wallet · единый код</div>
+        <div style={{background:"#fff",borderRadius:13,padding:14,margin:"12px auto",width:"fit-content"}}>
+          <QRish size={132} color="#0A0A0A" bg="#fff"/>
+        </div>
+        <div className="num" style={{fontSize:13,fontWeight:700,color:"var(--ink-1)",letterSpacing:".14em"}}>•••• •••• •••• 4567</div>
+        <div style={{display:"inline-flex",alignItems:"center",gap:6,marginTop:9,background:"rgba(10,10,10,0.08)",borderRadius:9,padding:"5px 11px"}}>
+          <span style={{fontSize:11,fontWeight:600,color:"var(--ink-1)"}}>Баллы</span>
+          <span className="num" style={{fontSize:13,fontWeight:800,color:"var(--ink-1)"}}>981</span>
+        </div>
+      </div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",textAlign:"center",marginTop:12,lineHeight:1.4}}>Покажите код на кассе СДЕК —<br/>спишется оплата и начислятся баллы</div>
+    </div>
+  )},
+  cashier:{title:"Касса · СДЕК", render:()=>(
+    <div style={{padding:16}}>
+      <div style={{borderRadius:16,border:"1px solid var(--phone-line-1)",overflow:"hidden"}}>
+        <div style={{background:"var(--ink-1)",padding:"16px 14px",textAlign:"center"}}>
+          <div style={{fontSize:10,color:"rgba(255,255,255,0.55)",textTransform:"uppercase",letterSpacing:".1em",fontWeight:700}}>ПВЗ · СДЕК</div>
+          <div style={{margin:"12px auto 0",width:54,height:54,borderRadius:13,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center"}}>
+            <GAMark size={34} bg="transparent" flat={true} ink="#fff"/>
+          </div>
+          <div className="num" style={{color:"#fff",fontSize:24,fontWeight:800,marginTop:12,letterSpacing:"-.02em"}}>14 990 ₽</div>
+          <div style={{color:"rgba(255,255,255,0.6)",fontSize:11,marginTop:2}}>оплата · CDEK Wallet</div>
+        </div>
+        <div style={{padding:"13px 14px",background:"#fff"}}>
+          <div style={{display:"flex",alignItems:"center",gap:9}}>
+            <span style={{width:22,height:22,borderRadius:"50%",background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+              <svg width="12" height="12" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 6" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </span>
+            <div style={{fontSize:12,fontWeight:700,color:"var(--phone-text-1)"}}>Оплата принята · баллы начислены</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )},
+  offline_done:{title:"Оплата в магазине", render:()=>(
+    <div style={{padding:16,textAlign:"center"}}>
+      <TickCircle/>
+      <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Покупка оплачена</div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",margin:"6px 0 13px"}}>Оплата на кассе через CDEK Wallet</div>
+      <div style={{marginBottom:12}}><Bonus txt="+100 баллов начислено"/></div>
+      <div style={{textAlign:"left",borderTop:"1px solid var(--phone-line-1)",paddingTop:6}}>
+        <PRow l="Магазин" v="СДЕК"/>
+        <PRow l="Сумма" v="14 990 ₽"/>
+        <PRow l="Остаток в кошельке" v="2 901 ₽" last={true} strong={true}/>
+      </div>
+    </div>
+  )},
+  profile_access:{title:"Профиль · СДЕК", render:()=>(
+    <div style={{padding:16}}>
+      <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:14}}>
+        <div style={{width:48,height:48,borderRadius:"50%",background:"var(--ink-1)",color:"#fff",display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700,fontSize:16}}>АИ</div>
+        <div>
+          <div style={{fontSize:15,fontWeight:700,color:"var(--phone-text-1)"}}>Алексей Иванов</div>
+          <div style={{fontSize:11,color:"var(--phone-text-2)"}}>+7 ••• ••• 45 67</div>
+        </div>
+      </div>
+      <div style={{display:"flex",gap:9,marginBottom:14}}>
+        <div style={{flex:1,background:"var(--lime)",borderRadius:13,padding:"12px"}}>
+          <div className="num" style={{fontSize:20,fontWeight:800,color:"var(--ink-1)",letterSpacing:"-.02em"}}>981</div>
+          <div style={{fontSize:10,fontWeight:600,color:"var(--ink-1)",opacity:.7}}>баллов</div>
+        </div>
+        <div style={{flex:1,background:"var(--phone-surf)",borderRadius:13,padding:"12px"}}>
+          <div className="num" style={{fontSize:20,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>4</div>
+          <div style={{fontSize:10,fontWeight:600,color:"var(--phone-text-2)"}}>посылок в месяц</div>
+        </div>
+      </div>
+      <div style={{display:"flex",alignItems:"center",gap:11,padding:"13px 13px",borderRadius:13,border:"1px solid var(--phone-line-1)"}}>
+        <div style={{width:30,height:30,borderRadius:8,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center"}}>
+          <GAMark size={20} bg="transparent" flat={true} ink="#fff"/>
+        </div>
+        <div style={{flex:1}}>
+          <div style={{fontSize:13,fontWeight:700,color:"var(--phone-text-1)"}}>Кошелёк CDEK Wallet</div>
+          <div style={{fontSize:10,color:"var(--phone-text-2)"}}>Открыть и управлять</div>
+        </div>
+        <span style={{color:"var(--phone-text-3)"}}><Ico d={ICONS.arrow_r} size={18}/></span>
+      </div>
+    </div>
+  )},
+  wallet_home:{title:"Кошелёк CDEK Wallet", render:()=>(
+    <div style={{padding:16}}>
+      <WalletCard balance="12 400 ₽"/>
+      <div style={{display:"flex",gap:8,margin:"13px 0"}}>
+        {[{l:"Пополнить",i:"savings"},{l:"Перевести",i:"refresh"},{l:"Действия",i:"wallet"}].map((a,i)=>(
+          <div key={i} style={{flex:1,background:"var(--phone-surf)",borderRadius:12,padding:"11px 6px",textAlign:"center"}}>
+            <div style={{display:"flex",justifyContent:"center",color:"var(--ink-1)",marginBottom:5}}><Ico d={ICONS[a.i]} size={19}/></div>
+            <div style={{fontSize:10.5,fontWeight:600,color:"var(--phone-text-1)"}}>{a.l}</div>
+          </div>))}
+      </div>
+      <div style={{fontSize:11,fontWeight:700,color:"var(--phone-text-2)",textTransform:"uppercase",letterSpacing:".05em",margin:"4px 0 4px"}}>История</div>
+      {[{n:"СДЕК",d:"Оплата покупки",v:"−14 990 ₽",b:false},{n:"Пополнение",d:"со счёта в Альфа-Банке",v:"+8 400 ₽",b:true},{n:"Баллы",d:"начислено за оплату",v:"+100",b:false,bon:true}].map((t,i)=>(
+        <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"10px 0",borderBottom:i<2?"1px solid var(--phone-line-1)":"none"}}>
+          <div style={{width:30,height:30,borderRadius:9,background:t.bon?"var(--lime)":"var(--surface-2)",flexShrink:0}}/>
+          <div style={{flex:1}}>
+            <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>{t.n}</div>
+            <div style={{fontSize:10,color:"var(--phone-text-2)"}}>{t.d}</div>
+          </div>
+          <div className="num" style={{fontSize:12,fontWeight:700,color:t.b?"var(--ink-1)":t.bon?"var(--ink-1)":"var(--phone-text-1)"}}>{t.v}</div>
+        </div>))}
+    </div>
+  )},
+  wallet_topup:{title:"Пополнение кошелька", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Пополнить кошелёк" s="CDEK Wallet ····4567"/>
+      <div style={{marginTop:12}}>
+        {[{n:"Со счёта в другом банке",d:"по СБП · мгновенно",mark:false},{n:"Со счёта в Альфа-Банке",d:"между своими · me2me",mark:true},{n:"Автопополнение",d:"при балансе ниже порога",mark:false}].map((o,i)=>(
+          <div key={i} style={{display:"flex",alignItems:"center",gap:11,padding:"12px",borderRadius:12,marginBottom:8,border:o.mark?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)",background:o.mark?"var(--phone-surf)":"#fff"}}>
+            <div style={{width:30,height:30,borderRadius:8,background:o.mark?"var(--lime)":"var(--surface-2)",display:"flex",alignItems:"center",justifyContent:"center",color:"var(--ink-1)"}}>
+              <Ico d={ICONS[o.mark?"refresh":"savings"]} size={17}/>
+            </div>
+            <div style={{flex:1}}>
+              <div style={{fontSize:13,fontWeight:o.mark?700:600,color:"var(--phone-text-1)"}}>{o.n}</div>
+              <div style={{fontSize:10,color:"var(--phone-text-2)"}}>{o.d}</div>
+            </div>
+            <span style={{color:"var(--phone-text-3)"}}><Ico d={ICONS.arrow_r} size={16}/></span>
+          </div>))}
+      </div>
+      <div style={{fontSize:9,color:"var(--phone-text-3)",marginTop:4}}>Лимит пополнения по СБП — 15 000 ₽ за операцию</div>
+    </div>
+  )},
+  wallet_actions:{title:"Действия с кошельком", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Действия" s="Управление кошельком CDEK Wallet"/>
+      <div style={{marginTop:10}}>
+        {[{n:"Реквизиты кошелька",i:"card"},{n:"Изменить ПИН-код",i:"refresh"},{n:"Автопополнение",i:"savings"},{n:"Заморозить кошелёк",i:"wallet"},{n:"Тарифы и условия",i:"data"},{n:"Закрыть кошелёк",i:"arrow_r",danger:true}].map((a,i)=>(
+          <div key={i} style={{display:"flex",alignItems:"center",gap:11,padding:"13px 2px",borderBottom:i<5?"1px solid var(--phone-line-1)":"none"}}>
+            <div style={{width:30,height:30,borderRadius:8,background:"var(--phone-surf)",display:"flex",alignItems:"center",justifyContent:"center",color:a.danger?"#C0392B":"var(--ink-1)"}}>
+              <Ico d={ICONS[a.i]} size={17}/>
+            </div>
+            <div style={{flex:1,fontSize:13,fontWeight:600,color:a.danger?"#C0392B":"var(--phone-text-1)"}}>{a.n}</div>
+            {!a.danger&&<span style={{color:"var(--phone-text-3)"}}><Ico d={ICONS.arrow_r} size={16}/></span>}
+          </div>))}
+      </div>
+    </div>
+  )},
+  wallet_requisites:{title:"Реквизиты кошелька", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Реквизиты" s="Виртуальная карта CDEK Wallet"/>
+      <div style={{margin:"12px 0"}}><WalletCard balance="12 400 ₽" num="4790 •••• •••• 4567"/></div>
+      {[{l:"Номер карты",v:"4790 12•• •••• 4567",copy:true},{l:"Срок действия",v:"08 / 29"},{l:"CVC",v:"•••",eye:true}].map((r,i)=>(
+        <div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"11px 0",borderBottom:i<2?"1px solid var(--phone-line-1)":"none"}}>
+          <span style={{fontSize:12,color:"var(--phone-text-2)"}}>{r.l}</span>
+          <span style={{display:"flex",alignItems:"center",gap:8}}>
+            <span className="num" style={{fontSize:12.5,fontWeight:600,color:"var(--phone-text-1)"}}>{r.v}</span>
+            {r.copy&&<span style={{color:"var(--phone-text-3)"}}><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg></span>}
+            {r.eye&&<span style={{color:"var(--phone-text-3)"}}><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="2.5"/></svg></span>}
+          </span>
+        </div>))}
+      <div style={{marginTop:14}}>{PBtn("Скопировать реквизиты","ghost")}</div>
+    </div>
+  )},
+  inst_offer:{title:"Оплата частями", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Способ оплаты" s="К оплате 14 990 ₽"/>
+      <div style={{marginTop:12}}>
+        {[{n:"Оплата частями",d:"CDEK Wallet · 4 платежа без переплаты",sel:true,mark:true},{n:"Полная оплата кошельком",d:"14 990 ₽ сразу",sel:false}].map((o,i)=>(
+          <div key={i} style={{display:"flex",alignItems:"center",gap:11,padding:"12px",borderRadius:12,marginBottom:8,border:o.sel?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)",background:o.sel?"var(--phone-surf)":"#fff"}}>
+            {o.mark?<GAMark size={26} radius={7}/>:<div style={{width:26,height:26,borderRadius:7,background:"var(--surface-2)"}}/>}
+            <div style={{flex:1}}>
+              <div style={{fontSize:13,fontWeight:o.sel?700:600,color:"var(--phone-text-1)"}}>{o.n}</div>
+              <div style={{fontSize:10,color:o.mark?"var(--ink-1)":"var(--phone-text-2)",fontWeight:o.mark?600:400}}>{o.d}</div>
+            </div>
+            <span style={{width:18,height:18,borderRadius:"50%",border:"1.5px solid "+(o.sel?"var(--ink-1)":"var(--phone-line-1)"),display:"flex",alignItems:"center",justifyContent:"center"}}>
+              {o.sel&&<span style={{width:9,height:9,borderRadius:"50%",background:"var(--ink-1)"}}/>}</span>
+          </div>))}
+      </div>
+      <div style={{marginTop:6}}>{PBtn("Оформить оплату частями","dark")}</div>
+    </div>
+  )},
+  inst_plan:{title:"График платежей", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Оплата частями" s="14 990 ₽ · 4 платежа раз в 2 недели"/>
+      <div style={{display:"flex",gap:6,margin:"13px 0"}}>
+        {[1,2,3,4].map((n,i)=>(
+          <div key={i} style={{flex:1,height:5,borderRadius:3,background:i===0?"var(--lime)":"var(--surface-2)"}}/>
+        ))}
+      </div>
+      {[{d:"Сегодня",v:"2 375 ₽",now:true},{d:"Через 2 недели",v:"2 375 ₽"},{d:"Через 4 недели",v:"2 375 ₽"},{d:"Через 6 недель",v:"2 374 ₽"}].map((p,i)=>(
+        <div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"11px 0",borderBottom:i<3?"1px solid var(--phone-line-1)":"none"}}>
+          <span style={{display:"flex",alignItems:"center",gap:9}}>
+            <span style={{width:8,height:8,borderRadius:"50%",background:p.now?"var(--lime-deep)":"var(--phone-line-1)"}}/>
+            <span style={{fontSize:12,fontWeight:p.now?700:500,color:"var(--phone-text-1)"}}>{p.d}</span>
+          </span>
+          <span className="num" style={{fontSize:13,fontWeight:p.now?800:600,color:"var(--phone-text-1)"}}>{p.v}</span>
+        </div>))}
+      <div style={{fontSize:10,color:"var(--phone-text-3)",margin:"10px 0 12px"}}>Без процентов и переплаты · комиссия 0 ₽</div>
+      {PBtn("Продолжить","dark")}
+    </div>
+  )},
+  inst_consent:{title:"Согласия", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Подтверждение условий" s="Оплата частями · CDEK Wallet"/>
+      <div style={{marginTop:12,display:"flex",flexDirection:"column",gap:10}}>
+        {["Согласие на оплату частями и график платежей","Согласие на обработку персональных данных (СОПД)","Подписание простой электронной подписью (ЭДС)"].map((t,i)=>(
+          <div key={i} style={{display:"flex",gap:10,alignItems:"flex-start"}}>
+            <span style={{width:18,height:18,borderRadius:5,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>
+              <svg width="11" height="11" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 6" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </span>
+            <span style={{fontSize:11.5,color:"var(--phone-text-1)",lineHeight:1.4}}>{t}</span>
+          </div>))}
+      </div>
+      <div style={{margin:"14px 0 12px",padding:"10px 12px",background:"var(--phone-surf)",borderRadius:11,fontSize:10.5,color:"var(--phone-text-2)",lineHeight:1.45}}>Оплату частями предоставляет Альфа-Банк. Условия — в графике платежей.</div>
+      {PBtn("Подтвердить кодом из СМС","dark")}
+    </div>
+  )},
+  inst_confirm:{title:"Первый платёж", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Первый платёж" s="Оплата частями · 4 платежа"/>
+      <div style={{margin:"13px 0",textAlign:"center",padding:"16px 12px",background:"var(--phone-surf)",borderRadius:14}}>
+        <div style={{fontSize:11,color:"var(--phone-text-2)"}}>Сейчас спишется</div>
+        <div className="num" style={{fontSize:30,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.03em",margin:"4px 0"}}>2 375 ₽</div>
+        <div style={{display:"inline-flex",alignItems:"center",gap:6,background:"var(--lime)",borderRadius:9,padding:"4px 10px"}}>
+          <span style={{fontSize:10,fontWeight:700,color:"var(--ink-1)"}}>без процентов</span>
+        </div>
+      </div>
+      <PRow l="Всего к оплате" v="14 990 ₽"/>
+      <PRow l="Платежей осталось" v="3 × 2 375 ₽"/>
+      <PRow l="Спишется с кошелька" v="CDEK Wallet ····4567" last={true}/>
+      <div style={{marginTop:14}}>{PBtn("Оплатить 2 375 ₽","dark")}</div>
+    </div>
+  )},
+  inst_done:{title:"Оплата частями оформлена", render:()=>(
+    <div style={{padding:16,textAlign:"center"}}>
+      <TickCircle/>
+      <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Покупка оформлена</div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",margin:"6px 0 13px"}}>Первый платёж прошёл · 3 платежа впереди</div>
+      <div style={{marginBottom:12}}><Bonus txt="+100 баллов начислено"/></div>
+      <div style={{textAlign:"left",borderTop:"1px solid var(--phone-line-1)",paddingTop:6}}>
+        <PRow l="Оплачено сейчас" v="2 375 ₽"/>
+        <PRow l="Следующий платёж" v="через 2 недели"/>
+        <PRow l="График платежей" v="в кошельке" last={true} strong={true}/>
+      </div>
+    </div>
+  )},
 };
 
-function showScreen(key){
-  document.querySelectorAll('.screen').forEach(function(el){el.classList.remove('active')});
-  var s=document.querySelector('[data-screen="'+key+'"]');
-  if(s) s.classList.add('active');
-  var t=document.getElementById('phone-title');
-  if(t && screenTitles[key]) t.textContent=screenTitles[key];
-}
-
-function activateStep(panel,idx){
-  var steps=panel.querySelectorAll('.step');
-  steps.forEach(function(s,i){
-    s.classList.toggle('active',i===idx);
-    s.classList.remove('hi');
-  });
-  var key=panel.getAttribute('data-j')+'-'+(idx+1);
-  showScreen(key);
-  updateNav(idx,steps.length);
-}
-
-function showJourney(id){
-  currentJ=id;
-  document.querySelectorAll('.j-panel').forEach(function(el){el.style.display='none'});
-  document.querySelectorAll('#journey-tabs .tab').forEach(function(el){el.classList.remove('active')});
-  var btn=document.querySelector('#journey-tabs [data-j="'+id+'"]');
-  if(btn) btn.classList.add('active');
-  var panel=document.getElementById('j-'+id);
-  if(panel){panel.style.display='block';activateStep(panel,0)}
-}
-
-// Init tabs
-document.querySelectorAll('#journey-tabs .tab').forEach(function(btn){
-  btn.addEventListener('click',function(){showJourney(this.getAttribute('data-j'))});
+/* ============================================================
+   PHONE — device frame (light theme, lime glow, GAMark titlebar)
+   ============================================================ */
+/* ===== GROWTH SECTION — icons, helpers, screens ===== */
+const GIco=({d,size=22,stroke=1.6})=>(
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round">{d}</svg>
+);
+const GI={
+  piggy:<><path d="M12 3v4M5 11h14M5 11v8a2 2 0 002 2h10a2 2 0 002-2v-8M5 11a4 4 0 014-4h6a4 4 0 014 4"/><circle cx="16" cy="15" r="1"/></>,
+  shield:<><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5-4.5-1-8-4.5-8-9.5V6l8-3z"/><path d="M9 12l2 2 4-4"/></>,
+  gift:<><path d="M20 12v8H4v-8M2 8h20v4H2zM12 8v13M12 8s-4-5-7-3c-2 1.5-1 5 3 5h4zM12 8s4-5 7-3c2 1.5 1 5-3 5h-4z"/></>,
+  refresh:<><path d="M3 12a9 9 0 0115.5-6.3L21 8M21 3v5h-5M21 12a9 9 0 01-15.5 6.3L3 16M3 21v-5h5"/></>,
+  bolt:<><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></>,
+  layers:<><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 12l9 5 9-5M3 16l9 5 9-5"/></>,
+  crown:<><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-1.5 11H4.5L3 8z"/></>,
+  link:<><path d="M10 14a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1M14 10a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></>,
+};
+const GrowthBar=({pct,col="var(--lime-deep)",delay=0.18})=>(
+  <div style={{height:6,background:"var(--phone-surf)",borderRadius:4,position:"relative",overflow:"hidden"}}>
+    <motion.div initial={{width:"0%"}} animate={{width:pct+"%"}} transition={{duration:0.9,ease:EASE,delay}} style={{position:"absolute",inset:0,background:col,borderRadius:4}}/>
+  </div>
+);
+const Avatar=({t,lime})=>(
+  <div style={{width:26,height:26,borderRadius:"50%",border:"2px solid #fff",marginLeft:-7,background:lime?"var(--lime)":"var(--ink-1)",color:lime?"var(--ink-1)":"#fff",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:700}}>{t}</div>
+);
+Object.assign(SCREENS, {
+  gp_kopilka:{title:"Копилка на выкуп", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Копилка на выкуп" s="Стайлер Dyson Airwrap"/>
+      <div style={{margin:"12px 0 12px",borderRadius:16,border:"1px solid var(--phone-line-1)",padding:"14px"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:8}}>
+          <span style={{fontSize:10,color:"var(--phone-text-2)",textTransform:"uppercase",letterSpacing:".06em"}}>Накоплено</span>
+          <span className="num" style={{background:"var(--lime)",borderRadius:8,padding:"3px 9px",fontSize:11,fontWeight:800,color:"var(--ink-1)"}}>61%</span>
+        </div>
+        <div style={{display:"flex",alignItems:"baseline",gap:7,marginBottom:10}}>
+          <span className="num" style={{fontSize:25,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.03em"}}>9 200 ₽</span>
+          <span className="num" style={{fontSize:12,color:"var(--phone-text-3)",fontWeight:600}}>/ 15 000 ₽</span>
+        </div>
+        <GrowthBar pct={61}/>
+        <div style={{fontSize:10,color:"var(--phone-text-3)",marginTop:8}}>Осталось 5 800 ₽ · цель к 20 июля</div>
+      </div>
+      <PRow l="Автопополнение" v="1 500 ₽ / нед"/>
+      <PRow l="Округление покупок" v="включено"/>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 0"}}>
+        <span style={{fontSize:12,color:"var(--phone-text-1)",fontWeight:600}}>Проценты на остаток</span>
+        <span className="num" style={{background:"var(--lime)",borderRadius:8,padding:"3px 9px",fontSize:11,fontWeight:800,color:"var(--ink-1)"}}>начисляются</span>
+      </div>
+      <div style={{marginTop:8}}>{PBtn("Пополнить копилку","dark")}</div>
+    </div>
+  )},
+  gp_escrow:{title:"Защита платежа", render:()=>(
+    <div style={{padding:16}}>
+      <div style={{textAlign:"center",marginBottom:4}}>
+        <div style={{width:46,height:46,borderRadius:"50%",background:"var(--lime)",margin:"0 auto 10px",display:"flex",alignItems:"center",justifyContent:"center",color:"var(--ink-1)"}}>
+          <GIco d={GI.shield} size={23}/>
+        </div>
+        <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Оплата под защитой</div>
+        <div style={{fontSize:11,color:"var(--phone-text-2)",marginTop:4}}>Деньги в эскроу до получения заказа</div>
+      </div>
+      <div style={{margin:"13px 0 12px",borderRadius:13,border:"1px solid var(--phone-line-1)",padding:"11px 13px",display:"flex",alignItems:"center",gap:11}}>
+        <div style={{width:38,height:38,borderRadius:9,background:"var(--surface-2)",flexShrink:0}}/>
+        <div style={{flex:1}}>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>Nike Air Max 90 · СДЕК.Shopping</div>
+          <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:1}}>14 990 ₽ · в эскроу</div>
+        </div>
+        <span style={{fontSize:9,fontWeight:700,color:"var(--ink-1)",background:"var(--lime)",borderRadius:7,padding:"3px 7px"}}>HOLD</span>
+      </div>
+      <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
+        {[{t:"Оплачено",on:true},{t:"Доставка",on:false},{t:"Получено",on:false}].map((s,i)=>(
+          <React.Fragment key={i}>
+            <span style={{fontSize:10,fontWeight:600,color:s.on?"var(--ink-1)":"var(--phone-text-3)"}}>{s.t}</span>
+            {i<2&&<span style={{flex:1,height:2,background:i===0?"var(--lime-deep)":"var(--phone-line-1)",borderRadius:1}}/>}
+          </React.Fragment>
+        ))}
+      </div>
+      <div style={{background:"var(--lime-soft)",borderRadius:11,padding:"10px 12px",display:"flex",alignItems:"flex-start",gap:9,marginBottom:13}}>
+        <span style={{color:"var(--ink-1)",marginTop:1}}><GIco d={GI.bolt} size={16}/></span>
+        <div style={{fontSize:11,fontWeight:600,color:"var(--ink-1)",lineHeight:1.35}}>Передумали? Деньги вернутся мгновенно в кошелёк — без ожидания</div>
+      </div>
+      {PBtn("Оплатить с защитой","dark")}
+    </div>
+  )},
+  gp_gift:{title:"Подарки и вишлист", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Кредит на выкуп" s="Предодобренный лимит · без документов"/>
+      <div style={{margin:"12px 0 12px",borderRadius:14,border:"1px solid var(--phone-line-1)",padding:"13px"}}>
+        <div style={{display:"flex",gap:11,marginBottom:11}}>
+          <div style={{width:42,height:42,borderRadius:10,background:"var(--surface-2)",flexShrink:0}}/>
+          <div style={{flex:1}}>
+            <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)",lineHeight:1.25}}>iPhone 16 Pro Max</div>
+            <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:2}}>14 990 ₽</div>
+          </div>
+        </div>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:7}}>
+          <span style={{fontSize:11,color:"var(--phone-text-2)"}}>Собрано</span>
+          <span className="num" style={{fontSize:12,fontWeight:700,color:"var(--phone-text-1)"}}>6 500 ₽ <span style={{color:"var(--phone-text-3)",fontWeight:600}}>/ 14 990 ₽</span></span>
+        </div>
+        <GrowthBar pct={68}/>
+        <div style={{display:"flex",alignItems:"center",marginTop:11,paddingLeft:7}}>
+          <Avatar t="М"/><Avatar t="К" lime/><Avatar t="Л"/>
+          <span style={{marginLeft:2,fontSize:11,color:"var(--phone-text-2)",fontWeight:600}}>+2 скинулись</span>
+        </div>
+      </div>
+      <div style={{display:"flex",gap:8}}>
+        <div style={{flex:1.4}}>{PBtn("На 3 месяца","dark")}</div>
+        <div style={{flex:1}}>{PBtn("Подарить","lime")}</div>
+      </div>
+    </div>
+  )},
+  gp_replenish:{title:"Подписка на отправки", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Подписка на отправки" s="Каждые 30 дней"/>
+      <div style={{margin:"12px 0 12px",borderRadius:14,border:"1px solid var(--phone-line-1)",padding:"13px",display:"flex",gap:11,alignItems:"center"}}>
+        <div style={{width:42,height:42,borderRadius:10,background:"var(--surface-2)",flexShrink:0}}/>
+        <div style={{flex:1}}>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)",lineHeight:1.25}}>Пакет: 20 посылок / мес</div>
+          <div style={{display:"flex",gap:6,marginTop:5}}>
+            <span style={{fontSize:9,fontWeight:700,color:"var(--ink-1)",background:"var(--surface-2)",borderRadius:6,padding:"2px 7px"}}>−10%</span>
+            <span style={{fontSize:9,fontWeight:700,color:"var(--ink-1)",background:"var(--lime)",borderRadius:6,padding:"2px 7px"}}>+ баллы</span>
+          </div>
+        </div>
+        <span style={{color:"var(--phone-text-3)"}}><GIco d={GI.refresh} size={18}/></span>
+      </div>
+      <PRow l="Следующая доставка" v="28 июня"/>
+      <PRow l="Списание" v="CDEK Wallet ····4567"/>
+      <PRow l="Стоимость" v="8 549 ₽ / мес" last={true} strong={true}/>
+      <div style={{marginTop:13}}>{PBtn("Управлять подпиской","dark")}</div>
+    </div>
+  )},
 });
 
-// Init step clicks
-document.querySelectorAll('.j-panel').forEach(function(panel){
-  var jid=panel.id.replace('j-','');
-  panel.setAttribute('data-j',jid);
-  panel.querySelectorAll('.step').forEach(function(step,i){
-    step.addEventListener('click',function(){activateStep(panel,i)});
-  });
+Object.assign(SCREENS, {
+  gp_kop_goal:{title:"Новая копилка", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Цель: Dyson Airwrap" s="Соберём к нужной дате"/>
+      <div style={{margin:"12px 0 12px",borderRadius:14,border:"1px solid var(--phone-line-1)",padding:"13px",display:"flex",gap:11,alignItems:"center"}}>
+        <div style={{width:42,height:42,borderRadius:10,background:"var(--surface-2)",flexShrink:0}}/>
+        <div style={{flex:1}}>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)",lineHeight:1.25}}>AirPods Pro · СДЕК.Shopping</div>
+          <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:2}}>15 000 ₽</div>
+        </div>
+      </div>
+      <PRow l="Автопополнение" v="1 500 ₽ / нед"/>
+      <PRow l="Округление покупок" v="включить"/>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 0"}}>
+        <span style={{fontSize:12,color:"var(--phone-text-1)",fontWeight:600}}>Проценты на остаток</span>
+        <span className="num" style={{background:"var(--lime)",borderRadius:8,padding:"3px 9px",fontSize:11,fontWeight:800,color:"var(--ink-1)"}}>да</span>
+      </div>
+      <div style={{marginTop:10}}>{PBtn("Создать копилку","dark")}</div>
+    </div>
+  )},
+  gp_kop_done:{title:"Цель достигнута", render:()=>(
+    <div style={{padding:16}}>
+      <div style={{textAlign:"center"}}>
+        <TickCircle/>
+        <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Цель достигнута!</div>
+        <div style={{fontSize:11,color:"var(--phone-text-2)",marginTop:4}}>15 000 ₽ накоплено — оплатите в один тап</div>
+      </div>
+      <div style={{margin:"13px 0 12px",borderRadius:14,border:"1px solid var(--phone-line-1)",padding:"13px",display:"flex",gap:11,alignItems:"center"}}>
+        <div style={{width:40,height:40,borderRadius:10,background:"var(--surface-2)",flexShrink:0}}/>
+        <div style={{flex:1}}>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>AirPods Pro · СДЕК.Shopping</div>
+          <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:1}}>15 000 ₽ · из копилки</div>
+        </div>
+        <span style={{fontSize:9,fontWeight:700,color:"var(--ink-1)",background:"var(--lime)",borderRadius:7,padding:"3px 7px"}}>100%</span>
+      </div>
+      <Bonus txt="+450 баллов за покупку из копилки"/>
+      <div style={{marginTop:11}}>{PBtn("Оплатить из копилки","dark")}</div>
+    </div>
+  )},
+  gp_esc_refund:{title:"Мгновенный возврат", render:()=>(
+    <div style={{padding:16}}>
+      <div style={{textAlign:"center",marginBottom:4}}>
+        <div style={{width:46,height:46,borderRadius:"50%",background:"var(--lime)",margin:"0 auto 10px",display:"flex",alignItems:"center",justifyContent:"center",color:"var(--ink-1)"}}>
+          <GIco d={GI.refresh} size={22}/>
+        </div>
+        <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Возврат оформлен</div>
+        <div style={{fontSize:11,color:"var(--phone-text-2)",marginTop:4}}>Деньги уже в кошельке — без ожидания</div>
+      </div>
+      <div style={{margin:"13px 0 12px",borderRadius:13,border:"1px solid var(--phone-line-1)",padding:"11px 13px",display:"flex",alignItems:"center",gap:11}}>
+        <div style={{width:38,height:38,borderRadius:9,background:"var(--surface-2)",flexShrink:0}}/>
+        <div style={{flex:1}}>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>Nike Air Max 90 · СДЕК.Shopping</div>
+          <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:1}}>Возврат 14 990 ₽</div>
+        </div>
+        <span className="num" style={{fontSize:9,fontWeight:700,color:"var(--ink-1)",background:"var(--lime)",borderRadius:7,padding:"3px 7px"}}>+14 990 ₽</span>
+      </div>
+      <div style={{display:"flex",gap:9}}>
+        <div style={{flex:1,borderRadius:11,border:"1px solid var(--phone-line-1)",padding:"10px",textAlign:"center"}}>
+          <div style={{fontSize:10,color:"var(--phone-text-3)"}}>На стороннюю карту</div>
+          <div style={{fontSize:12,fontWeight:700,color:"var(--phone-text-2)",marginTop:3}}>7–14 дней</div>
+        </div>
+        <div style={{flex:1,borderRadius:11,background:"var(--lime-soft)",padding:"10px",textAlign:"center",border:"1px solid var(--lime-deep)"}}>
+          <div style={{fontSize:10,color:"var(--ink-1)",fontWeight:600}}>В CDEK Wallet</div>
+          <div style={{fontSize:12,fontWeight:800,color:"var(--ink-1)",marginTop:3}}>мгновенно</div>
+        </div>
+      </div>
+      <div style={{marginTop:12}}>{PBtn("Вернуть в кошелёк","dark")}</div>
+    </div>
+  )},
+  gp_esc_stay:{title:"Остаётся у вас", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Деньги в кошельке" s="Готовы к следующей покупке"/>
+      <div style={{margin:"12px 0 12px"}}><WalletCard balance="14 990 ₽" num="•••• 4567"/></div>
+      <div style={{background:"var(--lime-soft)",borderRadius:11,padding:"10px 12px",display:"flex",alignItems:"flex-start",gap:9,marginBottom:13}}>
+        <span style={{color:"var(--ink-1)",marginTop:1}}><GIco d={GI.bolt} size={16}/></span>
+        <div style={{fontSize:11,fontWeight:600,color:"var(--ink-1)",lineHeight:1.35}}>Возврат не ушёл в другой банк — клиент тратит его снова у СДЕК</div>
+      </div>
+      {PBtn("Выбрать новый аромат","dark")}
+    </div>
+  )},
+  gp_gift_wish:{title:"Вишлист", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Кредитный лимит" s="День рождения · 14 июля"/>
+      <div style={{marginTop:12,display:"flex",flexDirection:"column",gap:9}}>
+        {[{n:"iPhone 16 Pro Max",p:"14 990 ₽",hot:true},{n:"Сыворотка для сияния",p:"3 200 ₽"},{n:"Набор кистей",p:"4 100 ₽"}].map((it,i)=>(
+          <div key={i} style={{display:"flex",gap:11,alignItems:"center",borderRadius:12,border:"1px solid var(--phone-line-1)",padding:"10px 12px"}}>
+            <div style={{width:38,height:38,borderRadius:9,background:"var(--surface-2)",flexShrink:0}}/>
+            <div style={{flex:1}}>
+              <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)",lineHeight:1.25}}>{it.n}</div>
+              <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:1}}>{it.p}</div>
+            </div>
+            {it.hot&&<span style={{fontSize:9,fontWeight:700,color:"var(--ink-1)",background:"var(--lime)",borderRadius:7,padding:"3px 7px"}}>топ</span>}
+          </div>
+        ))}
+      </div>
+      <div style={{marginTop:12}}>{PBtn("Использовать лимит","dark")}</div>
+    </div>
+  )},
+  gp_gift_done:{title:"Подарок собран", render:()=>(
+    <div style={{padding:16}}>
+      <div style={{textAlign:"center"}}>
+        <TickCircle/>
+        <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Кредит оформлен</div>
+        <div style={{fontSize:11,color:"var(--phone-text-2)",marginTop:4}}>Выкуп оплачен · первый платёж 14 990 ₽</div>
+      </div>
+      <div style={{margin:"13px 0 12px"}}><WalletCard balance="14 990 ₽" num="•••• 4567" soft={true}/></div>
+      <div style={{display:"flex",alignItems:"center",marginBottom:13,paddingLeft:7}}>
+        <Avatar t="М"/><Avatar t="К" lime/><Avatar t="Л"/><Avatar t="+2"/>
+        <span style={{marginLeft:6,fontSize:11,color:"var(--phone-text-2)",fontWeight:600}}>Ежемесячный платёж</span>
+      </div>
+      {PBtn("Потратить на парфюм","dark")}
+    </div>
+  )},
+  gp_rep_setup:{title:"Новая подписка", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Подписка на отправки" s="Автоповтор любимого средства"/>
+      <div style={{margin:"12px 0 12px",borderRadius:14,border:"1px solid var(--phone-line-1)",padding:"13px",display:"flex",gap:11,alignItems:"center"}}>
+        <div style={{width:42,height:42,borderRadius:10,background:"var(--surface-2)",flexShrink:0}}/>
+        <div style={{flex:1}}>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)",lineHeight:1.25}}>Пакет: 20 посылок / мес</div>
+          <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:2}}>14 990 ₽ → 8 549 ₽</div>
+        </div>
+      </div>
+      <PRow l="Периодичность" v="ежемесячно"/>
+      <PRow l="Скидка на отправку" v="−10%"/>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 0"}}>
+        <span style={{fontSize:12,color:"var(--phone-text-1)",fontWeight:600}}>Баллы за регулярность</span>
+        <span className="num" style={{background:"var(--lime)",borderRadius:8,padding:"3px 9px",fontSize:11,fontWeight:800,color:"var(--ink-1)"}}>+5%</span>
+      </div>
+      <div style={{marginTop:10}}>{PBtn("Оформить подписку","dark")}</div>
+    </div>
+  )},
+  gp_rep_spend:{title:"Регулярность", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Ваша подписка" s="3 доставки подряд"/>
+      <div style={{margin:"12px 0 12px",borderRadius:14,border:"1px solid var(--phone-line-1)",padding:"13px"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:9}}>
+          <span style={{fontSize:11,color:"var(--phone-text-2)"}}>Накоплено баллов</span>
+          <span className="num" style={{fontSize:18,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>1 280</span>
+        </div>
+        <GrowthBar pct={75}/>
+        <div style={{fontSize:10,color:"var(--phone-text-3)",marginTop:8}}>До статуса «Платина» — 1 доставка</div>
+      </div>
+      <PRow l="Доставка №3" v="доставлено"/>
+      <PRow l="Следующее списание" v="28 июля"/>
+      <PRow l="Экономия за 3 мес" v="2 850 ₽" last={true} strong={true}/>
+      <div style={{marginTop:11}}>{PBtn("Управлять подпиской","dark")}</div>
+    </div>
+  )},
 });
 
-// Nav arrows
-var currentStep=0, totalSteps=7;
-document.getElementById('nav-prev').addEventListener('click',function(){
-  if(currentStep>0){var p=document.querySelector('.j-panel[style*="block"]');if(p)activateStep(p,currentStep-1)}
-});
-document.getElementById('nav-next').addEventListener('click',function(){
-  var p=document.querySelector('.j-panel[style*="block"]');
-  if(p&&currentStep<p.querySelectorAll('.step').length-1)activateStep(p,currentStep+1);
-});
+function Phone({screenKey}){
+  const screen = SCREENS[screenKey] || SCREENS.ga_checkout;
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const rotY = useTransform(mx, [-1, 1], [8, -8]);
+  const rotX = useTransform(my, [-1, 1], [-6, 6]);
+  const sRotY = useSpring(rotY, { stiffness:120, damping:16, mass:0.6 });
+  const sRotX = useSpring(rotX, { stiffness:120, damping:16, mass:0.6 });
+  const ref = useRef(null);
+  const onMove = (e)=>{
+    const r = ref.current.getBoundingClientRect();
+    const cx = r.left + r.width/2, cy = r.top + r.height/2;
+    mx.set((e.clientX - cx) / (r.width/2));
+    my.set((e.clientY - cy) / (r.height/2));
+  };
+  const onLeave = ()=>{ mx.set(0); my.set(0); };
 
-function updateNav(idx,total){
-  currentStep=idx;totalSteps=total;
-  document.getElementById('nav-cur').textContent=String(idx+1).padStart(2,'0');
-  document.getElementById('nav-total').textContent=String(total).padStart(2,'0');
-  document.getElementById('nav-prev').disabled=idx===0;
-  document.getElementById('nav-next').disabled=idx===total-1;
+  return (
+    <div style={{perspective:1200, position:"relative", padding:"40px 20px", width:"100%", display:"flex", justifyContent:"center"}}>
+      <div style={{position:"absolute", width:380, height:580, borderRadius:"50%", background:"radial-gradient(circle, rgba(0,185,86,0.42) 0%, rgba(0,185,86,0) 65%)", filter:"blur(46px)", zIndex:0, top:"50%", left:"50%", transform:"translate(-50%,-50%)", pointerEvents:"none"}}/>
+      <motion.div
+        ref={ref}
+        onMouseMove={onMove}
+        onMouseLeave={onLeave}
+        style={{
+          rotateY:sRotY, rotateX:sRotX, transformStyle:"preserve-3d",
+          width:296, height:600, borderRadius:48,
+          background:"linear-gradient(180deg, #232323 0%, #0a0a0a 100%)",
+          padding:11, position:"relative", flexShrink:0,
+          boxShadow:`0 1px 0 rgba(255,255,255,0.10) inset, 0 0 0 1px rgba(10,10,10,0.06), 0 30px 60px -20px rgba(10,10,10,0.35), 0 60px 120px -30px rgba(0,185,86,0.28), 0 100px 180px -50px rgba(0,185,86,0.16)`
+        }}
+        initial={{opacity:0, y:40, scale:0.96}}
+        animate={{opacity:1, y:0, scale:1}}
+        transition={{...SPRING.silky, delay:0.3}}>
+        <div style={{position:"absolute",left:-2,top:108,width:3,height:30,background:"#161616",borderRadius:2}}/>
+        <div style={{position:"absolute",left:-2,top:154,width:3,height:52,background:"#161616",borderRadius:2}}/>
+        <div style={{position:"absolute",left:-2,top:218,width:3,height:52,background:"#161616",borderRadius:2}}/>
+        <div style={{position:"absolute",right:-2,top:150,width:3,height:80,background:"#161616",borderRadius:2}}/>
+        <div style={{borderRadius:37, overflow:"hidden", background:"var(--phone-bg)", height:"100%", position:"relative"}}>
+          <div style={{position:"absolute",top:9,left:"50%",transform:"translateX(-50%)",width:96,height:28,background:"#000",borderRadius:14,zIndex:5}}/>
+          <div style={{paddingTop:42,height:"100%",display:"flex",flexDirection:"column"}}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={screenKey}
+                initial={{opacity:0, y:14, filter:"blur(6px)"}}
+                animate={{opacity:1, y:0, filter:"blur(0px)"}}
+                exit={{opacity:0, y:-10, filter:"blur(6px)"}}
+                transition={{duration:0.42, ease:EASE}}
+                style={{flex:"1 1 0",display:"flex",flexDirection:"column",minHeight:0}}>
+                <div className="phone-screen">
+                  <div className="phone-status">
+                    <span className="num">9:41</span>
+                    <div style={{display:"flex",gap:4,alignItems:"center"}}>
+                      <svg width="14" height="9" viewBox="0 0 14 9" fill="none">
+                        <rect x="0.5" y="0.5" width="10" height="8" rx="1.5" stroke="var(--phone-text-1)"/>
+                        <rect x="2" y="2" width="7" height="5" fill="var(--phone-text-1)"/>
+                        <rect x="11.5" y="3" width="1.5" height="3" rx="0.4" fill="var(--phone-text-1)"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="phone-titlebar">
+                    <CDEKLogo height={13} color="#00b33c"/>
+                    <div style={{fontSize:11,fontWeight:600,color:"var(--phone-text-1)",letterSpacing:"-.01em"}}>{screen.title}</div>
+                  </div>
+                  <div style={{flex:"1 1 0",overflow:"hidden",minHeight:0}}>{screen.render()}</div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+            <div style={{height:22,display:"flex",alignItems:"center",justifyContent:"center",background:"var(--phone-bg)"}}>
+              <div style={{width:108,height:4,background:"#000",borderRadius:2,opacity:.85}}/>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
 }
 
-// Init
-document.querySelectorAll('.j-panel').forEach(function(el){el.style.display='none'});
-showJourney('new');
+/* ============================================================
+   NAVBAR — non-sticky, scrolls with page, light, co-brand
+   ============================================================ */
+function Navbar({showMetrics, setShowMetrics, scrolled}){
+  return (
+    <motion.div
+      initial={{opacity:0, y:-12}}
+      animate={{opacity:1, y:0}}
+      transition={{duration:0.6, ease:EASE, delay:0.1}}
+      style={{
+        position:"relative", zIndex:50,
+        backdropFilter:scrolled?"blur(20px) saturate(140%)":"blur(0px)",
+        WebkitBackdropFilter:scrolled?"blur(20px) saturate(140%)":"blur(0px)",
+        background:scrolled?"rgba(255,255,255,0.78)":"transparent",
+        borderBottom:scrolled?"1px solid var(--line-1)":"1px solid transparent",
+        transition:"background 300ms, border 300ms, backdrop-filter 300ms"
+      }}>
+      <div style={{maxWidth:1320, margin:"0 auto", padding:"16px 40px", display:"flex", justifyContent:"space-between", alignItems:"center", gap:16, flexWrap:"wrap"}} className="navbar-inner">
+        <div style={{display:"flex",alignItems:"center",gap:13}}>
+          <CDEKLogo height={22} color="#00b33c"/>
+          <div style={{fontSize:13,fontWeight:600,letterSpacing:"-.005em",color:"var(--ink-1)"}}>
+            <span style={{color:"var(--ink-3)",fontWeight:500}}>×</span> Альфа-Банк
+            <span style={{color:"var(--ink-3)",fontWeight:400,marginLeft:8}}>/ CDEK Wallet</span>
+          </div>
+        </div>
+        <div style={{display:"flex",alignItems:"center",gap:10}}>
+          <div className="eyebrow no-mark" style={{fontSize:10,letterSpacing:"0.16em",color:"var(--ink-4)"}}>CJM · 2026</div>
+          <button onClick={()=>setShowMetrics(!showMetrics)}
+            style={{display:"flex",alignItems:"center",gap:8, padding:"9px 14px", borderRadius:999, border:"1px solid var(--line-2)", background:"rgba(10,10,10,0.02)", fontSize:12, fontWeight:500, color:"var(--ink-1)", cursor:"pointer", transition:"background 200ms"}}
+            onMouseEnter={e=>e.currentTarget.style.background="rgba(10,10,10,0.05)"}
+            onMouseLeave={e=>e.currentTarget.style.background="rgba(10,10,10,0.02)"}>
+            <motion.span
+              animate={{background:showMetrics ? "var(--lime-deep)" : "rgba(10,10,10,0.18)", boxShadow:showMetrics ? "0 0 0 4px var(--lime-glow)" : "0 0 0 0 rgba(0,0,0,0)"}}
+              transition={{duration:0.3}}
+              style={{width:6,height:6,borderRadius:"50%"}}/>
+            {showMetrics?"Метрики ВКЛ":"Метрики ВЫКЛ"}
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+function Hero({view, setView, activeJourney, setActiveJourney}){
+  return (
+    <section className="hero" style={{padding:"72px 40px 70px", maxWidth:1320, margin:"0 auto", position:"relative", display:"flex", flexDirection:"column", justifyContent:"flex-end"}}>
+      <motion.div initial={{opacity:0, y:8}} animate={{opacity:1, y:0}} transition={{duration:0.8, ease:EASE, delay:0.2}} className="eyebrow" style={{marginBottom:26}}>
+        Customer Journey Map · СДЕК
+      </motion.div>
+      <div className="hero-grid" style={{display:"grid", gridTemplateColumns:"minmax(0, 1.5fr) minmax(0, 1fr)", gap:72, alignItems:"end", marginBottom:44}}>
+        <div>
+          <h1 className="display" style={{fontSize:"clamp(54px, 8.5vw, 132px)", fontWeight:800, letterSpacing:"-0.05em", lineHeight:0.94, margin:0, color:"var(--ink-1)"}}>
+            <motion.span initial={{opacity:0, y:60, filter:"blur(12px)"}} animate={{opacity:1, y:0, filter:"blur(0px)"}} transition={{duration:0.9, ease:EASE, delay:0.35}} style={{display:"inline-block"}}>CDEK</motion.span>{" "}
+            <motion.span initial={{opacity:0, y:60, filter:"blur(12px)"}} animate={{opacity:1, y:0, filter:"blur(0px)"}} transition={{duration:0.9, ease:EASE, delay:0.53}} className="mark-hl" style={{display:"inline-block"}}><span>Wallet</span></motion.span>
+          </h1>
+        </div>
+        <motion.div initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.8, ease:EASE, delay:0.7}} style={{paddingBottom:18, maxWidth:380}}>
+          <div style={{fontSize:16, color:"var(--ink-2)", lineHeight:1.55, letterSpacing:"-0.005em"}}>
+            White-label кошелёк Альфа-Банка, встроенный в приложение и чек-аут СДЕК. Скидка на доставку и баллы за каждую оплату — без затрат из маржи партнёра.
+          </div>
+          <div style={{display:"flex",alignItems:"center",gap:13,marginTop:22,fontSize:12,color:"var(--ink-3)",letterSpacing:"0.02em"}}>
+            <div style={{display:"flex",alignItems:"center",gap:6}}>
+              <span style={{width:6,height:6,borderRadius:"50%",background:"var(--lime-deep)",boxShadow:"0 0 8px var(--lime-glow)"}}/>
+              Live прототип
+            </div>
+            <span className="dot"/>
+            <span>6 сценариев</span>
+          </div>
+        </motion.div>
+      </div>
+      <ScenarioTabs view={view} setView={setView} activeJourney={activeJourney} setActiveJourney={setActiveJourney}/>
+    </section>
+  );
+}
+
+/* ============================================================
+   SCENARIO TABS — two groups, each with its own pill
+   ============================================================ */
+function TabRow({title, items, activeJourney, setActiveJourney, pillId}){
+  return (
+    <div style={{marginBottom:14}}>
+      <div className="eyebrow no-mark" style={{fontSize:10, letterSpacing:"0.16em", color:"var(--ink-3)", marginBottom:11, fontWeight:600}}>{title}</div>
+      <LayoutGroup id={pillId}>
+        <div style={{display:"inline-flex", background:"var(--surface-1)", border:"1px solid var(--line-2)", borderRadius:18, padding:5, gap:2, maxWidth:"100%", flexWrap:"wrap"}}>
+          {items.map(({j, gi})=>{
+            const active = gi === activeJourney;
+            return (
+              <button key={j.id} onClick={()=>setActiveJourney(gi)}
+                style={{position:"relative", padding:"12px 18px", borderRadius:14, fontSize:13.5, fontWeight:600, letterSpacing:"-0.005em", color: active ? "#fff" : "var(--ink-2)", display:"flex", alignItems:"center", gap:9, zIndex:1, background:"transparent", border:"none", cursor:"pointer", transition:"color 200ms"}}>
+                {active && (
+                  <motion.div layoutId={pillId+"-pill"} transition={{...SPRING.snappy}}
+                    style={{position:"absolute", inset:0, background:"var(--ink-1)", borderRadius:14, boxShadow:"0 8px 20px -6px rgba(10,10,10,0.30)", zIndex:-1}}/>
+                )}
+                {j.label}
+              </button>
+            );
+          })}
+        </div>
+      </LayoutGroup>
+    </div>
+  );
+}
+function ScenarioTabs({view, setView, activeJourney, setActiveJourney}){
+  const journeyItems = journeys.map((j,gi)=>({j,gi})).filter(x=>x.j.group==="journey");
+  const capItems = journeys.map((j,gi)=>({j,gi})).filter(x=>x.j.group==="capability");
+  const cjm = view === "cjm";
+  const growthActive = view === "growth";
+  const pickJourney = (gi)=>{ setActiveJourney(gi); setView("cjm"); };
+  const GROWTH_DESC = "Возможности на базе банковской лицензии — то, что недоступно НКО-конкурентам";
+  return (
+    <motion.div initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.8, ease:EASE, delay:0.85}}>
+      <TabRow title="Клиентский путь" items={journeyItems} activeJourney={cjm?activeJourney:-1} setActiveJourney={pickJourney} pillId="grp-journey"/>
+      <TabRow title="Возможности кошелька" items={capItems} activeJourney={cjm?activeJourney:-1} setActiveJourney={pickJourney} pillId="grp-cap"/>
+      <div style={{marginBottom:14}}>
+        <div className="eyebrow no-mark" style={{fontSize:10, letterSpacing:"0.16em", color:"var(--ink-3)", marginBottom:11, fontWeight:600}}>Развитие · банковский слой</div>
+        <button onClick={()=>setView("growth")}
+          style={{position:"relative", display:"inline-flex", alignItems:"center", gap:9, padding:"12px 18px", borderRadius:16, fontSize:13.5, fontWeight:700, letterSpacing:"-0.005em", cursor:"pointer", border: growthActive?"1px solid transparent":"1px solid var(--lime-deep)", background: growthActive?"var(--lime)":"var(--surface-1)", color:"var(--ink-1)", boxShadow: growthActive?"0 10px 24px -8px var(--lime-glow)":"none", transition:"background 200ms, box-shadow 200ms, border-color 200ms"}}>
+          <span style={{display:"inline-flex", color:"var(--ink-1)"}}><GIco d={GI.bolt} size={16}/></span>
+          Точки роста
+        </button>
+      </div>
+      <motion.div key={growthActive?"growth":activeJourney} initial={{opacity:0, y:6}} animate={{opacity:1, y:0}} transition={{duration:0.4, ease:EASE}}
+        style={{fontSize:13, color:"var(--ink-3)", marginTop:8, letterSpacing:"-0.005em"}}>
+        {growthActive ? GROWTH_DESC : journeys[activeJourney].desc}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ============================================================
+   PROGRESS RAIL
+   ============================================================ */
+function ProgressRail({steps, active, onPick}){
+  const progress = active / Math.max(1, steps.length - 1);
+  return (
+    <div className="step-rail-wrap" style={{marginBottom:48}}>
+      <div style={{display:"flex", justifyContent:"space-between", alignItems:"baseline", marginBottom:16}}>
+        <div className="eyebrow" style={{margin:0}}>Шаги сценария</div>
+        <div className="num" style={{fontSize:11, color:"var(--ink-3)", fontWeight:500, letterSpacing:"0.04em"}}>
+          {String(active+1).padStart(2,"0")} <span style={{color:"var(--ink-4)"}}>/ {String(steps.length).padStart(2,"0")}</span>
+        </div>
+      </div>
+      <div style={{position:"relative", height:1, background:"var(--line-2)", marginBottom:18}}>
+        <motion.div animate={{width:`${progress*100}%`}} transition={SPRING.silky}
+          style={{position:"absolute", inset:0, background:"var(--lime-deep)", boxShadow:"0 0 12px var(--lime-glow)"}}/>
+      </div>
+      <div className="step-rail" style={{display:"grid", gridTemplateColumns:`repeat(${steps.length}, minmax(0,1fr))`, gap:8}}>
+        {steps.map((s, i)=>{
+          const isActive = i === active, isPast = i < active;
+          return (
+            <button key={i} className="step-rail-item" onClick={()=>onPick(i)}
+              style={{textAlign:"left", padding:"14px 0 0", borderTop:`1px solid ${isActive?"var(--lime-deep)":isPast?"var(--ink-2)":"var(--line-2)"}`, marginTop:-1, transition:"border-color 250ms", background:"transparent", position:"relative", cursor:"pointer"}}>
+              {isActive && (<motion.div layoutId="step-glow" transition={SPRING.silky} style={{position:"absolute", top:-3, left:0, right:0, height:5, background:"var(--lime)", filter:"blur(8px)", opacity:0.9}}/>)}
+              <div className="num" style={{fontSize:11, fontWeight:600, color: isActive?"var(--ink-1)":isPast?"var(--ink-2)":"var(--ink-4)", letterSpacing:"0.04em", marginBottom:6}}>{String(i+1).padStart(2,"0")}</div>
+              <div style={{fontSize:13, fontWeight:isActive?600:500, color: isActive?"var(--ink-1)":isPast?"var(--ink-2)":"var(--ink-3)", lineHeight:1.3, letterSpacing:"-0.005em"}}>{s.title}</div>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   METRIC CELL
+   ============================================================ */
+function MetricCell({label, text, accent, style, cls}){
+  return (
+    <div className={cls} style={{position:"relative", ...style}}>
+      <div style={{display:"flex", alignItems:"center", gap:10, marginBottom:13}}>
+        <span style={{width:7, height:7, borderRadius:2, background: accent?"var(--lime-deep)":"var(--ink-1)", boxShadow: accent?"0 0 8px var(--lime-glow)":"none"}}/>
+        <span style={{fontSize:10, textTransform:"uppercase", letterSpacing:"0.14em", color: accent?"var(--ink-2)":"var(--ink-3)", fontWeight:700}}>{label}</span>
+      </div>
+      <div style={{fontSize:17, color:"var(--ink-1)", lineHeight:1.35, letterSpacing:"-0.01em", fontWeight:500, textWrap:"pretty"}}>{text}</div>
+    </div>
+  );
+}
+
+/* ============================================================
+   STEP INFO — text + metrics + nav ("В начало" on last step)
+   ============================================================ */
+function StepInfo({step, stepIdx, totalSteps, showMetrics, showBank=true, onPrev, onNext, onRestart}){
+  const isLast = stepIdx === totalSteps - 1;
+  return (
+    <div style={{minWidth:0, paddingTop:8}}>
+      <AnimatePresence mode="wait">
+        <motion.div key={stepIdx} initial={{opacity:0, y:14}} animate={{opacity:1, y:0}} exit={{opacity:0, y:-10}} transition={{duration:0.4, ease:EASE}}>
+          <div style={{display:"flex", alignItems:"center", gap:12, marginBottom:22, flexWrap:"wrap"}}>
+            <span className="eyebrow" style={{margin:0}}>Шаг {stepIdx+1}</span>
+            <span style={{fontSize:11, color:"var(--ink-1)", fontWeight:500, padding:"5px 12px", border:"1px solid var(--line-2)", borderRadius:999, background:"var(--surface-1)"}}>{step.zone}</span>
+          </div>
+          <h2 style={{fontSize:"clamp(32px, 4.2vw, 60px)", fontWeight:700, letterSpacing:"-0.035em", lineHeight:1.03, color:"var(--ink-1)", margin:"0 0 22px", textWrap:"balance"}}>{step.title}</h2>
+          <p style={{fontSize:17, color:"var(--ink-2)", lineHeight:1.55, margin:"0 0 34px", letterSpacing:"-0.005em", maxWidth:600, textWrap:"pretty"}}>{step.desc}</p>
+          {showMetrics && step.metricPartner && (
+            <div className="metrics-grid" style={{display:"grid", gridTemplateColumns: showBank?"1fr 1fr":"1fr", gap:0, borderTop:"1px solid var(--line-2)", borderBottom:"1px solid var(--line-2)"}}>
+              <MetricCell label="Ценность для СДЕК" text={step.metricPartner} accent={false} cls="m-l" style={{padding: showBank?"26px 30px 26px 0":"26px 0", borderRight: showBank?"1px solid var(--line-2)":"none"}}/>
+              {showBank && <MetricCell label="Ценность для Альфа-Банка" text={step.metricBank} accent={true} cls="m-r" style={{padding:"26px 0 26px 30px"}}/>}
+            </div>
+          )}
+        </motion.div>
+      </AnimatePresence>
+      <div style={{display:"flex", gap:10, marginTop:34}}>
+        <button disabled={stepIdx===0} onClick={onPrev}
+          style={{display:"flex", alignItems:"center", gap:8, padding:"13px 22px", border:"1px solid var(--line-2)", borderRadius:12, fontSize:13, fontWeight:600, color: stepIdx===0?"var(--ink-4)":"var(--ink-1)", background:"var(--surface-1)", cursor: stepIdx===0?"default":"pointer", opacity: stepIdx===0?0.5:1, transition:"background 200ms"}}
+          onMouseEnter={e=>{ if(stepIdx>0) e.currentTarget.style.background="var(--surface-2)"; }}
+          onMouseLeave={e=>{ if(stepIdx>0) e.currentTarget.style.background="var(--surface-1)"; }}>
+          <Ico d={ICONS.arrow_l} size={14}/> Назад
+        </button>
+        {isLast ? (
+          <button onClick={onRestart}
+            style={{display:"flex", alignItems:"center", gap:9, padding:"13px 26px", border:"none", borderRadius:12, fontSize:13, fontWeight:700, color:"var(--ink-1)", background:"var(--lime)", cursor:"pointer", transition:"background 200ms", boxShadow:"0 8px 24px -6px var(--lime-glow)"}}
+            onMouseEnter={e=>e.currentTarget.style.background="var(--lime-deep)"}
+            onMouseLeave={e=>e.currentTarget.style.background="var(--lime)"}>
+            <Ico d={ICONS.restart} size={14}/> В начало
+          </button>
+        ) : (
+          <button onClick={onNext}
+            style={{display:"flex", alignItems:"center", gap:10, padding:"13px 26px", border:"none", borderRadius:12, fontSize:13, fontWeight:600, color:"#fff", background:"var(--ink-1)", cursor:"pointer", transition:"opacity 200ms", boxShadow:"0 8px 24px -6px rgba(10,10,10,0.3)"}}
+            onMouseEnter={e=>e.currentTarget.style.opacity="0.86"}
+            onMouseLeave={e=>e.currentTarget.style.opacity="1"}>
+            Далее <Ico d={ICONS.arrow_r} size={14}/>
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   MOBILE STEP NAV
+   ============================================================ */
+function MobileStepNav({current, total, onPrev, onNext}){
+  const atStart = current === 0, atEnd = current === total - 1;
+  return (
+    <div className="mobile-step-nav" role="group" aria-label="Навигация по шагам">
+      <button type="button" aria-label="Предыдущий шаг" disabled={atStart} onClick={onPrev}>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9l5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      </button>
+      <div className="counter num">
+        <span style={{color:"var(--ink-1)"}}>{String(current+1).padStart(2,"0")}</span>
+        <span style={{opacity:.4,margin:"0 6px"}}>/</span>
+        <span style={{color:"var(--ink-3)"}}>{String(total).padStart(2,"0")}</span>
+      </div>
+      <button type="button" aria-label="Следующий шаг" disabled={atEnd} onClick={onNext}>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      </button>
+    </div>
+  );
+}
+
+/* ============================================================
+   PAY MODE TOGGLE — online / offline (capability journeys)
+   ============================================================ */
+function PayModeToggle({payMode, setPayMode}){
+  const modes = [{id:"online",label:"Онлайн"},{id:"offline",label:"Офлайн"}];
+  return (
+    <div style={{display:"flex", justifyContent:"center", marginBottom:30}}>
+      <LayoutGroup id="paymode">
+        <div style={{display:"inline-flex", background:"var(--surface-1)", border:"1px solid var(--line-2)", borderRadius:14, padding:4, gap:2}}>
+          {modes.map(m=>{
+            const active = m.id===payMode;
+            return (
+              <button key={m.id} onClick={()=>setPayMode(m.id)}
+                style={{position:"relative", padding:"9px 22px", borderRadius:11, fontSize:13, fontWeight:600, color: active?"#fff":"var(--ink-2)", background:"transparent", border:"none", cursor:"pointer", zIndex:1, transition:"color 200ms"}}>
+                {active && <motion.div layoutId="paymode-pill" transition={{...SPRING.snappy}} style={{position:"absolute", inset:0, background:"var(--ink-1)", borderRadius:11, zIndex:-1}}/>}
+                {m.label}
+              </button>
+            );
+          })}
+        </div>
+      </LayoutGroup>
+    </div>
+  );
+}
+
+/* ============================================================
+   CJM SECTION
+   ============================================================ */
+function useSwipe(onLeft, onRight){
+  const sx = useRef(null), sy = useRef(null);
+  return {
+    onTouchStart:(e)=>{ const t=e.touches[0]; sx.current=t.clientX; sy.current=t.clientY; },
+    onTouchEnd:(e)=>{
+      if(sx.current==null) return;
+      const t=e.changedTouches[0];
+      const dx=t.clientX-sx.current, dy=t.clientY-sy.current;
+      sx.current=null;
+      if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)*1.4){ dx<0 ? onLeft() : onRight(); }
+    }
+  };
+}
+
+function CJMSection({activeJourney, activeStep, setActiveStep, showMetrics, payMode, setPayMode}){
+  const j = journeys[activeJourney];
+  const hasVariants = !!j.variants;
+  const steps = hasVariants ? j.variants[payMode] : j.steps;
+  const safeStep = Math.min(activeStep, steps.length - 1);
+  const step = steps[safeStep];
+  const swipe = useSwipe(
+    ()=>setActiveStep(p=>Math.min(steps.length-1, p+1)),
+    ()=>setActiveStep(p=>Math.max(0, p-1))
+  );
+  return (
+    <section className="section" style={{maxWidth:1320, margin:"0 auto", padding:"50px 40px 100px", position:"relative"}}>
+      {hasVariants && <PayModeToggle payMode={payMode} setPayMode={setPayMode}/>}
+      <ProgressRail steps={steps} active={safeStep} onPick={setActiveStep}/>
+      <div className="work-grid" style={{display:"grid", gridTemplateColumns:"minmax(340px, 0.9fr) minmax(0, 1.2fr)", gap:80, alignItems:"start"}}>
+        <div className="phone-wrap" {...swipe} style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:20}}>
+          <Phone screenKey={step.screen}/>
+          <MobileStepNav current={safeStep} total={steps.length}
+            onPrev={()=>setActiveStep(p=>Math.max(0, p-1))}
+            onNext={()=>setActiveStep(p=>Math.min(steps.length-1, p+1))}/>
+        </div>
+        <StepInfo step={step} stepIdx={safeStep} totalSteps={steps.length} showMetrics={showMetrics}
+          onPrev={()=>setActiveStep(p=>Math.max(0, p-1))}
+          onNext={()=>setActiveStep(p=>Math.min(steps.length-1, p+1))}
+          onRestart={()=>setActiveStep(0)}/>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   BENEFITS — 3 groups (Клиент / СДЕК / Альфа-Банк)
+   ============================================================ */
+function BenefitCard({item, index, inView, accentMode, large}){
+  const [hover, setHover] = useState(false);
+  return (
+    <motion.div
+      initial={{opacity:0, y:30}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:0.7, ease:EASE, delay:index*0.06}}
+      onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} className={large?"b-large":""}
+      style={{gridColumn: large?"span 2":"span 1", gridRow:"span 1", background:"var(--surface-1)", border:"1px solid var(--line-1)", borderRadius:"var(--radius-lg)", padding:large?"34px 30px":"26px 22px", position:"relative", overflow:"hidden", transition:"border-color 300ms", cursor:"default"}}>
+      <motion.div animate={{opacity:hover?1:0}} transition={{duration:0.4}} style={{position:"absolute", inset:0, pointerEvents:"none", background:"radial-gradient(circle at 80% 0%, rgba(0,185,86,0.16), transparent 60%)"}}/>
+      <motion.div animate={{opacity:hover?1:0}} transition={{duration:0.3}} style={{position:"absolute", inset:0, borderRadius:"var(--radius-lg)", pointerEvents:"none", border:"1px solid var(--lime-deep)"}}/>
+      <div style={{position:"relative", zIndex:1, height:"100%", display:"flex", flexDirection:"column"}}>
+        <div style={{display:"flex", alignItems:"flex-start", justifyContent:"space-between", marginBottom:large?26:18, gap:16}}>
+          <motion.div animate={{y: hover?-2:0}} transition={{duration:0.3}}
+            style={{width:large?52:42, height:large?52:42, borderRadius:12, color:"var(--ink-1)", background: accentMode?"var(--lime)":"var(--surface-2)", border: accentMode?"1px solid var(--lime-deep)":"1px solid var(--line-2)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0}}>
+            <Ico d={ICONS[item.icon]} size={large?24:20}/>
+          </motion.div>
+          {item.accent && (
+            <div className="num" style={{fontSize: large?34:20, fontWeight:800, letterSpacing:"-0.03em", color:"var(--ink-1)", lineHeight:1, background: accentMode?"var(--lime)":"transparent", padding: accentMode?"4px 12px":0, borderRadius: accentMode?10:0}}>{item.accent}</div>
+          )}
+        </div>
+        <div style={{fontSize: large?22:16.5, fontWeight:600, color:"var(--ink-1)", marginBottom:9, letterSpacing:"-0.015em", lineHeight:1.2}}>{item.title}</div>
+        <div style={{fontSize: large?15:13, color:"var(--ink-3)", lineHeight:1.55, letterSpacing:"-0.005em", marginTop:"auto"}}>{item.desc}</div>
+      </div>
+    </motion.div>
+  );
+}
+function BenefitGroup({eyebrow, title, sub, items, accentMode}){
+  const [ref, inView] = useReveal(true, 0.15);
+  return (
+    <div ref={ref} style={{marginTop:72}}>
+      <motion.div initial={{opacity:0, y:20}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:0.7, ease:EASE}} style={{marginBottom:40, maxWidth:680}}>
+        <div className="eyebrow" style={{color:"var(--ink-3)", marginBottom:13}}>{eyebrow}</div>
+        <h3 style={{fontSize:"clamp(30px, 4.4vw, 58px)", fontWeight:700, letterSpacing:"-0.035em", lineHeight:1.05, color:"var(--ink-1)", margin:"0 0 13px", textWrap:"balance"}}>{title}</h3>
+        <div style={{fontSize:15, color:"var(--ink-3)", letterSpacing:"-0.005em"}}>{sub}</div>
+      </motion.div>
+      <div className="bento-grid" style={{display:"grid", gridTemplateColumns:"repeat(3, minmax(0, 1fr))", gridAutoRows:"minmax(210px, auto)", gap:12}}>
+        {items.map((b, i)=>(<BenefitCard key={i} item={b} index={i} inView={inView} accentMode={accentMode} large={i===0}/>))}
+      </div>
+    </div>
+  );
+}
+function BenefitsSection(){
+  return (
+    <section className="section" style={{maxWidth:1320, margin:"0 auto", padding:"30px 40px 70px"}}>
+      <BenefitGroup eyebrow="01 / Клиент" title="Преимущества для клиента" sub="Что получает пользователь СДЕК" items={benefitsClient} accentMode={true}/>
+      <BenefitGroup eyebrow="02 / СДЕК" title="Преимущества для СДЕК" sub="Что даёт СДЕК встроенный кошелёк" items={benefitsPartner} accentMode={false}/>
+      <BenefitGroup eyebrow="03 / Альфа-Банк" title="Ценность для Альфа-Банка" sub="Стратегические эффекты партнёрского канала" items={benefitsBank} accentMode={true}/>
+    </section>
+  );
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+function Footer(){
+  return (
+    <footer style={{maxWidth:1320, margin:"0 auto", padding:"40px 40px 60px", borderTop:"1px solid var(--line-1)", display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:16}}>
+      <div style={{display:"flex", alignItems:"center", gap:12}}>
+        <CDEKLogo height={16} color="#00b33c"/>
+        <span style={{fontSize:11, color:"var(--ink-3)", fontWeight:500, letterSpacing:"-0.005em"}}>CDEK Wallet · кошелёк для СДЕК · 2026</span>
+      </div>
+      <span style={{fontSize:11, color:"var(--ink-4)", letterSpacing:"0.04em"}}>Услугу оказывает АО «Альфа-Банк»</span>
+    </footer>
+  );
+}
+
+/* ============================================================
+   NEW GROWTH SECTION — banking layer (light, highlighted)
+   ============================================================ */
+const GROWTH=[
+  {id:"kopilka", tag:"Накопления", icon:"piggy", badge:"Только банк · % на остаток", bankOnly:true,
+   title:"Копилка на выкуп",
+   painGA:"Клиенты откладывают дорогие выкупы из-за рубежа — уходят к конкурентам",
+   steps:[
+     {title:"Цель на товар", zone:"Кошелёк", screen:"gp_kop_goal",
+      desc:"Клиент ставит цель на конкретный товар из СДЕК.Shopping — iPhone, электроника. Включает автопополнение и округление сдачи.",
+      metricPartner:"Спрос на дорогой выкуп закрепляется в СДЕК.Shopping заранее — клиент не уходит к конкуренту.",
+      metricBank:"Целевые накопления формируют предсказуемую депозитную базу."},
+     {title:"Накопление с процентом", zone:"Кошелёк", screen:"gp_kopilka",
+      desc:"Баланс растёт за счёт автопополнения. На остаток начисляются проценты — то, что недоступно НКО-конкурентам.",
+      metricPartner:"Деньги «зарезервированы» под выкуп именно через СДЕК.Shopping.",
+      metricBank:"Проценты на остаток удерживают средства дольше — невозможно у НКО."},
+     {title:"Оплата из копилки", zone:"СДЕК.Shopping", screen:"gp_kop_done",
+      desc:"Цель достигнута — оплата выкупа в один тап прямо из копилки, с баллами за дисциплину накопления.",
+      metricPartner:"Гарантированная конверсия в выкуп в момент достижения цели.",
+      metricBank:"Транзакция и баллы — клиент в платёжном цикле банка."},
+   ]},
+  {id:"escrow", tag:"Эскроу посылок", icon:"shield", badge:"Только банк · эскроу", bankOnly:true,
+   title:"Эскроу для СДЕК.Shopping",
+   painGA:"Клиенты боятся платить вперёд за выкуп из-за рубежа — риск подделки и долгого возврата",
+   steps:[
+     {title:"Оплата в эскроу", zone:"Эскроу", screen:"gp_escrow",
+      desc:"Оплата выкупа уходит в эскроу: деньги поступают продавцу только после получения посылки клиентом в ПВЗ СДЕК.",
+      metricPartner:"Снимаем главный страх СДЕК.Shopping — клиент платит спокойно, конверсия дорогих выкупов растёт.",
+      metricBank:"Эскроу-счёт работает под банковской лицензией — недоступно НКО."},
+     {title:"Мгновенный возврат", zone:"Кошелёк", screen:"gp_esc_refund",
+      desc:"Посылка не устроила — возврат в кошелёк мгновенно при сдаче в ПВЗ. Не 7–14 дней, а секунды.",
+      metricPartner:"Мгновенный возврат — главный аргумент против страха «зависших денег».",
+      metricBank:"Возврат остаётся в кошельке банка, а не утекает в другой банк."},
+     {title:"Деньги остаются в СДЕК", zone:"СДЕК.Shopping", screen:"gp_esc_stay",
+      desc:"Возвращённые деньги уже в кошельке — и тратятся на новый выкуп через СДЕК.Shopping.",
+      metricPartner:"Деньги остаются в экосистеме СДЕК и конвертируются в повторный выкуп.",
+      metricBank:"Удержание остатков и транзакционная активность клиента."},
+   ]},
+  {id:"credit", tag:"Кредит на выкуп", icon:"bolt", badge:"Только банк · кредит", bankOnly:true,
+   title:"Кредит на дорогой выкуп",
+   painGA:"Высокий средний чек СДЕК.Shopping — клиенты откладывают или уходят",
+   steps:[
+     {title:"Предодобренный лимит", zone:"Кошелёк", screen:"gp_gift_wish",
+      desc:"Клиент видит в кошельке предодобренный кредитный лимит от Альфа-Банка. Лимит рассчитан по скорингу — без документов.",
+      metricPartner:"Клиент может купить дороже, чем у него денег — рост среднего чека СДЕК.Shopping.",
+      metricBank:"Кредитная линия на банковской лицензии — недоступно НКО-конкурентам."},
+     {title:"Кредит при оплате", zone:"СДЕК.Shopping", screen:"gp_gift",
+      desc:"На чек-ауте — «Оплатить в кредит с CDEK Wallet». Клиент выбирает срок: 3, 6 или 12 месяцев.",
+      metricPartner:"Кредит закрывает разрыв между желанием и возможностью — конверсия дорогих выкупов растёт.",
+      metricBank:"Кредитные продажи через канал партнёра — процентный доход банка."},
+     {title:"Погашение из кошелька", zone:"Кошелёк", screen:"gp_gift_done",
+      desc:"Ежемесячные платежи списываются из CDEK Wallet. Автопополнение — клиент не думает о сроках.",
+      metricPartner:"Клиент остаётся активным пользователем СДЕК — регулярные списания держат его в экосистеме.",
+      metricBank:"Рекуррентный кредитный поток и удержание клиента в платёжном контуре."},
+   ]},
+  {id:"replenish", tag:"Подписка на доставку", icon:"refresh", badge:"Рекуррентный оборот", bankOnly:false,
+   title:"Подписка на регулярные отправки",
+   painGA:"Бизнес-клиенты (ИП, малый бизнес) отправляют посылки хаотично — низкая предсказуемость",
+   steps:[
+     {title:"Настройка подписки", zone:"Кошелёк", screen:"gp_rep_setup",
+      desc:"Клиент или ИП подписывается на пакет отправок: N посылок в месяц со скидкой + баллы за регулярность.",
+      metricPartner:"Регулярные отправки закрепляются за СДЕК, а не за конкурентом. Предсказуемая загрузка сети.",
+      metricBank:"Рекуррентные списания — предсказуемый оборот по эквайрингу."},
+     {title:"Автосписание", zone:"Кошелёк", screen:"gp_replenish",
+      desc:"Каждый месяц — автосписание пакета с кошелька. Клиент отправляет посылки без доплат.",
+      metricPartner:"Удержание и предсказуемая выручка от подписчиков.",
+      metricBank:"Регулярный транзакционный поток и активные остатки на кошельке."},
+     {title:"Статус за регулярность", zone:"Кошелёк", screen:"gp_rep_spend",
+      desc:"За серию месяцев подписки копятся баллы и растёт статус — скидки на доставку до 20%.",
+      metricPartner:"Лояльность и рост LTV бизнес-клиентов.",
+      metricBank:"Долгий жизненный цикл клиента в платёжном контуре банка."},
+   ]},
+];
+const GROWTH_RADAR=[
+  {icon:"layers", title:"Мультивалютный кошелёк", desc:"Оплата выкупов в валюте продавца без конвертации на стороне клиента. Курс фиксируется в момент оплаты — прозрачно и предсказуемо."},
+  {icon:"crown", title:"Статусная программа CDEK Pro", desc:"Уровни → банковские перки: повышенный кэшбэк на доставку, бесплатная рассрочка, приоритетная обработка отправлений."},
+  {icon:"link", title:"B2B-кошелёк для ИП и ООО", desc:"Расчётный кошелёк для бизнес-клиентов СДЕК: массовые отправки, акты, интеграция с 1С. Рост корпоративных клиентов."},
+];
+
+function NewGrowth({showMetrics}){
+  const [gi, setGi] = useState(0);
+  const [gstep, setGstep] = useState(0);
+  const g = GROWTH[gi];
+  const steps = g.steps;
+  const safe = Math.min(gstep, steps.length - 1);
+  const step = steps[safe];
+  const swipe = useSwipe(
+    ()=>setGstep(p=>Math.min(steps.length-1, p+1)),
+    ()=>setGstep(p=>Math.max(0, p-1))
+  );
+  const [hRef, hIn] = useReveal(true, 0.2);
+  const [rRef, rIn] = useReveal(true, 0.15);
+  useEffect(()=>{ setGstep(0); }, [gi]);
+  return (
+    <section className="ng" style={{maxWidth:1320, margin:"0 auto", padding:"50px 40px 100px", position:"relative", overflow:"hidden", color:"var(--ink-1)"}}>
+      <div style={{position:"absolute", top:-120, right:-90, width:520, height:520, borderRadius:"50%", background:"radial-gradient(circle, rgba(0,185,86,0.26) 0%, rgba(0,185,86,0) 66%)", filter:"blur(64px)", pointerEvents:"none"}}/>
+      <div style={{maxWidth:1320, margin:"0 auto", position:"relative"}}>
+
+        <motion.div ref={hRef} initial={{opacity:0, y:24}} animate={hIn?{opacity:1, y:0}:{}} transition={{duration:0.8, ease:EASE}} style={{marginBottom:30, maxWidth:800}}>
+          <div className="eyebrow" style={{marginBottom:16}}>Точки роста · банковский слой</div>
+          <h2 style={{fontSize:"clamp(32px, 5vw, 64px)", fontWeight:800, letterSpacing:"-0.04em", lineHeight:1.0, margin:"0 0 16px", color:"var(--ink-1)"}}>
+            Новые <span className="mark-hl"><span>точки роста</span></span>
+          </h2>
+          <p style={{fontSize:16, color:"var(--ink-2)", lineHeight:1.55, letterSpacing:"-0.005em", margin:0}}>
+            Платёж и лояльность повторят все. То, что не могут НКО-конкуренты, — процентный остаток, эскроу и кредит. Каждая идея — отдельный сценарий, который закрывает реальную боль СДЕК.
+          </p>
+        </motion.div>
+
+        <LayoutGroup id="ng">
+          <div className="ng-pills" style={{display:"inline-flex", background:"var(--surface-1)", border:"1px solid var(--line-2)", borderRadius:18, padding:5, gap:2, marginBottom:36, maxWidth:"100%", flexWrap:"wrap"}}>
+            {GROWTH.map((it,i)=>{
+              const active = i===gi;
+              return (
+                <button key={it.id} onClick={()=>setGi(i)}
+                  style={{position:"relative", padding:"11px 16px", borderRadius:14, fontSize:13, fontWeight:600, letterSpacing:"-0.005em", color: active?"#fff":"var(--ink-2)", display:"flex", alignItems:"center", gap:8, zIndex:1, background:"transparent", border:"none", cursor:"pointer", transition:"color 200ms", whiteSpace:"nowrap"}}>
+                  {active && <motion.div layoutId="ng-pill" transition={{...SPRING.snappy}} style={{position:"absolute", inset:0, background:"var(--ink-1)", borderRadius:14, zIndex:-1, boxShadow:"0 8px 20px -6px rgba(10,10,10,0.30)"}}/>}
+                  <span style={{display:"inline-flex", color: active?"var(--lime)":"var(--ink-3)"}}><GIco d={GI[it.icon]} size={16}/></span>
+                  {it.tag}
+                </button>
+              );
+            })}
+          </div>
+        </LayoutGroup>
+
+        <motion.div key={g.id} initial={{opacity:0, y:12}} animate={{opacity:1, y:0}} transition={{duration:0.4, ease:EASE}}
+          style={{display:"flex", alignItems:"center", gap:14, flexWrap:"wrap", marginBottom:30}}>
+          <div style={{display:"inline-flex", alignItems:"center", gap:8, padding:"6px 13px", borderRadius:999, background: g.bankOnly?"var(--lime)":"var(--surface-1)", border: g.bankOnly?"none":"1px solid var(--line-2)"}}>
+            <span style={{width:6, height:6, borderRadius:"50%", background: g.bankOnly?"var(--ink-1)":"var(--lime-deep)"}}/>
+            <span style={{fontSize:11, fontWeight:700, letterSpacing:"0.04em", textTransform:"uppercase", color:"var(--ink-1)"}}>{g.badge}</span>
+          </div>
+          <div style={{fontSize:13.5, color:"var(--ink-2)", fontWeight:500, letterSpacing:"-0.005em"}}>
+            <span style={{color:"var(--ink-3)"}}>Боль СДЕК: </span>{g.painGA}
+          </div>
+        </motion.div>
+
+        <ProgressRail steps={steps} active={safe} onPick={setGstep}/>
+        <div className="work-grid" style={{display:"grid", gridTemplateColumns:"minmax(340px, 0.9fr) minmax(0, 1.2fr)", gap:80, alignItems:"start"}}>
+          <div className="phone-wrap" {...swipe} style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:20}}>
+            <Phone screenKey={step.screen}/>
+            <MobileStepNav current={safe} total={steps.length}
+              onPrev={()=>setGstep(p=>Math.max(0, p-1))}
+              onNext={()=>setGstep(p=>Math.min(steps.length-1, p+1))}/>
+          </div>
+          <StepInfo step={step} stepIdx={safe} totalSteps={steps.length} showMetrics={showMetrics} showBank={false}
+            onPrev={()=>setGstep(p=>Math.max(0, p-1))}
+            onNext={()=>setGstep(p=>Math.min(steps.length-1, p+1))}
+            onRestart={()=>setGstep(0)}/>
+        </div>
+
+        <div ref={rRef} style={{marginTop:84}}>
+          <div className="eyebrow no-mark" style={{color:"var(--ink-3)", marginBottom:24, fontWeight:600, letterSpacing:"0.16em", fontSize:10}}>Ещё на радаре</div>
+          <div className="ng-extra-grid">
+            {GROWTH_RADAR.map((c,i)=>(
+              <motion.div key={i} initial={{opacity:0, y:26}} animate={rIn?{opacity:1, y:0}:{}} transition={{duration:0.7, ease:EASE, delay:i*0.1}}
+                style={{padding:"28px 26px 30px", borderBottom:"1px solid var(--line-2)", borderRight:(i%3!==2)?"1px solid var(--line-2)":"none"}}>
+                <div style={{width:44, height:44, borderRadius:12, background:"var(--surface-1)", border:"1px solid var(--line-2)", display:"flex", alignItems:"center", justifyContent:"center", color:"var(--ink-1)", marginBottom:16}}><GIco d={GI[c.icon]} size={22}/></div>
+                <div style={{fontSize:16.5, fontWeight:600, color:"var(--ink-1)", marginBottom:8, letterSpacing:"-0.015em", lineHeight:1.2}}>{c.title}</div>
+                <div style={{fontSize:13, color:"var(--ink-3)", lineHeight:1.55}}>{c.desc}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{marginTop:46, paddingTop:24, borderTop:"1px solid var(--line-2)", fontSize:13, color:"var(--ink-3)", letterSpacing:"-0.005em"}}>
+          Платёжный слой повторят все. Банковская лицензия — нет. Это ров CDEK Wallet: эскроу посылок, кредит на выкуп и проценты на остаток.
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   APP
+   ============================================================ */
+function App(){
+  const [activeJourney, setActiveJourney] = useState(0);
+  const [activeStep, setActiveStep] = useState(0);
+  const [payMode, setPayMode] = useState("online");
+  const [showMetrics, setShowMetrics] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
+  const [view, setView] = useState("cjm");
+  const firstRun = useRef(true);
+  useGlobalSpotlight();
+  useEffect(()=>{ setActiveStep(0); }, [activeJourney, payMode]);
+  useEffect(()=>{
+    const onScroll = ()=> setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive:true});
+    return ()=>window.removeEventListener('scroll', onScroll);
+  },[]);
+  useEffect(()=>{
+    if(firstRun.current){ firstRun.current = false; return; }
+    requestAnimationFrame(()=>{
+      const el = document.getElementById('view-anchor');
+      if(el) window.scrollTo({top: Math.max(0, el.offsetTop - 12), behavior:'smooth'});
+    });
+  }, [view]);
+  return (
+    <div style={{minHeight:"100vh"}}>
+      <Navbar showMetrics={showMetrics} setShowMetrics={setShowMetrics} scrolled={scrolled}/>
+      <Hero view={view} setView={setView} activeJourney={activeJourney} setActiveJourney={setActiveJourney}/>
+      <div id="view-anchor">
+        {view === "cjm" ? (
+          <React.Fragment>
+            <CJMSection activeJourney={activeJourney} activeStep={activeStep} setActiveStep={setActiveStep} showMetrics={showMetrics} payMode={payMode} setPayMode={setPayMode}/>
+            <BenefitsSection/>
+          </React.Fragment>
+        ) : (
+          <NewGrowth showMetrics={showMetrics}/>
+        )}
+      </div>
+      <Footer/>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App/>);
 </script>
 </body>
 </html>
