@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CDEK Wallet × СДЕК — Customer Journey Map</title>
-<meta name="description" content="Интерактивный клиентский путь кошелька CDEK Wallet для СДЕК">
+<title>CDEK Wallet × CDEK — Customer Journey Map</title>
+<meta name="description" content="Интерактивный клиентский путь кошелька CDEK Wallet для CDEK">
 <meta name="theme-color" content="#FFFFFF">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%2300B956'/><g fill='none' stroke='%230A0A0A' stroke-width='2.6' stroke-linejoin='round'><path d='M20 24 L34 18 L44 22 L30 28 Z'/><path d='M20 24 L20 28 L30 32 L30 28 Z'/><path d='M30 28 L30 32 L44 26 L44 22 Z'/><path d='M20 31 L34 25 L44 29 L30 35 Z'/><path d='M20 31 L20 35 L30 39 L30 35 Z'/><path d='M30 35 L30 39 L44 33 L44 29 Z'/><path d='M20 38 L34 32 L44 36 L30 42 Z'/><path d='M20 38 L20 42 L30 46 L30 42 Z'/><path d='M30 42 L30 46 L44 40 L44 36 Z'/></g></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -111,7 +111,7 @@ button:focus-visible{outline:2px solid var(--ink-1);outline-offset:3px;border-ra
     <rect x="118" y="300" width="424" height="118" rx="10" fill="#00B956"/>
     <text x="150" y="392" fill="#0A0A0A" font-family="system-ui" font-weight="800" font-size="96" letter-spacing="-3">CDEK</text>
     <text x="600" y="392" fill="#0A0A0A" font-family="system-ui" font-weight="800" font-size="96" letter-spacing="-3">Wallet</text>
-    <text x="122" y="470" fill="rgba(10,10,10,0.45)" font-family="system-ui" font-size="26">× СДЕК · Customer Journey Map</text>
+    <text x="122" y="470" fill="rgba(10,10,10,0.45)" font-family="system-ui" font-size="26">× CDEK · Customer Journey Map</text>
   </svg>
 </template>
 <div class="mesh-base"></div>
@@ -168,78 +168,78 @@ function QRish({size=120, color="#0A0A0A", bg="transparent"}){
 /* ===== JOURNEY DATA ===== */
 const journeys=[
 {id:"new",group:"journey",label:"Новый клиент",desc:"Выпуск кошелька CDEK Wallet · пополнение · оплата",steps:[
-  {title:"Точка входа",zone:"СДЕК",screen:"ga_checkout",desc:"Клиент оформляет заказ в приложении СДЕК. На чек-ауте — оффер «Скидка + баллы при оплате CDEK Wallet», встроенный в оформление заказа.",metricPartner:"Рост конверсии чек-аута: бонусный оффер в момент оплаты",metricBank:"Присутствие CDEK Wallet в покупательском пути СДЕК"},
-  {title:"Оффер + согласия",zone:"СДЕК → Банк",screen:"offer_consents",desc:"Экран оффера: баллы за каждую оплату кошельком. Согласие клиента на передачу реквизитов и банковской тайны, памятка ЭДС, СОПД.",metricPartner:"Бонусы для клиента — за счёт экономии на эквайринге, а не из маржи СДЕК",metricBank:"Подключение к CDEK Wallet прямо в канале партнёра"},
-  {title:"Идентификация клиента",zone:"Банк",screen:"identify",desc:"Ввод номера телефона и кода из СМС. Идентификация реализуется во встроенном WebView либо нативно — полностью в контуре приложения СДЕК.",metricPartner:"Идентификация за секунды — клиент не покидает приложение",metricBank:"Идентификация без визита в отделение"},
+  {title:"Точка входа",zone:"CDEK",screen:"ga_checkout",desc:"Клиент оформляет заказ в приложении CDEK. На чек-ауте — оффер «Скидка + баллы при оплате CDEK Wallet», встроенный в оформление заказа.",metricPartner:"Рост конверсии чек-аута: бонусный оффер в момент оплаты",metricBank:"Присутствие CDEK Wallet в покупательском пути CDEK"},
+  {title:"Оффер + согласия",zone:"CDEK → Банк",screen:"offer_consents",desc:"Экран оффера: баллы за каждую оплату кошельком. Согласие клиента на передачу реквизитов и банковской тайны, памятка ЭДС, СОПД.",metricPartner:"Бонусы для клиента — за счёт экономии на эквайринге, а не из маржи CDEK",metricBank:"Подключение к CDEK Wallet прямо в канале партнёра"},
+  {title:"Идентификация клиента",zone:"Банк",screen:"identify",desc:"Ввод номера телефона и кода из СМС. Идентификация реализуется во встроенном WebView либо нативно — полностью в контуре приложения CDEK.",metricPartner:"Идентификация за секунды — клиент не покидает приложение",metricBank:"Идентификация без визита в отделение"},
   {title:"Анкета на открытие",zone:"Банк",screen:"form",desc:"ФИО и дата рождения. Поля предзаполнены из данных партнёра — клиенту не нужно вводить вручную.",metricPartner:"Заявка занимает меньше минуты — поля предзаполнены",metricBank:"Выпуск кошелька без отделения и курьера"},
   {title:"Кошелёк выпущен",zone:"Банк",screen:"issued",desc:"Моментальный выпуск кошелька CDEK Wallet с предложением пополнить и оплатить. Без выпуска пластика.",metricPartner:"Клиент готов к оплате сразу после выпуска",metricBank:"Моментальный выпуск кошелька CDEK Wallet"},
   {title:"Пополнение кошелька",zone:"Банк",screen:"topup_c2b",desc:"Пополнение кошелька с карты другого банка через платёжный шлюз (C2B). Достаточно суммы заказа.",metricPartner:"Оплата проходит здесь же — клиент не уходит с чек-аута",metricBank:"Рост остатков на кошельках CDEK Wallet"},
-  {title:"Привязка к CDEK Wallet",zone:"Банк → СДЕК",screen:"bind",desc:"Реквизиты кошелька автоматически передаются в СДЕК. CDEK Wallet появляется как способ оплаты — без ручного ввода реквизитов.",metricPartner:"Привязка автоматическая — без ручного ввода реквизитов",metricBank:"CDEK Wallet закрепляется как способ оплаты у партнёра"},
-  {title:"Оплата на чек-ауте",zone:"СДЕК",screen:"pay_bonus",desc:"Клиент платит кошельком CDEK Wallet. Вместо скидки — начисление баллов: +100 за оплату. Заказ оплачен.",metricPartner:"Начисление баллов повышает ценность каждой покупки",metricBank:"Активный кошелёк — начало транзакционной активности"},
+  {title:"Привязка к CDEK Wallet",zone:"Банк → CDEK",screen:"bind",desc:"Реквизиты кошелька автоматически передаются в CDEK. CDEK Wallet появляется как способ оплаты — без ручного ввода реквизитов.",metricPartner:"Привязка автоматическая — без ручного ввода реквизитов",metricBank:"CDEK Wallet закрепляется как способ оплаты у партнёра"},
+  {title:"Оплата на чек-ауте",zone:"CDEK",screen:"pay_bonus",desc:"Клиент платит кошельком CDEK Wallet. Вместо скидки — начисление баллов: +100 за оплату. Заказ оплачен.",metricPartner:"Начисление баллов повышает ценность каждой покупки",metricBank:"Активный кошелёк — начало транзакционной активности"},
 ]},
 {id:"existing",group:"journey",label:"Действующий клиент",desc:"Подключение кошелька · выбор карты · оплата",steps:[
-  {title:"Точка входа",zone:"СДЕК",screen:"ga_checkout",desc:"На чек-ауте СДЕК — оффер «Скидка + баллы при оплате CDEK Wallet». Клиент уже клиент Альфа-Банка.",metricPartner:"Готовая база клиентов Альфа-Банка — простое подключение CDEK Wallet",metricBank:"Рост активности клиентов через новый канал"},
-  {title:"Оффер + согласия",zone:"СДЕК → Банк",screen:"offer_consents",desc:"Оффер баллами + согласие клиента на передачу реквизитов и банковской тайны.",metricPartner:"Оплата CDEK Wallet выгоднее для СДЕК, чем сторонние способы оплаты на чек-ауте",metricBank:"Рост доли CDEK Wallet в платёжном миксе партнёра"},
-  {title:"Идентификация клиента",zone:"Банк",screen:"identify",desc:"Ввод номера телефона и кода из СМС. Реализация — во встроенном WebView либо нативно в приложении СДЕК.",metricPartner:"Быстрая привязка — клиент остаётся в приложении СДЕК",metricBank:"Связка «клиент банка — клиент партнёра» для аналитики"},
-  {title:"Выбор карты",zone:"Банк",screen:"select_card",desc:"Клиент выбирает любую активную карту Альфа-Банка или выпускает новую — если не хочет привязывать действующую. Реализация: WebView либо нативно в контуре СДЕК.",metricPartner:"Автоматическая привязка карты — без ручного ввода реквизитов",metricBank:"Данные о предпочтительной карте клиента у партнёра"},
+  {title:"Точка входа",zone:"CDEK",screen:"ga_checkout",desc:"На чек-ауте CDEK — оффер «Скидка + баллы при оплате CDEK Wallet». Клиент уже клиент Альфа-Банка.",metricPartner:"Готовая база клиентов Альфа-Банка — простое подключение CDEK Wallet",metricBank:"Рост активности клиентов через новый канал"},
+  {title:"Оффер + согласия",zone:"CDEK → Банк",screen:"offer_consents",desc:"Оффер баллами + согласие клиента на передачу реквизитов и банковской тайны.",metricPartner:"Оплата CDEK Wallet выгоднее для CDEK, чем сторонние способы оплаты на чек-ауте",metricBank:"Рост доли CDEK Wallet в платёжном миксе партнёра"},
+  {title:"Идентификация клиента",zone:"Банк",screen:"identify",desc:"Ввод номера телефона и кода из СМС. Реализация — во встроенном WebView либо нативно в приложении CDEK.",metricPartner:"Быстрая привязка — клиент остаётся в приложении CDEK",metricBank:"Связка «клиент банка — клиент партнёра» для аналитики"},
+  {title:"Выбор карты",zone:"Банк",screen:"select_card",desc:"Клиент выбирает любую активную карту Альфа-Банка или выпускает новую — если не хочет привязывать действующую. Реализация: WebView либо нативно в контуре CDEK.",metricPartner:"Автоматическая привязка карты — без ручного ввода реквизитов",metricBank:"Данные о предпочтительной карте клиента у партнёра"},
   {title:"Кошелёк подключён",zone:"Банк",screen:"wallet_ready",desc:"Кошелёк CDEK Wallet подключён к выбранной карте клиента в один шаг.",metricPartner:"Кошелёк подключён к карте клиента в один шаг",metricBank:"Готовый к оплате кошелёк CDEK Wallet"},
   {title:"Пополнение кошелька",zone:"Банк",screen:"topup_me2me",desc:"Если на карте недостаточно средств — пополнение между своими счетами (me2me) прямо в процессе.",metricPartner:"Клиент пополняет кошелёк при нехватке средств — не уходит с чек-аута",metricBank:"Консолидация остатков клиента в CDEK Wallet"},
-  {title:"Оплата на чек-ауте",zone:"СДЕК",screen:"pay_bonus",desc:"Клиент платит CDEK Wallet. Начисление баллов за оплату — без явной скидки.",metricPartner:"Совместная лояльность повышает частоту повторных покупок",metricBank:"Рост оборота по эквайрингу через канал партнёра"},
+  {title:"Оплата на чек-ауте",zone:"CDEK",screen:"pay_bonus",desc:"Клиент платит CDEK Wallet. Начисление баллов за оплату — без явной скидки.",metricPartner:"Совместная лояльность повышает частоту повторных покупок",metricBank:"Рост оборота по эквайрингу через канал партнёра"},
 ]},
 {id:"no_card",group:"journey",label:"Без активной карты",desc:"Идентификация · выпуск кошелька · оплата",steps:[
-  {title:"Точка входа",zone:"СДЕК",screen:"ga_checkout",desc:"Информер о повышенных бонусах при оплате CDEK Wallet на чек-ауте СДЕК.",metricPartner:"Возврат «спящих» клиентов через канал СДЕК",metricBank:"Повторная активация клиента без затрат на ремаркетинг"},
-  {title:"Оффер + согласия",zone:"СДЕК → Банк",screen:"offer_consents",desc:"Оффер + согласия. Банк определяет клиента по ID клиента в Банке — действующий клиент без активного кошелька.",metricPartner:"Лояльный клиент с банковской историей",metricBank:"Идентификация по ID клиента в Банке — без полной анкеты"},
-  {title:"Идентификация клиента",zone:"Банк",screen:"identify",desc:"Ввод номера телефона и кода из СМС. WebView либо нативная реализация в приложении СДЕК.",metricPartner:"Идентификация за секунды в приложении СДЕК",metricBank:"Быстрая идентификация действующего клиента"},
+  {title:"Точка входа",zone:"CDEK",screen:"ga_checkout",desc:"Информер о повышенных бонусах при оплате CDEK Wallet на чек-ауте CDEK.",metricPartner:"Возврат «спящих» клиентов через канал CDEK",metricBank:"Повторная активация клиента без затрат на ремаркетинг"},
+  {title:"Оффер + согласия",zone:"CDEK → Банк",screen:"offer_consents",desc:"Оффер + согласия. Банк определяет клиента по ID клиента в Банке — действующий клиент без активного кошелька.",metricPartner:"Лояльный клиент с банковской историей",metricBank:"Идентификация по ID клиента в Банке — без полной анкеты"},
+  {title:"Идентификация клиента",zone:"Банк",screen:"identify",desc:"Ввод номера телефона и кода из СМС. WebView либо нативная реализация в приложении CDEK.",metricPartner:"Идентификация за секунды в приложении CDEK",metricBank:"Быстрая идентификация действующего клиента"},
   {title:"Предложение открыть кошелёк",zone:"Банк",screen:"upsell",desc:"«Откройте бесплатный кошелёк CDEK Wallet и получайте баллы». Выпуск кошелька CDEK Wallet — без пластика на старте.",metricPartner:"Бонусы привязаны к новому кошельку — мотивация к покупке",metricBank:"Конверсия в выпуск кошелька выше прямых каналов"},
   {title:"Анкета на открытие",zone:"Банк",screen:"form",desc:"Заполнение анкеты для выпуска кошелька. ФИО предзаполнены из данных банка.",metricPartner:"Простая заявка — поля предзаполнены из данных банка",metricBank:"Полноценный кошелёк с потенциалом кросс-продаж"},
   {title:"Кошелёк выпущен",zone:"Банк",screen:"issued",desc:"Выпуск кошелька CDEK Wallet. Клиент платит кошельком CDEK Wallet — с тем же набором преимуществ.",metricPartner:"Клиент платит кошельком CDEK Wallet сразу после выпуска",metricBank:"Активация кошелька в день выпуска"},
   {title:"Пополнение кошелька",zone:"Банк",screen:"topup_c2b",desc:"Пополнение кошелька с карты другого банка (C2B). Сумма заказа доступна для оплаты здесь же.",metricPartner:"Сумма заказа доступна для оплаты здесь же",metricBank:"Рост остатков на кошельках CDEK Wallet"},
   {title:"Заказ пластика",zone:"Банк",screen:"delivery",desc:"Заказ пластиковой карты курьером или в отделении. После активации — автоматическая привязка к способу оплаты CDEK Wallet.",metricPartner:"Пластик с предустановленной привязкой к CDEK Wallet",metricBank:"Долгосрочная активация клиента"},
-  {title:"Привязка и оплата",zone:"СДЕК",screen:"pay_bonus",desc:"После активации кошелька — автоматическая передача реквизитов и привязка к способу оплаты CDEK Wallet. Оплата с начислением баллов.",metricPartner:"Регулярные покупки с начислением баллов",metricBank:"Активный клиент с кошельком и транзакционной историей"},
+  {title:"Привязка и оплата",zone:"CDEK",screen:"pay_bonus",desc:"После активации кошелька — автоматическая передача реквизитов и привязка к способу оплаты CDEK Wallet. Оплата с начислением баллов.",metricPartner:"Регулярные покупки с начислением баллов",metricBank:"Активный клиент с кошельком и транзакционной историей"},
 ]},
 {id:"payment",group:"capability",label:"Оплата кошельком",desc:"Оплата CDEK Wallet в онлайне и офлайне",variants:{
   online:[
-    {title:"Клиент выбрал товар",zone:"СДЕК · online",screen:"shop_product",desc:"Клиент выбирает товар в приложении СДЕК. Подсвечивается выгода оплаты через CDEK Wallet: +100 баллов.",metricPartner:"Выгода CDEK Wallet видна уже в карточке товара",metricBank:"Узнаваемость CDEK Wallet в каталоге партнёра"},
-    {title:"Добавил в корзину",zone:"СДЕК · online",screen:"cart",desc:"Товар в корзине. Баннер «Скидка + баллы при оплате CDEK Wallet» рядом с итоговой суммой.",metricPartner:"Бонусный баннер в корзине — стимул завершить заказ",metricBank:"Напоминание о CDEK Wallet в корзине"},
-    {title:"Перешёл в оформление",zone:"СДЕК · online",screen:"checkout_methods",desc:"Оформление заказа, выбор способа оплаты среди СБП, SberPay, Яндекс Пэй и CDEK Wallet.",metricPartner:"CDEK Wallet — в списке способов оплаты",metricBank:"Присутствие среди привычных способов оплаты"},
-    {title:"CDEK Wallet предустановлен",zone:"СДЕК · online",screen:"method_selected",desc:"CDEK Wallet выбран способом оплаты по умолчанию — клиенту не нужно искать его в списке.",metricPartner:"Предустановленный способ оплаты ускоряет чек-аут",metricBank:"Приоритет CDEK Wallet по умолчанию"},
-    {title:"Оплатил CDEK Wallet",zone:"СДЕК · online",screen:"paid",desc:"Оплата прошла в один тап. +100 баллов начислено на счёт лояльности.",metricPartner:"Оплата в один тап, бонусы начислены",metricBank:"Завершённая транзакция по CDEK Wallet"},
+    {title:"Клиент выбрал товар",zone:"CDEK · online",screen:"shop_product",desc:"Клиент выбирает товар в приложении CDEK. Подсвечивается выгода оплаты через CDEK Wallet: +100 баллов.",metricPartner:"Выгода CDEK Wallet видна уже в карточке товара",metricBank:"Узнаваемость CDEK Wallet в каталоге партнёра"},
+    {title:"Добавил в корзину",zone:"CDEK · online",screen:"cart",desc:"Товар в корзине. Баннер «Скидка + баллы при оплате CDEK Wallet» рядом с итоговой суммой.",metricPartner:"Бонусный баннер в корзине — стимул завершить заказ",metricBank:"Напоминание о CDEK Wallet в корзине"},
+    {title:"Перешёл в оформление",zone:"CDEK · online",screen:"checkout_methods",desc:"Оформление заказа, выбор способа оплаты среди СБП, SberPay, Яндекс Пэй и CDEK Wallet.",metricPartner:"CDEK Wallet — в списке способов оплаты",metricBank:"Присутствие среди привычных способов оплаты"},
+    {title:"CDEK Wallet предустановлен",zone:"CDEK · online",screen:"method_selected",desc:"CDEK Wallet выбран способом оплаты по умолчанию — клиенту не нужно искать его в списке.",metricPartner:"Предустановленный способ оплаты ускоряет чек-аут",metricBank:"Приоритет CDEK Wallet по умолчанию"},
+    {title:"Оплатил CDEK Wallet",zone:"CDEK · online",screen:"paid",desc:"Оплата прошла в один тап. +100 баллов начислено на счёт лояльности.",metricPartner:"Оплата в один тап, бонусы начислены",metricBank:"Завершённая транзакция по CDEK Wallet"},
   ],
   offline:[
-    {title:"Карта лояльности",zone:"СДЕК · offline",screen:"qr_loyalty",desc:"Клиент на кассе открывает карту лояльности СДЕК с QR-кодом в приложении.",metricPartner:"Привычная карта лояльности СДЕК",metricBank:"Единый QR для оплаты и лояльности"},
+    {title:"Карта лояльности",zone:"CDEK · offline",screen:"qr_loyalty",desc:"Клиент на кассе открывает карту лояльности CDEK с QR-кодом в приложении.",metricPartner:"Привычная карта лояльности CDEK",metricBank:"Единый QR для оплаты и лояльности"},
     {title:"Кассир считывает QR",zone:"ПВЗ · offline",screen:"cashier",desc:"Кассир считывает QR-код — одновременно проходит оплата CDEK Wallet и начисление/списание баллов.",metricPartner:"Оплата и бонусы — одним действием на кассе",metricBank:"Оплата CDEK Wallet в офлайне"},
-    {title:"Готово",zone:"СДЕК · offline",screen:"offline_done",desc:"Покупка оплачена, баллы начислены — одним действием, без отдельной карты.",metricPartner:"Быстрая касса — клиент доволен",metricBank:"Бесшовный офлайн-сценарий CDEK Wallet"},
+    {title:"Готово",zone:"CDEK · offline",screen:"offline_done",desc:"Покупка оплачена, баллы начислены — одним действием, без отдельной карты.",metricPartner:"Быстрая касса — клиент доволен",metricBank:"Бесшовный офлайн-сценарий CDEK Wallet"},
   ]
 }},
 {id:"manage",group:"capability",label:"Управление",desc:"Управление кошельком CDEK Wallet в профиле клиента",steps:[
-  {title:"Доступ в профиле",zone:"СДЕК",screen:"profile_access",desc:"Кошелёк CDEK Wallet доступен в профиле клиента в приложении СДЕК — рядом с бонусами и картой лояльности.",metricPartner:"Кошелёк всегда под рукой в приложении СДЕК",metricBank:"Регулярные заходы в CDEK Wallet"},
+  {title:"Доступ в профиле",zone:"CDEK",screen:"profile_access",desc:"Кошелёк CDEK Wallet доступен в профиле клиента в приложении CDEK — рядом с бонусами и картой лояльности.",metricPartner:"Кошелёк всегда под рукой в приложении CDEK",metricBank:"Регулярные заходы в CDEK Wallet"},
   {title:"Управление кошельком",zone:"Кошелёк",screen:"wallet_home",desc:"Баланс баллов, история операций и быстрые действия с картой на главном экране кошелька.",metricPartner:"Прозрачный баланс баллов и история операций",metricBank:"Вовлечённость в кошелёк"},
   {title:"Пополнение / перевод",zone:"Кошелёк",screen:"wallet_topup",desc:"Пополнить со счёта в другом банке, со счёта в Альфа-Банке или настроить автопополнение.",metricPartner:"Пополнение в пару тапов — деньги готовы к покупке",metricBank:"Рост остатков на кошельке"},
   {title:"Действия с картой",zone:"Кошелёк",screen:"wallet_actions",desc:"Изменить пин-код, заморозить или закрыть карту, посмотреть тарифы и условия, настроить автопополнение.",metricPartner:"Полное самообслуживание по карте",metricBank:"Снижение нагрузки на поддержку"},
   {title:"Реквизиты",zone:"Кошелёк",screen:"wallet_requisites",desc:"Просмотр и копирование реквизитов карты — номер, срок, CVC под защитой.",metricPartner:"Реквизиты под рукой для любых платежей",metricBank:"Удобство использования кошелька"},
 ]},
 {id:"installment",group:"capability",label:"Рассрочка",desc:"Оплата частями с CDEK Wallet — 4 платежа без переплаты",steps:[
-  {title:"Оффер рассрочки",zone:"СДЕК",screen:"inst_offer",desc:"На чек-ауте — «Оплата частями с CDEK Wallet»: разбейте заказ на 4 платежа без переплаты.",metricPartner:"Рассрочка повышает доступность дорогих покупок",metricBank:"Новый платёжный инструмент в канале партнёра"},
+  {title:"Оффер рассрочки",zone:"CDEK",screen:"inst_offer",desc:"На чек-ауте — «Оплата частями с CDEK Wallet»: разбейте заказ на 4 платежа без переплаты.",metricPartner:"Рассрочка повышает доступность дорогих покупок",metricBank:"Новый платёжный инструмент в канале партнёра"},
   {title:"Выбор графика",zone:"Банк",screen:"inst_plan",desc:"Клиент выбирает план: 4 платежа раз в две недели. Видна сумма каждого платежа.",metricPartner:"Прозрачный график — 4 платежа без переплаты",metricBank:"Понятные условия повышают конверсию"},
   {title:"Согласие",zone:"Банк",screen:"inst_consent",desc:"Согласие на условия оплаты частями и график платежей.",metricPartner:"Согласие в один экран",metricBank:"Оформление без лишних шагов"},
   {title:"Подтверждение",zone:"Банк",screen:"inst_confirm",desc:"Первый платёж — сейчас, остальные — по графику. Без процентов и переплаты.",metricPartner:"Первый платёж сейчас, остальное — позже",metricBank:"Рост среднего чека за счёт рассрочки"},
-  {title:"Оформлено",zone:"СДЕК",screen:"inst_done",desc:"Рассрочка оформлена. +100 баллов начислено. График платежей доступен в кошельке.",metricPartner:"Бонусы начисляются и за рассрочку",metricBank:"Лояльность поверх рассрочки"},
+  {title:"Оформлено",zone:"CDEK",screen:"inst_done",desc:"Рассрочка оформлена. +100 баллов начислено. График платежей доступен в кошельке.",metricPartner:"Бонусы начисляются и за рассрочку",metricBank:"Лояльность поверх рассрочки"},
 ]},
 ];
 const benefitsClient=[
-  {icon:"gift",title:"Баллы + скидка за оплату",desc:"Скидка + баллы при оплате CDEK Wallet и бонусы за каждую покупку — копятся в СДЕК",accent:"+100"},
+  {icon:"gift",title:"Баллы + скидка за оплату",desc:"Скидка + баллы при оплате CDEK Wallet и бонусы за каждую покупку — копятся в CDEK",accent:"+100"},
   {icon:"wallet",title:"Кошелёк без пластика",desc:"CDEK Wallet выпускается моментально — платить можно сразу, без ожидания карты"},
   {icon:"refresh",title:"Улучшенные сценарии оплаты",desc:"Онлайн и офлайн, рассрочка, единый QR лояльности и оплаты"},
   {icon:"sparkle",title:"Моментальное пополнение",desc:"С карты другого банка или со счёта в Альфа-Банке — в пару тапов"},
 ];
 const benefitsPartner=[
-  {icon:"trend",title:"Экономия на эквайринге",desc:"Оплата через CDEK Wallet выгоднее для СДЕК, чем сторонние способы на чек-ауте",accent:"эквайринг"},
-  {icon:"users",title:"Новые клиенты",desc:"Готовая аудитория Альфа-Банка подключается прямо в канале СДЕК"},
+  {icon:"trend",title:"Экономия на эквайринге",desc:"Оплата через CDEK Wallet выгоднее для CDEK, чем сторонние способы на чек-ауте",accent:"эквайринг"},
+  {icon:"users",title:"Новые клиенты",desc:"Готовая аудитория Альфа-Банка подключается прямо в канале CDEK"},
   {icon:"chart",title:"Частота покупок и средний чек",desc:"Совместная лояльность мотивирует возвращаться и покупать больше"},
   {icon:"sparkle",title:"Совместные предложения",desc:"Бонусы клиенту финансируются за счёт экономии на эквайринге — не из маржи партнёра"},
 ];
 const benefitsBank=[
-  {icon:"refresh",title:"Рост транзакционного оборота",desc:"Розничный оборот по эквайрингу через канал СДЕК",accent:"РТО"},
+  {icon:"refresh",title:"Рост транзакционного оборота",desc:"Розничный оборот по эквайрингу через канал CDEK",accent:"РТО"},
   {icon:"users",title:"Новые клиенты",desc:"Подключение клиентов к CDEK Wallet в покупательском пути партнёра"},
   {icon:"savings",title:"Доход от остатков на счетах",desc:"Пополнение кошельков и рост балансов на счетах Альфа-Банка"},
   {icon:"data",title:"Данные и кросс-продажи",desc:"Связка «клиент банка — покупатель партнёра» для новых продуктов"},
@@ -324,17 +324,17 @@ const PTitle = ({t,s})=>(
 
 /* ===== SCREENS ===== */
 const SCREENS = {
-  ga_checkout:{title:"Чек-аут · СДЕК", render:()=>(
+  ga_checkout:{title:"Чек-аут · CDEK", render:()=>(
     <div style={{padding:"14px 16px",display:"flex",flexDirection:"column",gap:11}}>
       <div style={{display:"flex",alignItems:"center",gap:8}}>
         <div style={{width:22,height:22,borderRadius:6,background:"var(--ink-1)",display:"flex",alignItems:"center",justifyContent:"center"}}>
           <span style={{color:"var(--lime)",fontWeight:800,fontSize:11}}>ЗЯ</span>
         </div>
-        <span style={{fontSize:11,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:".02em"}}>СДЕК</span>
+        <span style={{fontSize:11,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:".02em"}}>CDEK</span>
       </div>
       <div style={{border:"1px solid var(--phone-line-1)",borderRadius:12,padding:"11px 13px"}}>
         <div style={{fontSize:10,color:"var(--phone-text-2)",textTransform:"uppercase",letterSpacing:".06em"}}>Ваш заказ</div>
-        <div style={{fontSize:11,color:"var(--phone-text-1)",marginTop:5,fontWeight:500}}>Nike Air Max 90 · СДЕК.Shopping</div>
+        <div style={{fontSize:11,color:"var(--phone-text-1)",marginTop:5,fontWeight:500}}>Nike Air Max 90 · CDEK.Shopping</div>
         <div className="num" style={{fontSize:22,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.02em",marginTop:4}}>14 990 ₽</div>
       </div>
       <Bonus/>
@@ -509,14 +509,14 @@ const SCREENS = {
       {PBtn("Заказать карту","dark")}
     </div>
   )},
-  shop_product:{title:"Витрина · СДЕК", render:()=>(
+  shop_product:{title:"Витрина · CDEK", render:()=>(
     <div style={{padding:"14px 16px"}}>
       <div style={{height:150,borderRadius:14,background:"linear-gradient(135deg,var(--surface-2),var(--surface-1))",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:12,position:"relative",overflow:"hidden"}}>
         <div style={{position:"absolute",top:10,left:10,background:"var(--lime)",borderRadius:7,padding:"3px 9px",fontSize:9,fontWeight:800,color:"var(--ink-1)",letterSpacing:".02em"}}>ХИТ</div>
         <svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="var(--ink-3)" strokeWidth="1.3"><path d="M9 2h6l1 4H8zM8 6h8l1.5 13a2 2 0 01-2 2.2H8.5a2 2 0 01-2-2.2z" strokeLinejoin="round"/><path d="M10 11h4"/></svg>
       </div>
       <div style={{fontSize:10,color:"var(--phone-text-2)",fontWeight:600,textTransform:"uppercase",letterSpacing:".06em"}}>Уход · Сыворотка</div>
-      <div style={{fontSize:15,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em",margin:"3px 0 8px",lineHeight:1.25}}>iPhone 16 · СДЕК.Shopping</div>
+      <div style={{fontSize:15,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em",margin:"3px 0 8px",lineHeight:1.25}}>iPhone 16 · CDEK.Shopping</div>
       <div style={{display:"flex",alignItems:"baseline",gap:8,marginBottom:10}}>
         <span className="num" style={{fontSize:22,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>14 990 ₽</span>
         <span style={{fontSize:11,color:"var(--phone-text-3)"}}>в наличии</span>
@@ -527,11 +527,11 @@ const SCREENS = {
   )},
   cart:{title:"Корзина", render:()=>(
     <div style={{padding:16}}>
-      <PTitle t="Корзина" s="1 товар · СДЕК"/>
+      <PTitle t="Корзина" s="1 товар · CDEK"/>
       <div style={{display:"flex",gap:11,padding:"12px 0",borderBottom:"1px solid var(--phone-line-1)",marginTop:8}}>
         <div style={{width:46,height:46,borderRadius:10,background:"var(--surface-2)",flexShrink:0}}/>
         <div style={{flex:1}}>
-          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)",lineHeight:1.3}}>iPhone 16 · СДЕК.Shopping</div>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)",lineHeight:1.3}}>iPhone 16 · CDEK.Shopping</div>
           <div style={{fontSize:10,color:"var(--phone-text-2)",marginTop:2}}>1 шт.</div>
         </div>
         <div className="num" style={{fontSize:13,fontWeight:700,color:"var(--phone-text-1)"}}>14 990 ₽</div>
@@ -607,14 +607,14 @@ const SCREENS = {
           <span className="num" style={{fontSize:13,fontWeight:800,color:"var(--ink-1)"}}>981</span>
         </div>
       </div>
-      <div style={{fontSize:11,color:"var(--phone-text-2)",textAlign:"center",marginTop:12,lineHeight:1.4}}>Покажите код на кассе СДЕК —<br/>спишется оплата и начислятся баллы</div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",textAlign:"center",marginTop:12,lineHeight:1.4}}>Покажите код на кассе CDEK —<br/>спишется оплата и начислятся баллы</div>
     </div>
   )},
-  cashier:{title:"Касса · СДЕК", render:()=>(
+  cashier:{title:"Касса · CDEK", render:()=>(
     <div style={{padding:16}}>
       <div style={{borderRadius:16,border:"1px solid var(--phone-line-1)",overflow:"hidden"}}>
         <div style={{background:"var(--ink-1)",padding:"16px 14px",textAlign:"center"}}>
-          <div style={{fontSize:10,color:"rgba(255,255,255,0.55)",textTransform:"uppercase",letterSpacing:".1em",fontWeight:700}}>ПВЗ · СДЕК</div>
+          <div style={{fontSize:10,color:"rgba(255,255,255,0.55)",textTransform:"uppercase",letterSpacing:".1em",fontWeight:700}}>ПВЗ · CDEK</div>
           <div style={{margin:"12px auto 0",width:54,height:54,borderRadius:13,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center"}}>
             <GAMark size={34} bg="transparent" flat={true} ink="#fff"/>
           </div>
@@ -639,13 +639,13 @@ const SCREENS = {
       <div style={{fontSize:11,color:"var(--phone-text-2)",margin:"6px 0 13px"}}>Оплата на кассе через CDEK Wallet</div>
       <div style={{marginBottom:12}}><Bonus txt="+100 баллов начислено"/></div>
       <div style={{textAlign:"left",borderTop:"1px solid var(--phone-line-1)",paddingTop:6}}>
-        <PRow l="Магазин" v="СДЕК"/>
+        <PRow l="Магазин" v="CDEK"/>
         <PRow l="Сумма" v="14 990 ₽"/>
         <PRow l="Остаток в кошельке" v="2 901 ₽" last={true} strong={true}/>
       </div>
     </div>
   )},
-  profile_access:{title:"Профиль · СДЕК", render:()=>(
+  profile_access:{title:"Профиль · CDEK", render:()=>(
     <div style={{padding:16}}>
       <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:14}}>
         <div style={{width:48,height:48,borderRadius:"50%",background:"var(--ink-1)",color:"#fff",display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700,fontSize:16}}>АИ</div>
@@ -687,7 +687,7 @@ const SCREENS = {
           </div>))}
       </div>
       <div style={{fontSize:11,fontWeight:700,color:"var(--phone-text-2)",textTransform:"uppercase",letterSpacing:".05em",margin:"4px 0 4px"}}>История</div>
-      {[{n:"СДЕК",d:"Оплата покупки",v:"−14 990 ₽",b:false},{n:"Пополнение",d:"со счёта в Альфа-Банке",v:"+8 400 ₽",b:true},{n:"Баллы",d:"начислено за оплату",v:"+100",b:false,bon:true}].map((t,i)=>(
+      {[{n:"CDEK",d:"Оплата покупки",v:"−14 990 ₽",b:false},{n:"Пополнение",d:"со счёта в Альфа-Банке",v:"+8 400 ₽",b:true},{n:"Баллы",d:"начислено за оплату",v:"+100",b:false,bon:true}].map((t,i)=>(
         <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"10px 0",borderBottom:i<2?"1px solid var(--phone-line-1)":"none"}}>
           <div style={{width:30,height:30,borderRadius:9,background:t.bon?"var(--lime)":"var(--surface-2)",flexShrink:0}}/>
           <div style={{flex:1}}>
@@ -895,7 +895,7 @@ Object.assign(SCREENS, {
       <div style={{margin:"13px 0 12px",borderRadius:13,border:"1px solid var(--phone-line-1)",padding:"11px 13px",display:"flex",alignItems:"center",gap:11}}>
         <div style={{width:38,height:38,borderRadius:9,background:"var(--surface-2)",flexShrink:0}}/>
         <div style={{flex:1}}>
-          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>Nike Air Max 90 · СДЕК.Shopping</div>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>Nike Air Max 90 · CDEK.Shopping</div>
           <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:1}}>14 990 ₽ · в эскроу</div>
         </div>
         <span style={{fontSize:9,fontWeight:700,color:"var(--ink-1)",background:"var(--lime)",borderRadius:7,padding:"3px 7px"}}>HOLD</span>
@@ -971,7 +971,7 @@ Object.assign(SCREENS, {
       <div style={{margin:"12px 0 12px",borderRadius:14,border:"1px solid var(--phone-line-1)",padding:"13px",display:"flex",gap:11,alignItems:"center"}}>
         <div style={{width:42,height:42,borderRadius:10,background:"var(--surface-2)",flexShrink:0}}/>
         <div style={{flex:1}}>
-          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)",lineHeight:1.25}}>AirPods Pro · СДЕК.Shopping</div>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)",lineHeight:1.25}}>AirPods Pro · CDEK.Shopping</div>
           <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:2}}>15 000 ₽</div>
         </div>
       </div>
@@ -994,7 +994,7 @@ Object.assign(SCREENS, {
       <div style={{margin:"13px 0 12px",borderRadius:14,border:"1px solid var(--phone-line-1)",padding:"13px",display:"flex",gap:11,alignItems:"center"}}>
         <div style={{width:40,height:40,borderRadius:10,background:"var(--surface-2)",flexShrink:0}}/>
         <div style={{flex:1}}>
-          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>AirPods Pro · СДЕК.Shopping</div>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>AirPods Pro · CDEK.Shopping</div>
           <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:1}}>15 000 ₽ · из копилки</div>
         </div>
         <span style={{fontSize:9,fontWeight:700,color:"var(--ink-1)",background:"var(--lime)",borderRadius:7,padding:"3px 7px"}}>100%</span>
@@ -1015,7 +1015,7 @@ Object.assign(SCREENS, {
       <div style={{margin:"13px 0 12px",borderRadius:13,border:"1px solid var(--phone-line-1)",padding:"11px 13px",display:"flex",alignItems:"center",gap:11}}>
         <div style={{width:38,height:38,borderRadius:9,background:"var(--surface-2)",flexShrink:0}}/>
         <div style={{flex:1}}>
-          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>Nike Air Max 90 · СДЕК.Shopping</div>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>Nike Air Max 90 · CDEK.Shopping</div>
           <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:1}}>Возврат 14 990 ₽</div>
         </div>
         <span className="num" style={{fontSize:9,fontWeight:700,color:"var(--ink-1)",background:"var(--lime)",borderRadius:7,padding:"3px 7px"}}>+14 990 ₽</span>
@@ -1039,7 +1039,7 @@ Object.assign(SCREENS, {
       <div style={{margin:"12px 0 12px"}}><WalletCard balance="14 990 ₽" num="•••• 4567"/></div>
       <div style={{background:"var(--lime-soft)",borderRadius:11,padding:"10px 12px",display:"flex",alignItems:"flex-start",gap:9,marginBottom:13}}>
         <span style={{color:"var(--ink-1)",marginTop:1}}><GIco d={GI.bolt} size={16}/></span>
-        <div style={{fontSize:11,fontWeight:600,color:"var(--ink-1)",lineHeight:1.35}}>Возврат не ушёл в другой банк — клиент тратит его снова у СДЕК</div>
+        <div style={{fontSize:11,fontWeight:600,color:"var(--ink-1)",lineHeight:1.35}}>Возврат не ушёл в другой банк — клиент тратит его снова у CDEK</div>
       </div>
       {PBtn("Выбрать новый аромат","dark")}
     </div>
@@ -1243,7 +1243,7 @@ function Hero({view, setView, activeJourney, setActiveJourney}){
   return (
     <section className="hero" style={{padding:"72px 40px 70px", maxWidth:1320, margin:"0 auto", position:"relative", display:"flex", flexDirection:"column", justifyContent:"flex-end"}}>
       <motion.div initial={{opacity:0, y:8}} animate={{opacity:1, y:0}} transition={{duration:0.8, ease:EASE, delay:0.2}} className="eyebrow" style={{marginBottom:26}}>
-        Customer Journey Map · СДЕК
+        Customer Journey Map · CDEK
       </motion.div>
       <div className="hero-grid" style={{display:"grid", gridTemplateColumns:"minmax(0, 1.5fr) minmax(0, 1fr)", gap:72, alignItems:"end", marginBottom:44}}>
         <div>
@@ -1254,7 +1254,7 @@ function Hero({view, setView, activeJourney, setActiveJourney}){
         </div>
         <motion.div initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.8, ease:EASE, delay:0.7}} style={{paddingBottom:18, maxWidth:380}}>
           <div style={{fontSize:16, color:"var(--ink-2)", lineHeight:1.55, letterSpacing:"-0.005em"}}>
-            White-label кошелёк Альфа-Банка, встроенный в приложение и чек-аут СДЕК. Скидка на доставку и баллы за каждую оплату — без затрат из маржи партнёра.
+            White-label кошелёк Альфа-Банка, встроенный в приложение и чек-аут CDEK. Скидка на доставку и баллы за каждую оплату — без затрат из маржи партнёра.
           </div>
           <div style={{display:"flex",alignItems:"center",gap:13,marginTop:22,fontSize:12,color:"var(--ink-3)",letterSpacing:"0.02em"}}>
             <div style={{display:"flex",alignItems:"center",gap:6}}>
@@ -1391,7 +1391,7 @@ function StepInfo({step, stepIdx, totalSteps, showMetrics, showBank=true, onPrev
           <p style={{fontSize:17, color:"var(--ink-2)", lineHeight:1.55, margin:"0 0 34px", letterSpacing:"-0.005em", maxWidth:600, textWrap:"pretty"}}>{step.desc}</p>
           {showMetrics && step.metricPartner && (
             <div className="metrics-grid" style={{display:"grid", gridTemplateColumns: showBank?"1fr 1fr":"1fr", gap:0, borderTop:"1px solid var(--line-2)", borderBottom:"1px solid var(--line-2)"}}>
-              <MetricCell label="Ценность для СДЕК" text={step.metricPartner} accent={false} cls="m-l" style={{padding: showBank?"26px 30px 26px 0":"26px 0", borderRight: showBank?"1px solid var(--line-2)":"none"}}/>
+              <MetricCell label="Ценность для CDEK" text={step.metricPartner} accent={false} cls="m-l" style={{padding: showBank?"26px 30px 26px 0":"26px 0", borderRight: showBank?"1px solid var(--line-2)":"none"}}/>
               {showBank && <MetricCell label="Ценность для Альфа-Банка" text={step.metricBank} accent={true} cls="m-r" style={{padding:"26px 0 26px 30px"}}/>}
             </div>
           )}
@@ -1519,7 +1519,7 @@ function CJMSection({activeJourney, activeStep, setActiveStep, showMetrics, payM
 }
 
 /* ============================================================
-   BENEFITS — 3 groups (Клиент / СДЕК / Альфа-Банк)
+   BENEFITS — 3 groups (Клиент / CDEK / Альфа-Банк)
    ============================================================ */
 function BenefitCard({item, index, inView, accentMode, large}){
   const [hover, setHover] = useState(false);
@@ -1564,8 +1564,8 @@ function BenefitGroup({eyebrow, title, sub, items, accentMode}){
 function BenefitsSection(){
   return (
     <section className="section" style={{maxWidth:1320, margin:"0 auto", padding:"30px 40px 70px"}}>
-      <BenefitGroup eyebrow="01 / Клиент" title="Преимущества для клиента" sub="Что получает пользователь СДЕК" items={benefitsClient} accentMode={true}/>
-      <BenefitGroup eyebrow="02 / СДЕК" title="Преимущества для СДЕК" sub="Что даёт СДЕК встроенный кошелёк" items={benefitsPartner} accentMode={false}/>
+      <BenefitGroup eyebrow="01 / Клиент" title="Преимущества для клиента" sub="Что получает пользователь CDEK" items={benefitsClient} accentMode={true}/>
+      <BenefitGroup eyebrow="02 / CDEK" title="Преимущества для CDEK" sub="Что даёт CDEK встроенный кошелёк" items={benefitsPartner} accentMode={false}/>
       <BenefitGroup eyebrow="03 / Альфа-Банк" title="Ценность для Альфа-Банка" sub="Стратегические эффекты партнёрского канала" items={benefitsBank} accentMode={true}/>
     </section>
   );
@@ -1579,7 +1579,7 @@ function Footer(){
     <footer style={{maxWidth:1320, margin:"0 auto", padding:"40px 40px 60px", borderTop:"1px solid var(--line-1)", display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:16}}>
       <div style={{display:"flex", alignItems:"center", gap:12}}>
         <CDEKLogo height={16} color="#00b33c"/>
-        <span style={{fontSize:11, color:"var(--ink-3)", fontWeight:500, letterSpacing:"-0.005em"}}>CDEK Wallet · кошелёк для СДЕК · 2026</span>
+        <span style={{fontSize:11, color:"var(--ink-3)", fontWeight:500, letterSpacing:"-0.005em"}}>CDEK Wallet · кошелёк для CDEK · 2026</span>
       </div>
       <span style={{fontSize:11, color:"var(--ink-4)", letterSpacing:"0.04em"}}>Услугу оказывает АО «Альфа-Банк»</span>
     </footer>
@@ -1595,50 +1595,50 @@ const GROWTH=[
    painGA:"Клиенты откладывают дорогие выкупы из-за рубежа — уходят к конкурентам",
    steps:[
      {title:"Цель на товар", zone:"Кошелёк", screen:"gp_kop_goal",
-      desc:"Клиент ставит цель на конкретный товар из СДЕК.Shopping — iPhone, электроника. Включает автопополнение и округление сдачи.",
-      metricPartner:"Спрос на дорогой выкуп закрепляется в СДЕК.Shopping заранее — клиент не уходит к конкуренту.",
+      desc:"Клиент ставит цель на конкретный товар из CDEK.Shopping — iPhone, электроника. Включает автопополнение и округление сдачи.",
+      metricPartner:"Спрос на дорогой выкуп закрепляется в CDEK.Shopping заранее — клиент не уходит к конкуренту.",
       metricBank:"Целевые накопления формируют предсказуемую депозитную базу."},
      {title:"Накопление с процентом", zone:"Кошелёк", screen:"gp_kopilka",
       desc:"Баланс растёт за счёт автопополнения. На остаток начисляются проценты — то, что недоступно НКО-конкурентам.",
-      metricPartner:"Деньги «зарезервированы» под выкуп именно через СДЕК.Shopping.",
+      metricPartner:"Деньги «зарезервированы» под выкуп именно через CDEK.Shopping.",
       metricBank:"Проценты на остаток удерживают средства дольше — невозможно у НКО."},
-     {title:"Оплата из копилки", zone:"СДЕК.Shopping", screen:"gp_kop_done",
+     {title:"Оплата из копилки", zone:"CDEK.Shopping", screen:"gp_kop_done",
       desc:"Цель достигнута — оплата выкупа в один тап прямо из копилки, с баллами за дисциплину накопления.",
       metricPartner:"Гарантированная конверсия в выкуп в момент достижения цели.",
       metricBank:"Транзакция и баллы — клиент в платёжном цикле банка."},
    ]},
   {id:"escrow", tag:"Эскроу посылок", icon:"shield", badge:"Только банк · эскроу", bankOnly:true,
-   title:"Эскроу для СДЕК.Shopping",
+   title:"Эскроу для CDEK.Shopping",
    painGA:"Клиенты боятся платить вперёд за выкуп из-за рубежа — риск подделки и долгого возврата",
    steps:[
      {title:"Оплата в эскроу", zone:"Эскроу", screen:"gp_escrow",
-      desc:"Оплата выкупа уходит в эскроу: деньги поступают продавцу только после получения посылки клиентом в ПВЗ СДЕК.",
-      metricPartner:"Снимаем главный страх СДЕК.Shopping — клиент платит спокойно, конверсия дорогих выкупов растёт.",
+      desc:"Оплата выкупа уходит в эскроу: деньги поступают продавцу только после получения посылки клиентом в ПВЗ CDEK.",
+      metricPartner:"Снимаем главный страх CDEK.Shopping — клиент платит спокойно, конверсия дорогих выкупов растёт.",
       metricBank:"Эскроу-счёт работает под банковской лицензией — недоступно НКО."},
      {title:"Мгновенный возврат", zone:"Кошелёк", screen:"gp_esc_refund",
       desc:"Посылка не устроила — возврат в кошелёк мгновенно при сдаче в ПВЗ. Не 7–14 дней, а секунды.",
       metricPartner:"Мгновенный возврат — главный аргумент против страха «зависших денег».",
       metricBank:"Возврат остаётся в кошельке банка, а не утекает в другой банк."},
-     {title:"Деньги остаются в СДЕК", zone:"СДЕК.Shopping", screen:"gp_esc_stay",
-      desc:"Возвращённые деньги уже в кошельке — и тратятся на новый выкуп через СДЕК.Shopping.",
-      metricPartner:"Деньги остаются в экосистеме СДЕК и конвертируются в повторный выкуп.",
+     {title:"Деньги остаются в CDEK", zone:"CDEK.Shopping", screen:"gp_esc_stay",
+      desc:"Возвращённые деньги уже в кошельке — и тратятся на новый выкуп через CDEK.Shopping.",
+      metricPartner:"Деньги остаются в экосистеме CDEK и конвертируются в повторный выкуп.",
       metricBank:"Удержание остатков и транзакционная активность клиента."},
    ]},
   {id:"credit", tag:"Кредит на выкуп", icon:"bolt", badge:"Только банк · кредит", bankOnly:true,
    title:"Кредит на дорогой выкуп",
-   painGA:"Высокий средний чек СДЕК.Shopping — клиенты откладывают или уходят",
+   painGA:"Высокий средний чек CDEK.Shopping — клиенты откладывают или уходят",
    steps:[
      {title:"Предодобренный лимит", zone:"Кошелёк", screen:"gp_gift_wish",
       desc:"Клиент видит в кошельке предодобренный кредитный лимит от Альфа-Банка. Лимит рассчитан по скорингу — без документов.",
-      metricPartner:"Клиент может купить дороже, чем у него денег — рост среднего чека СДЕК.Shopping.",
+      metricPartner:"Клиент может купить дороже, чем у него денег — рост среднего чека CDEK.Shopping.",
       metricBank:"Кредитная линия на банковской лицензии — недоступно НКО-конкурентам."},
-     {title:"Кредит при оплате", zone:"СДЕК.Shopping", screen:"gp_gift",
+     {title:"Кредит при оплате", zone:"CDEK.Shopping", screen:"gp_gift",
       desc:"На чек-ауте — «Оплатить в кредит с CDEK Wallet». Клиент выбирает срок: 3, 6 или 12 месяцев.",
       metricPartner:"Кредит закрывает разрыв между желанием и возможностью — конверсия дорогих выкупов растёт.",
       metricBank:"Кредитные продажи через канал партнёра — процентный доход банка."},
      {title:"Погашение из кошелька", zone:"Кошелёк", screen:"gp_gift_done",
       desc:"Ежемесячные платежи списываются из CDEK Wallet. Автопополнение — клиент не думает о сроках.",
-      metricPartner:"Клиент остаётся активным пользователем СДЕК — регулярные списания держат его в экосистеме.",
+      metricPartner:"Клиент остаётся активным пользователем CDEK — регулярные списания держат его в экосистеме.",
       metricBank:"Рекуррентный кредитный поток и удержание клиента в платёжном контуре."},
    ]},
   {id:"replenish", tag:"Подписка на доставку", icon:"refresh", badge:"Рекуррентный оборот", bankOnly:false,
@@ -1647,7 +1647,7 @@ const GROWTH=[
    steps:[
      {title:"Настройка подписки", zone:"Кошелёк", screen:"gp_rep_setup",
       desc:"Клиент или ИП подписывается на пакет отправок: N посылок в месяц со скидкой + баллы за регулярность.",
-      metricPartner:"Регулярные отправки закрепляются за СДЕК, а не за конкурентом. Предсказуемая загрузка сети.",
+      metricPartner:"Регулярные отправки закрепляются за CDEK, а не за конкурентом. Предсказуемая загрузка сети.",
       metricBank:"Рекуррентные списания — предсказуемый оборот по эквайрингу."},
      {title:"Автосписание", zone:"Кошелёк", screen:"gp_replenish",
       desc:"Каждый месяц — автосписание пакета с кошелька. Клиент отправляет посылки без доплат.",
@@ -1662,7 +1662,7 @@ const GROWTH=[
 const GROWTH_RADAR=[
   {icon:"layers", title:"Мультивалютный кошелёк", desc:"Оплата выкупов в валюте продавца без конвертации на стороне клиента. Курс фиксируется в момент оплаты — прозрачно и предсказуемо."},
   {icon:"crown", title:"Статусная программа CDEK Pro", desc:"Уровни → банковские перки: повышенный кэшбэк на доставку, бесплатная рассрочка, приоритетная обработка отправлений."},
-  {icon:"link", title:"B2B-кошелёк для ИП и ООО", desc:"Расчётный кошелёк для бизнес-клиентов СДЕК: массовые отправки, акты, интеграция с 1С. Рост корпоративных клиентов."},
+  {icon:"link", title:"B2B-кошелёк для ИП и ООО", desc:"Расчётный кошелёк для бизнес-клиентов CDEK: массовые отправки, акты, интеграция с 1С. Рост корпоративных клиентов."},
 ];
 
 function NewGrowth({showMetrics}){
@@ -1690,7 +1690,7 @@ function NewGrowth({showMetrics}){
             Новые <span className="mark-hl"><span>точки роста</span></span>
           </h2>
           <p style={{fontSize:16, color:"var(--ink-2)", lineHeight:1.55, letterSpacing:"-0.005em", margin:0}}>
-            Платёж и лояльность повторят все. То, что не могут НКО-конкуренты, — процентный остаток, эскроу и кредит. Каждая идея — отдельный сценарий, который закрывает реальную боль СДЕК.
+            Платёж и лояльность повторят все. То, что не могут НКО-конкуренты, — процентный остаток, эскроу и кредит. Каждая идея — отдельный сценарий, который закрывает реальную боль CDEK.
           </p>
         </motion.div>
 
@@ -1717,7 +1717,7 @@ function NewGrowth({showMetrics}){
             <span style={{fontSize:11, fontWeight:700, letterSpacing:"0.04em", textTransform:"uppercase", color:"var(--ink-1)"}}>{g.badge}</span>
           </div>
           <div style={{fontSize:13.5, color:"var(--ink-2)", fontWeight:500, letterSpacing:"-0.005em"}}>
-            <span style={{color:"var(--ink-3)"}}>Боль СДЕК: </span>{g.painGA}
+            <span style={{color:"var(--ink-3)"}}>Боль CDEK: </span>{g.painGA}
           </div>
         </motion.div>
 
