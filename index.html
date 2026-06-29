@@ -298,13 +298,13 @@ const PBtn = (label,kind="dark")=>(
 );
 const Bonus = ({txt="Скидка + баллы при оплате CDEK Wallet"})=>(
   <div style={{background:"var(--lime)",borderRadius:11,padding:"11px 12px",display:"flex",alignItems:"center",gap:9}}>
-    <GAMark size={22} radius={6}/>
+    <div style={{width:22,height:22,borderRadius:6,background:"#fff",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:9,fontWeight:800,color:"var(--lime-deep)",letterSpacing:"-.02em"}}>C</div>
     <div style={{fontSize:11.5,fontWeight:700,color:"#fff",lineHeight:1.25,letterSpacing:"-.01em"}}>{txt}</div>
   </div>
 );
 const WalletCard = ({balance="0 ₽",num="•••• 4567",soft=false})=>(
   <div style={{background:"linear-gradient(135deg, #00B956, #009A48)",borderRadius:14,padding:"13px 14px",position:"relative",overflow:"hidden"}}>
-    <div style={{position:"absolute",top:12,right:13}}><GAMark size={20} bg="transparent" flat={true} ink="#fff"/></div>
+    
     <div style={{fontSize:9,opacity:.7,textTransform:"uppercase",letterSpacing:".1em",color:"#fff",fontWeight:700}}>CDEK Wallet</div>
     <div className="num" style={{fontSize:15,fontWeight:700,letterSpacing:"0.22em",marginTop:14,color:"#fff"}}>{num}</div>
     <div className="num" style={{fontSize:11,marginTop:6,color:"#fff",opacity:.8,fontWeight:600}}>Баланс · {balance}</div>
@@ -327,8 +327,8 @@ const SCREENS = {
   ga_checkout:{title:"Чек-аут · CDEK", render:()=>(
     <div style={{padding:"14px 16px",display:"flex",flexDirection:"column",gap:11}}>
       <div style={{display:"flex",alignItems:"center",gap:8}}>
-        <div style={{width:22,height:22,borderRadius:6,background:"var(--ink-1)",display:"flex",alignItems:"center",justifyContent:"center"}}>
-          <span style={{color:"var(--lime)",fontWeight:800,fontSize:11}}>ЗЯ</span>
+        <div style={{width:22,height:22,borderRadius:6,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center"}}>
+          <span style={{color:"#fff",fontWeight:800,fontSize:11}}>C</span>
         </div>
         <span style={{fontSize:11,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:".02em"}}>CDEK</span>
       </div>
@@ -343,7 +343,7 @@ const SCREENS = {
   )},
   offer_consents:{title:"Оффер + согласия", render:()=>(
     <div style={{padding:"15px 16px"}}>
-      <GAMark size={38} radius={11}/>
+      <CDEKLogo height={28} color="#00b33c"/>
       <div style={{fontSize:17,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em",lineHeight:1.2,marginTop:11}}>Платите через CDEK Wallet</div>
       <div style={{fontSize:11,color:"var(--phone-text-2)",marginTop:4,marginBottom:12}}>Подключите кошелёк и получайте баллы за каждую оплату</div>
       {["Скидка + баллы за оплату","Бесплатно навсегда","Бонусы за каждую покупку"].map((t,i)=>(
@@ -415,7 +415,7 @@ const SCREENS = {
       <div style={{marginTop:12}}>
         {[{n:"CDEK Wallet",sel:true,tag:"ga"},{n:"СБП",sel:false},{n:"SberPay",sel:false},{n:"Яндекс Пэй",sel:false}].map((m,i)=>(
           <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"11px 12px",borderRadius:11,marginBottom:7,border:m.sel?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)",background:m.sel?"var(--phone-surf)":"#fff"}}>
-            {m.tag==="ga"?<GAMark size={22} radius={6}/>:<div style={{width:22,height:22,borderRadius:6,background:"var(--phone-surf)",border:"1px solid var(--phone-line-1)"}}/>}
+            {m.tag==="ga"?<div style={{width:22,height:22,borderRadius:6,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:9,fontWeight:800,color:"#fff"}}>C</div>:<div style={{width:22,height:22,borderRadius:6,background:"var(--phone-surf)",border:"1px solid var(--phone-line-1)"}}/>}
             <span style={{flex:1,fontSize:13,fontWeight:m.sel?700:500,color:"var(--phone-text-1)"}}>{m.n}</span>
             <span style={{width:16,height:16,borderRadius:"50%",border:"1.5px solid "+(m.sel?"var(--ink-1)":"var(--phone-line-1)"),display:"flex",alignItems:"center",justifyContent:"center"}}>
               {m.sel&&<span style={{width:8,height:8,borderRadius:"50%",background:"var(--ink-1)"}}/>}</span>
@@ -484,7 +484,7 @@ const SCREENS = {
   )},
   upsell:{title:"Предложение открыть кошелёк", render:()=>(
     <div style={{padding:"18px 16px",textAlign:"center"}}>
-      <div style={{display:"flex",justifyContent:"center",marginBottom:12}}><GAMark size={42} radius={12}/></div>
+      <div style={{display:"flex",justifyContent:"center",marginBottom:12}}><CDEKLogo height={28} color="#00b33c"/></div>
       <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em",lineHeight:1.25}}>Откройте кошелёк CDEK Wallet</div>
       <div style={{fontSize:12,color:"var(--phone-text-2)",margin:"8px 0 14px",lineHeight:1.45}}>Бесплатно, без пластика на старте. Получайте баллы за каждую оплату.</div>
       <Bonus txt="Скидка + баллы за первую оплату"/>
@@ -551,7 +551,7 @@ const SCREENS = {
       <div style={{marginTop:12}}>
         {[{n:"CDEK Wallet",d:"+100 баллов · кошелёк",sel:true,mark:true},{n:"Картой онлайн",d:"Visa · Mastercard · Мир",sel:false},{n:"СБП",d:"по QR-коду",sel:false}].map((o,i)=>(
           <div key={i} style={{display:"flex",alignItems:"center",gap:11,padding:"12px",borderRadius:12,marginBottom:8,border:o.sel?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)",background:o.sel?"var(--phone-surf)":"#fff"}}>
-            {o.mark?<GAMark size={26} radius={7}/>:<div style={{width:26,height:26,borderRadius:7,background:"var(--surface-2)"}}/>}
+            {o.mark?<div style={{width:26,height:26,borderRadius:7,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:11,fontWeight:800,color:"#fff"}}>C</div>:<div style={{width:26,height:26,borderRadius:7,background:"var(--surface-2)"}}/>}
             <div style={{flex:1}}>
               <div style={{fontSize:13,fontWeight:o.sel?700:600,color:"var(--phone-text-1)"}}>{o.n}</div>
               <div style={{fontSize:10,color:o.mark?"var(--ink-1)":"var(--phone-text-2)",fontWeight:o.mark?600:400}}>{o.d}</div>
@@ -616,7 +616,7 @@ const SCREENS = {
         <div style={{background:"var(--ink-1)",padding:"16px 14px",textAlign:"center"}}>
           <div style={{fontSize:10,color:"rgba(255,255,255,0.55)",textTransform:"uppercase",letterSpacing:".1em",fontWeight:700}}>ПВЗ · CDEK</div>
           <div style={{margin:"12px auto 0",width:54,height:54,borderRadius:13,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center"}}>
-            <GAMark size={34} bg="transparent" flat={true} ink="#fff"/>
+            <CDEKLogo height={22} color="#fff"/>
           </div>
           <div className="num" style={{color:"#fff",fontSize:24,fontWeight:800,marginTop:12,letterSpacing:"-.02em"}}>14 990 ₽</div>
           <div style={{color:"rgba(255,255,255,0.6)",fontSize:11,marginTop:2}}>оплата · CDEK Wallet</div>
@@ -666,7 +666,7 @@ const SCREENS = {
       </div>
       <div style={{display:"flex",alignItems:"center",gap:11,padding:"13px 13px",borderRadius:13,border:"1px solid var(--phone-line-1)"}}>
         <div style={{width:30,height:30,borderRadius:8,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center"}}>
-          <GAMark size={20} bg="transparent" flat={true} ink="#fff"/>
+          <div style={{fontSize:11,fontWeight:800,color:"#fff",letterSpacing:"-.02em"}}>C</div>
         </div>
         <div style={{flex:1}}>
           <div style={{fontSize:13,fontWeight:700,color:"var(--phone-text-1)"}}>Кошелёк CDEK Wallet</div>
@@ -754,7 +754,7 @@ const SCREENS = {
       <div style={{marginTop:12}}>
         {[{n:"Оплата частями",d:"CDEK Wallet · 4 платежа без переплаты",sel:true,mark:true},{n:"Полная оплата кошельком",d:"14 990 ₽ сразу",sel:false}].map((o,i)=>(
           <div key={i} style={{display:"flex",alignItems:"center",gap:11,padding:"12px",borderRadius:12,marginBottom:8,border:o.sel?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)",background:o.sel?"var(--phone-surf)":"#fff"}}>
-            {o.mark?<GAMark size={26} radius={7}/>:<div style={{width:26,height:26,borderRadius:7,background:"var(--surface-2)"}}/>}
+            {o.mark?<div style={{width:26,height:26,borderRadius:7,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:11,fontWeight:800,color:"#fff"}}>C</div>:<div style={{width:26,height:26,borderRadius:7,background:"var(--surface-2)"}}/>}
             <div style={{flex:1}}>
               <div style={{fontSize:13,fontWeight:o.sel?700:600,color:"var(--phone-text-1)"}}>{o.n}</div>
               <div style={{fontSize:10,color:o.mark?"var(--ink-1)":"var(--phone-text-2)",fontWeight:o.mark?600:400}}>{o.d}</div>
